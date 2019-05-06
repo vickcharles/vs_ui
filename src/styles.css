@@ -5,7 +5,11 @@
 
 html, body {
     height: 100%;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+p {
+    font-size: 16px !important;
 }
 
 body {
@@ -51,11 +55,6 @@ body {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-/* .main-banner img {
-    display: flex;
-    align-items: center;
-    text-align: center;
-} */
 .banner-img {
     margin: 0 auto !important;
     display: flex;
@@ -74,13 +73,35 @@ body {
     max-width: 200px;
 }
 
-/*FONT-SIZE*/ 
+/*FLOAT*/
+.vs-float-right {
+    float: right !important;
+}
+
+.img-content img {
+    max-width: 130px !important;
+}
+
+/*FONT-SIZE*/
 .vs-font-small {
+    font-size: 18px !important;
+}
+
+.vs-font-xsmall {
     font-size: 13px !important;
 }
 
 .vs-font-main-title {
    font-size: 35px !important;
+}
+
+/*FONT SIZE*/
+.vs-font-medium {
+	font-size: 25px !important;
+}
+
+.vs-font-large {
+	font-size: 20px !important;
 }
 
 /*TEXT TRANSFORM*/
@@ -255,7 +276,7 @@ body {
 }
 
 .vs-text-extrabold {
-	font-weight: 800 !important;
+	 font-weight: bold !important;
 }
 
 /*CURSOR*/

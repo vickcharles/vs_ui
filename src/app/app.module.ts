@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/HomePage/header/header.component';
 import { HomepageComponent } from './components/HomePage/homepage/homepage.component';
 import { BannerComponent } from './components/HomePage/banner/banner.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContentComponent } from './components/HomePage/content/content.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     HeaderComponent,
     HomepageComponent,
-    BannerComponent
+    BannerComponent,
+    ContentComponent
   ],
   imports: [
     BrowserModule,
