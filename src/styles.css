@@ -1,29 +1,366 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Roboto+Condensed');
+
+html, body {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*HEADER MENU*/
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ .header-menu {
+     display: flex;
+     justify-content: space-around;
+ }
+
+ .header-menu  .acceder-btn {
+    border: 1px solid rgba(69,90,100, 0.3);
+    padding: 10px 17px;
+    border-radius: 3px;
+ }
+
+ .header-menu .acceder-btn:hover {
+    background-color:rgba(69,90,100, 0.1);
+    padding: 10px 17px;
+    border-radius: 3px;
+ }
+
+/*DISPLAY*/ 
+.vs-inline-block {
+  display: inline-block !important;
+}
+
+.header div {
+    align-items: center;
+}
+
+.main-banner h2 {
+    color: white !important;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* .main-banner img {
+    display: flex;
+    align-items: center;
+    text-align: center;
+} */
+.banner-img {
+    margin: 0 auto !important;
+    display: flex;
+    justify-content: center;
+}
+
+.banner-img img {
+    align-self: center;
+}
+
+.main-banner button {
+    text-align: center;
+}
+
+.main-banner img{
+    max-width: 200px;
+}
+
+/*FONT-SIZE*/ 
+.vs-font-small {
+    font-size: 13px !important;
+}
+
+.vs-font-main-title {
+   font-size: 35px !important;
+}
+
+/*TEXT TRANSFORM*/
+.vs-text-uppercase {
+	text-transform: uppercase !important;
+}
+
+/*Text ALIGMENT*/
+.vs-text-align-center {
+    text-align: center;
+}
+
+.vs-text-align-right {
+  text-align: right;
+}
+
+.vs-text-align-left {
+    text-align: left;
+}
+
+/*MARGIN*/
+.vs-margin-remove {
+	margin: 0px !important;
+}
+
+.vs-margin-center {
+	margin: 0 auto !important;
+}
+
+.vs-margin-small {
+	margin: 20px
+}
+
+.vs-margin-medium {
+	margin: 30px
+}
+
+.vs-margin-large {
+	margin: 40px
+}
+
+.vs-margin-top-zero {
+  margin-top: 0px !important;
+}
+
+.vs-margin-top-xsmall {
+	margin-top: 5px !important;
+}
+
+.vs-margin-top-small {
+	margin-top: 20px !important;
+}
+
+.vs-margin-top-medium {
+	margin-top: 30px !important;
+}
+
+.vs-margin-top-large {
+	margin-top: 40px !important;
+}
+
+.vs-margin-top-xlarge {
+	margin-top: 60px !important;
+}
+
+.vs-margin-right-xsmall {
+	margin-right: 5px !important;
+}
+
+.vs-margin-right-small {
+	margin-right: 20px !important;
+}
+
+.vs-margin-right-medium {
+	margin-right: 30px !important;
+}
+
+.vs-margin-right-large {
+	margin-right: 40px !important;
+}
+
+.vs-margin-bottom-xsmall {
+	margin-bottom: 5px !important;
+}
+
+.vs-margin-bottom-small {
+	margin-bottom: 20px !important;
+}
+
+.vs-margin-bottom-medium {
+	margin-bottom: 30px !important;
+}
+
+.vs-margin-bottom-large {
+	margin-bottom: 40px !important;
+}
+
+.vs-margin-bottom-xlarge {
+	margin-bottom: 60px !important;
+}
+
+.vs-margin-bottom-zero {
+	margin-bottom: 0px !important;
+}
+
+.vs-margin-left-xsmall {
+	margin-left: 5px !important;
+}
+
+.vs-margin-left-small {
+	margin-left: 20px !important;
+}
+
+.vs-margin-left-medium {
+	margin-left: 30px !important;
+}
+
+.vs-margin-left-large {
+	margin-left: 40px !important;
+}
+
+.vs-margin-left-zero {
+	margin-left: 0px !important;
+}
+
+/* Main Banner */
+.main-banner {
+  width: 100%;
+}
+
+/*Main Logo*/
+.main-logo {
+  max-width: 260px;
+  margin: 0px !important;
+}
+
+.main-logo-mobile {
+    max-width: 150px;
+}
+
+/* Background color*/
+.vs-background-color-vs {
+    background-color: #FFD15C;
+}
+
+/*Color*/
+.vs-color-vs {
+    color: #FFD15C;
+}
+
+.vs-color-default {
+   color: #455A64 !important;
+}
+
+/*Responsive Hide*/
+.hide-on-mobile {
+	display: none !important;
+}
+
+.hide-on-desktop {
+	display: block !important;
 }
 
 
+/*FONT WEIGHT*/
+.vs-text-mediumbold {
+	font-weight: 500 !important;
+}
+
+.vs-text-semibold {
+	font-weight: 600 !important;
+}
+
+.vs-text-extrabold {
+	font-weight: 800 !important;
+}
+
+/*CURSOR*/
+.vs-cursor-pointer{
+    cursor: pointer !important;
+}
+
+/****CUSTOM ELEMENTS****/
+/*Container*/
+.vs-container {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+
+/*Section*/
+.vs-section,
+.vs-section-wide,
+.vs-section-widest {
+	border-radius: 17px;
+	padding: 25px 20px;
+}
+
 /* iPhones(landscape) ----------- */
 @media only screen and (min-width: 375px) {
+
+    .main-banner img{
+        max-width: 250px;
+    }
 
 }
 
 /* iPads (landscape) ----------- */
 @media only screen and (min-width: 768px) {
 
+    .vs-section {
+	   padding: 50px 80px;
+    }
 
+    .main-banner img{
+       max-width: 300px;
+    }
+
+
+    .vs-text-align-left-md {
+        text-align: left !important;
+    }
+
+    /* Main Banner */
+    .main-banner {
+      width: 100%;
+      height: 420px;
+    }
+
+    .vs-font-main-title {
+        font-size: 40px !important;
+     }
+
+	.vs-section-wide {
+		padding: 50px;
+    }
+
+    .vs-container {
+		margin: 0 auto;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		padding-left: 15px;
+		padding-right: 15px;
+		width: 700px;
+	}
 }
 
 /* Tablets small laptops ----------- */
 @media (min-width: 960px) {
+    /****CUSTOM ELEMENTS****/
+	.vs-container {
+	  width: 800px;
+    }
 
+    .main-banner img{
+      max-width: 400px;
+    }
+
+    .vs-font-main-title {
+        font-size: 50px !important;
+        font-weight: 800;
+        margin-top: 60px;
+     }
+
+    /*Responsive Hide*/
+	.hide-on-mobile {
+		display: block !important;
+    }
+
+	.hide-on-desktop {
+		display: none !important;
+	}
 }
 
 /* Laptops ----------- */
 @media only screen and (min-width: 1200px) {
+
+    /***** HOME *****/
+	.vs-container {
+		width: 1150px;
+	}
 }
 
