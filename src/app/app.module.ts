@@ -1,12 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+ // Material Module
+import { MaterialModule } from './material.module';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/homepage/header/header.component';
-import { HomepageComponent } from './components/homepage/homepage/homepage.component';
-import { BannerComponent } from './components/homepage/banner/banner.component';
+import { HeaderComponent } from './components/HomePage/header/header.component';
+import { HomepageComponent } from './components/HomePage/homepage/homepage.component';
+import { BannerComponent } from './components/HomePage/banner/banner.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -18,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MaterialModule,
     BrowserAnimationsModule
   ],
   providers: [],
