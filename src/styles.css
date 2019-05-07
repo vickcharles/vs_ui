@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Merriweather');
-@import url('https://fonts.googleapis.com/css?family=Merriweather|Roboto+Condensed');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,800');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
+
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Roboto+Condensed: 400,500,600,800');
 
 html, body {
     height: 100%;
@@ -9,7 +10,8 @@ html, body {
 }
 
 p {
-    font-size: 16px !important;
+    font-size: 14px !important;
+    margin: 0px !important;
 }
 
 body {
@@ -24,23 +26,15 @@ body {
 }
 
  .header-menu {
-     display: flex;
-     justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
  }
 
- .header-menu  .acceder-btn {
-    border: 1px solid rgba(69,90,100, 0.3);
-    padding: 10px 17px;
-    border-radius: 3px;
+ .header-menu a:hover {
+    text-decoration: underline;
  }
 
- .header-menu .acceder-btn:hover {
-    background-color:rgba(69,90,100, 0.1);
-    padding: 10px 17px;
-    border-radius: 3px;
- }
-
-/*DISPLAY*/ 
+/*DISPLAY*/
 .vs-inline-block {
   display: inline-block !important;
 }
@@ -93,6 +87,8 @@ body {
 
 .vs-font-main-title {
    font-size: 35px !important;
+   color: #f5f5f5;
+   font-family: 'Roboto Condensed', sans-serif;
 }
 
 /*FONT SIZE*/
@@ -183,6 +179,10 @@ body {
 	margin-right: 40px !important;
 }
 
+.vs-margin-right-xlarge {
+	margin-right: 60px !important;
+}
+
 .vs-margin-bottom-xsmall {
 	margin-bottom: 5px !important;
 }
@@ -247,6 +247,13 @@ body {
     background-color: #FFD15C;
 }
 
+.vs-background-color-default {
+    background-color: #455A64 !important;
+}
+
+.vs-background-color-light {
+  background-color: #f5f5f5 !important;
+}
 /*Color*/
 .vs-color-vs {
     color: #FFD15C;
@@ -254,6 +261,10 @@ body {
 
 .vs-color-default {
    color: #455A64 !important;
+}
+
+.vs-color-white {
+    color: white !important;
 }
 
 /*Responsive Hide*/
@@ -276,7 +287,7 @@ body {
 }
 
 .vs-text-extrabold {
-	 font-weight: bold !important;
+	 font-weight: 800 !important;
 }
 
 /*CURSOR*/
@@ -291,6 +302,12 @@ body {
 	padding-right: 20px;
 }
 
+/*CONTENT HOMEPAGE*/
+.vs-content-img {
+    background-image: url("./assets/img/camion.jpg");
+    background-size: cover;
+    height: 400px;
+}
 
 /*Section*/
 .vs-section,
@@ -333,6 +350,8 @@ body {
 
     .vs-font-main-title {
         font-size: 40px !important;
+        font-family: 'Roboto Condensed', sans-serif;
+        color: white;
      }
 
 	.vs-section-wide {
@@ -358,6 +377,10 @@ body {
 
     .main-banner img{
       max-width: 400px;
+    }
+
+    .vs-margin-left-xlarge-md {
+       margin-left: 60px !important;
     }
 
     .vs-font-main-title {

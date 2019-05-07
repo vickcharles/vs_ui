@@ -1,16 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
- // Material Module
+// Routes
+import { APP_ROUTING } from './app.routes';
+
+// Material Module
 import { MaterialModule } from './material.module';
 
+// Componentes
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/HomePage/header/header.component';
-import { HomepageComponent } from './components/HomePage/homepage/homepage.component';
-import { BannerComponent } from './components/HomePage/banner/banner.component';
+import { HeaderComponent } from './components/homepage/header/header.component';
+import { HomepageComponent } from './components/homepage/homepage/homepage.component';
+import { BannerComponent } from './components/homepage/banner/banner.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ContentComponent } from './components/HomePage/content/content.component';
+import { ContentComponent } from './components/homepage/content/content.component';
+import { FooterComponent } from './components/homepage/footer/footer.component';
+import { RequestComponent } from './components/request/request.component';
 
 
 @NgModule({
@@ -19,13 +25,16 @@ import { ContentComponent } from './components/HomePage/content/content.componen
     HeaderComponent,
     HomepageComponent,
     BannerComponent,
-    ContentComponent
+    ContentComponent,
+    FooterComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    APP_ROUTING
   ],
   providers: [],
   bootstrap: [AppComponent]
