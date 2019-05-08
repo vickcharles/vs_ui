@@ -1,37 +1,37 @@
 <div class="vs-background-color-light">
   <div class="row vs-margin-remove vs-display-flex">
-    <div class="col col-sm-12 col-md-8 vs-margin-center">
+    <div class="col col-sm-12 col-md-9 vs-margin-center">
       <div class="vs-section nabi-background-white">
         <mat-horizontal-stepper labelPosition="bottom" #stepper>
           <mat-step [stepControl]="firstFormGroup">
             <form [formGroup]="firstFormGroup">
-              <div class="vs-input-field col col-md-8">
-                  <mat-radio-group aria-label="Select an option">
-                    <mat-radio-button value="1">
-                    </mat-radio-button>
-                  </mat-radio-group>
-               </div>
-                <div class="vs-input-field col col-md-8">
-                  <mat-radio-group aria-label="Select an option">
-                   <mat-radio-button value="1">
-                   </mat-radio-button>
-                  </mat-radio-group>
-                </div>
-                <div class="vs-input-field col col-md-8">
-                  <mat-radio-group aria-label="Select an option">
-                    <mat-radio-button value="1">
-                    </mat-radio-button>
-                  </mat-radio-group>
-                </div>
-                <div class="vs-input-field col col-md-8">
-                  <mat-radio-group aria-label="Select an option">
-                    <mat-radio-button value="1">
-                    </mat-radio-button>
-                 </mat-radio-group>
-                </div>
-                <div class="vs-input-field col-sm-12 vs-text-align-right">
-                  <button mat-flat-button color="primary" matStepperNext>Next</button>
-               </div>
+              <div class="vs-input-field row vs-text-align-center">
+                <mat-radio-group class="radio-group">
+                  <mat-radio-button class="col-sm-12 col-md-4 radio-button" value="1">
+                    <img src="../../../assets/img/camion-radio.jpg" alt="">
+                    <h1 class="vs-font-small vs-color-default vs-text-align-center">
+                      Transporte de carga
+                    </h1>
+                  </mat-radio-button>
+                  <mat-radio-button class="col-sm-12 col-md-4" value="2">
+                    <img src="../../../assets/img/montacargas-radio.png" alt="">
+                    <h1 class="vs-font-small vs-color-default vs-text-align-center">
+                      Alquiler montacargas
+                    </h1>
+                  </mat-radio-button>
+                  <mat-radio-button class="col-sm-12 col-md-4" value="3">
+                    <img src="../../../assets/img/montacargas-radio.png" alt="">
+                    <h1 class="vs-font-small vs-color-default vs-text-align-center">
+                      Alquiler de gruas
+                    </h1>
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="vs-input-field vs-margin-top-medium col-sm-12 vs-text-align-right">
+                <button mat-flat-button color="primary" matStepperNext>
+                  CONTINUAR
+                </button>
+              </div>
             </form>
           </mat-step>
           <mat-step [stepControl]="secondFormGroup">

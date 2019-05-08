@@ -25,6 +25,10 @@ $candy-app-warn: mat-palette($mat-red);
         color: white !important;
     }
 
+    .mat-radio-group .mat-radio-label {
+        flex-direction: column-reverse;
+    }
+
     .mat-radio-outer-circle {
         border-color: #455a64 !important;
         background-color: #ebeef1;
