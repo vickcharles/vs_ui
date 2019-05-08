@@ -1,12 +1,14 @@
-<div class="vs-background-color-vs">
+<div [ngClass]="{'vs-background-color-vs' : router.url === '/home', 'vs-background-color-light' : router.url != '/home'}">
   <div class="vs-container header">
-		<img class="main-logo hide-on-mobile" src="../../../../assets/img/main-logo.png" alt="">
+		<div class="vs-cursor-pointer remove-focus" [routerLink]="['/home']">
+			<img class="main-logo hide-on-mobile" src="../../../../assets/img/main-logo.png" alt="">
+		</div>
 		<img class="main-logo-mobile hide-on-desktop" src="../../../../assets/img/logo-mobile.png" alt="">
-		<div class="vs-color-default header-menu">
+		<div *ngIf="router.url === '/home'" class="vs-color-default header-menu">
 			<a class="vs-margin-right-small acceder-btn vs-font-xsmall  vs-cursor-pointer vs-color-default vs-text-semibold">
 				ACCEDER
 			</a>
-			<a class="vs-color-default hide-on-mobile  vs-cursor-pointer vs-font-xsmall  vs-text-semibold">
+			<a [routerLink]="['/solicitar-servicio']" class="vs-color-default hide-on-mobile  vs-cursor-pointer vs-font-xsmall  vs-text-semibold">
 				TRABAJA CON NOSOTROS
 		  </a>
 		</div>
