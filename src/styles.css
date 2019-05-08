@@ -33,6 +33,11 @@ body {
     width: 100%;
 }
 
+.vs-input-field input:checked {
+    color: #0DFF92 !important;
+  }
+
+
 .vs-input-field input, select {
     height: 60px !important;
 }
@@ -315,6 +320,7 @@ body {
     color: white !important;
 }
 
+  
 /*Responsive Hide*/
 .hide-on-mobile {
 	display: none !important;
@@ -393,7 +399,7 @@ body {
     /* Main Banner */
     .main-banner {
       width: 100%;
-      height: 420px;
+      height: 500px;
     }
 
     .vs-font-main-title {

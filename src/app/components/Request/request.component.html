@@ -1,50 +1,58 @@
 <div class="vs-background-color-light">
   <div class="row vs-margin-remove vs-display-flex">
-  <div class="col col-sm-12 col-md-8 vs-margin-center">
-    <div class="vs-section nabi-background-white">
-      <mat-horizontal-stepper labelPosition="bottom" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-          <div class="vs-input-field col col-md-8">
-            <input placeholder="Placeholder" id="first_name" type="text">
-          </div>
-          <div class="vs-input-field col col-md-8">
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-      <div class="vs-input-field col-sm-12 vs-text-align-right">
-        <button mat-flat-button color="primary" matStepperNext>Next</button>
+    <div class="col col-sm-12 col-md-8 vs-margin-center">
+      <div class="vs-section nabi-background-white">
+        <mat-horizontal-stepper labelPosition="bottom" #stepper>
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <div class="vs-input-field col col-md-8">
+                  <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="1">
+                    </mat-radio-button>
+                  </mat-radio-group>
+               </div>
+                <div class="vs-input-field col col-md-8">
+                  <mat-radio-group aria-label="Select an option">
+                   <mat-radio-button value="1">
+                   </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="vs-input-field col col-md-8">
+                  <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="1">
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="vs-input-field col col-md-8">
+                  <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="1">
+                    </mat-radio-button>
+                 </mat-radio-group>
+                </div>
+                <div class="vs-input-field col-sm-12 vs-text-align-right">
+                  <button mat-flat-button color="primary" matStepperNext>Next</button>
+               </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <mat-form-field>
+               <input matInput placeholder="Address" formControlName="secondCtrl" required>
+              </mat-form-field>
+              <div class="vs-input-field col-sm-12 vs-text-align-right">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-flat-button color="primary" matStepperNext>Next</button>
+             </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+         </mat-step>
+       </mat-horizontal-stepper>
       </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
-      </mat-form-field>
-
-      <div class="vs-input-field col-sm-12 vs-text-align-right">
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-flat-button color="primary" matStepperNext>Next</button>
-      </div>
-      <div>
-
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
-  </mat-step>
-    </mat-horizontal-stepper>
-    </div>
-  </div>
   </div>
 </div>

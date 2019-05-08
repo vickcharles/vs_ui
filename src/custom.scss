@@ -25,6 +25,16 @@ $candy-app-warn: mat-palette($mat-red);
         color: white !important;
     }
 
+    .mat-radio-outer-circle {
+        border-color: #455a64 !important;
+        background-color: #ebeef1;
+    }
+
+    .mat-radio-button .mat-radio-inner-circle {
+        background-color: #ffca28 !important;
+        border-color: #ebeef1  !important;
+    }
+
     button {
         color: white !important;
         padding: 4px 28px !important;
