@@ -132,7 +132,6 @@
                   <button mat-flat-button color="primary" matStepperNext>CONTINUAR</button>
                 </div>
             </form>
-            {{firstFormGroup.value | json}}
           </mat-step>
           <mat-step>
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
@@ -145,12 +144,12 @@
               <div class="vs-margin-center login-signup">
               <div class="vs-input-field col-md-12">
                 <span class="vs-field-label">Correo</span>
-                <input matInput required>
+                <input formControlName="correo" matInput required>
               </div>
               <div class="col-sm-12"></div>
               <div class="vs-input-field col-md-12">
                 <span class="vs-field-label">ingresa tu contraseña o crea si no tienes una</span>
-                <input matInput required>
+                <input formControlName="email" matInput required>
               </div>
               </div>
             </form>
