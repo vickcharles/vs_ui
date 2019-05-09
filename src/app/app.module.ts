@@ -18,6 +18,7 @@ import { ContentComponent } from './components/homepage/content/content.componen
 import { FooterComponent } from './components/homepage/footer/footer.component';
 import { RequestComponent } from './components/request/request.component';
 
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { RequestComponent } from './components/request/request.component';
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
+    CommonModule,
     APP_ROUTING
   ],
   providers: [],

@@ -15,11 +15,32 @@ export class RequestComponent implements OnInit {
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
-      firstCtrl: ['', Validators.required]
+      tipoDeServicio: this.formBuilder.group({
+        nombre: ['', Validators.required],
+        especificamente: ['']
+      }),
+      cliente: this.formBuilder.group({
+        tipo: ['', Validators.required],
+        tipoDocumento: ['', Validators.required],
+        documento: ['', Validators.required],
+        nombreEmpresa: ['', Validators.required]
+      }),
+      nombre: ['', Validators.required],
+      origen: ['', Validators.required],
+      destino: ['', Validators.required],
+      correo: ['', Validators.required],
+      telefono: ['', Validators.required],
+      mensaje: ['', Validators.required]
+
     });
     this.secondFormGroup = this.formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      correo: ['', Validators.required],
+      contrasena: ['', Validators.required]
     });
+  }
+
+  public prueba() {
+    console.log(this.firstFormGroup)
   }
 
 }

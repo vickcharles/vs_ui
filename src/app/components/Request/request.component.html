@@ -3,23 +3,30 @@
     <div class="col col-sm-12 col-md-9 vs-margin-center">
       <div class="vs-section nabi-background-white">
         <mat-horizontal-stepper labelPosition="bottom" #stepper>
+          <!-- first stepper -->
           <mat-step [stepControl]="firstFormGroup">
+            <h1 class="vs-section-title vs-color-vs vs-text-align-center">
+              SELECCIONA TU TIPO DE SERVICIO
+            </h1>
+            <p class="vs-text-align-center vs-color-default vs-margin-bottom-medium">
+              Tenemos disponibilidad las 24 horas
+            </p>
             <form [formGroup]="firstFormGroup">
-              <div class="vs-input-field row vs-text-align-center">
-                <mat-radio-group class="radio-group">
-                  <mat-radio-button class="col-sm-12 col-md-4 radio-button" value="1">
+              <div formGroupName="tipoDeServicio" class="vs-input-field row vs-text-align-center">
+                <mat-radio-group  formControlName="nombre" class="radio-group" required>
+                  <mat-radio-button class="col-sm-12 col-md-4 radio-button" value="transporte de carga">
                     <img src="../../../assets/img/camion-radio.jpg" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Transporte de carga
                     </h1>
                   </mat-radio-button>
-                  <mat-radio-button class="col-sm-12 col-md-4" value="2">
+                  <mat-radio-button class="col-sm-12 col-md-4" value="alquiler de montacarga">
                     <img src="../../../assets/img/montacargas-radio.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Alquiler montacargas
                     </h1>
                   </mat-radio-button>
-                  <mat-radio-button class="col-sm-12 col-md-4" value="3">
+                  <mat-radio-button class="col-sm-12 col-md-4" value="alquiler de grua">
                     <img src="../../../assets/img/montacargas-radio.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Alquiler de gruas
@@ -28,24 +35,129 @@
                 </mat-radio-group>
               </div>
               <div class="vs-input-field vs-margin-top-medium col-sm-12 vs-text-align-right">
-                <button mat-flat-button color="primary" matStepperNext>
+                <button mat-flat-button (click)="prueba()" [disabled]="!firstFormGroup.controls.tipoDeServicio.valid" color="primary" matStepperNext>
                   CONTINUAR
                 </button>
               </div>
             </form>
           </mat-step>
+           <!-- second step -->
           <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
-              <mat-form-field>
-               <input matInput placeholder="Address" formControlName="secondCtrl" required>
-              </mat-form-field>
-              <div class="vs-input-field col-sm-12 vs-text-align-right">
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-flat-button color="primary" matStepperNext>Next</button>
-             </div>
+            <h1 class="vs-section-title vs-color-vs vs-text-align-center">
+              {{ firstFormGroup.value.tipoDeServicio.nombre | uppercase }}? LISTO!!
+            </h1>
+            <p class="vs-text-align-center vs-color-default vs-margin-bottom-large">
+              LLena los siguientes campos y te contactaremos un {{firstFormGroup.value.tipoDeServicio.nombre}} en minutos!!
+            </p>
+            <form [formGroup]="firstFormGroup" class="row">
+              <!-- Tipo de Servico-->
+              <div formGroupName="tipoDeServicio" class="vs-input-field col-md-5">
+                <span *ngIf="firstFormGroup.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de Servicio</span>
+                <span *ngIf="firstFormGroup.value.tipoDeServicio.nombre == 'alquiler de grua'" class="vs-field-label">Tipo de Servicio</span>
+                <select *ngIf="firstFormGroup.value.tipoDeServicio.nombre == 'transporte de carga'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
+                  <option selected="true" disabled="disabled">Tipo de Servicio</option>
+                  <option value="transporte de carga seca">Transporte de carga seca</option>
+                  <option value="transporte de contenedores">Transporte de contenedores</option>
+                  <option value="transporte de refrigerados">Transporte de refrigerados</option>
+                  <option value="transporte de carga extradimensioanda">Transporte de carga extradimensioanda</option>
+                </select>
+                <select *ngIf="firstFormGroup.value.tipoDeServicio.nombre == 'alquiler de grua'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
+                  <option selected="true" disabled="disabled">Tipo de servicio</option>
+                  <option value="gruá ph">Gruá PH</option>
+                  <option value="gruá telescopica">Gruá Telescopica</option>
+                  <option value="gruá de gancho">Gruá de Gancho</option>
+                  <option value="gruá autodescargable">Gruá auto-descargable</option>
+                  <option value="telehandler">Telehandler</option>
+                  <option value="ManLift">ManLift</option>
+                </select>
+              </div>
+              <div class="col-sm-12"></div>
+              <!-- Origen -->
+              <div *ngIf="firstFormGroup.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-input-field col-md-3">
+               <span class="vs-field-label">Origen</span>
+               <input matInput placeholder="Ej: Bogotá" formControlName="origen" required>
+              </div>
+              <!-- Destino -->
+              <div *ngIf="firstFormGroup.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-input-field col-md-3">
+                <span class="vs-field-label">Destino</span>
+                <input matInput placeholder="Ej: Manizales" formControlName="destino" required>
+              </div>
+              <div class="col-sm-12"></div>
+                <!-- Tipo de Persona-->
+                <div formGroupName="cliente" class="vs-input-field col-md-5">
+                  <span class="vs-field-label">Tipo de persona</span>
+                  <select formControlName="tipo" class="form-control" aria-placeholder="tipo de persona">
+                    <option selected="true" disabled="disabled">Tipo de persona</option>
+                    <option value="empresa">Empresa</option>
+                    <option value="natural">Natural</option>
+                  </select>
+                </div>
+                <!-- Cedula or Nit-->
+                <div *ngIf="firstFormGroup.value.cliente.tipo != ''" formGroupName="cliente" class="vs-input-field col-md-5">
+                  <span class="vs-field-label">{{firstFormGroup.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cedula'}}</span>
+                  <input formControlName="documento" *ngIf="firstFormGroup.value.cliente.tipo == 'empresa'"  matInput required>
+                  <input formControlName="documento" *ngIf="firstFormGroup.value.cliente.tipo == 'natural'" matInput required>
+                </div>
+                <div class="col-sm-12"></div>
+                  <div formGroupName="cliente" *ngIf="firstFormGroup.value.cliente.tipo == 'empresa'"  class="vs-input-field col-md-5">
+                    <span class="vs-field-label">Nombre Empresa</span>
+                    <input formControlName="nombreEmpresa" matInput required>
+                  </div>
+                <div class="col-sm-6">
+                  <h1 class="vs-font-small vs-color-vs ">Datos de contacto</h1>
+                  <hr>
+                </div>
+                <div class="col-sm-12"></div>
+                <div class="vs-input-field col-md-5">
+                  <span class="vs-field-label">Nombre</span>
+                  <input formControlName="nombre" matInput required>
+                </div>
+                <div class="vs-input-field col-md-5">
+                  <span class="vs-field-label">Telefono</span>
+                  <input formControlName="telefono" matInput required>
+                </div>
+                <div class="col-sm-12"></div>
+                <div class="vs-input-field col-md-5">
+                  <span class="vs-field-label">Ciudad</span>
+                  <input formControlName="origen" matInput required>
+                </div>
+                <div class="col-sm-12"></div>
+                <!-- Mensaje-->
+                <div class="vs-input-field multiline col-md-6">
+                  <span class="vs-field-label"> Mensaje acerca tu solicitud</span>
+                  <textarea formControlName="mensaje" class="txt-a"matInput required></textarea>
+                </div>
+                <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
+                  <button class="vs-color-vs" color="accent" mat-button matStepperPrevious>REGRESAR</button>
+                  <button mat-flat-button color="primary" matStepperNext>CONTINUAR</button>
+                </div>
             </form>
+            {{firstFormGroup.value | json}}
           </mat-step>
           <mat-step>
+            <h1 class="vs-section-title vs-color-vs vs-text-align-center">
+              BIEN VICKLER YA ESTAMOS CASI LISTOS!!!
+            </h1>
+            <p class="vs-text-align-center vs-color-default vs-margin-bottom-large">
+               accede o registarte
+            </p>
+            <form [formGroup]="secondFormGroup" class="row">
+              <div class="vs-margin-center login-signup">
+              <div class="vs-input-field col-md-12">
+                <span class="vs-field-label">Correo</span>
+                <input matInput required>
+              </div>
+              <div class="col-sm-12"></div>
+              <div class="vs-input-field col-md-12">
+                <span class="vs-field-label">ingresa tu contraseña o crea si no tienes una</span>
+                <input matInput required>
+              </div>
+              </div>
+            </form>
+            <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
+              <button class="vs-color-vs" color="accent" mat-button matStepperPrevious>REGRESAR</button>
+              <button mat-flat-button color="primary" matStepperNext>CONTINUAR</button>
+            </div>
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button (click)="stepper.reset()">Reset</button>

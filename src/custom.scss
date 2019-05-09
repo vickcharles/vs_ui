@@ -20,6 +20,15 @@ $candy-app-warn: mat-palette($mat-red);
         color: white !important;
         background-color: #ffca28 !important;
     }
+
+    .mat-button.mat-accent .mat-button-wrapper {
+        color: #455A64 !important; 
+    }
+
+    .mat-horizontal-stepper-header {
+        pointer-events: none !important;
+    }
+
     .mat-step-header .mat-step-icon {
         background-color: #455A64;
         color: white !important;
