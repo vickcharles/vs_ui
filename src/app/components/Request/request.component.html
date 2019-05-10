@@ -103,8 +103,9 @@
                     <span class="vs-field-label">Nombre Empresa</span>
                     <input formControlName="nombreEmpresa" matInput required>
                   </div>
+                <div class="col-sm-12"></div>
                 <div class="col-sm-6">
-                  <h1 class="vs-font-small vs-color-vs ">Datos de contacto</h1>
+                  <h1 class="vs-font-small vs-color-vs">Datos de contacto</h1>
                   <hr>
                 </div>
                 <div class="col-sm-12"></div>
@@ -135,7 +136,7 @@
           </mat-step>
           <mat-step>
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
-              BIEN VICKLER YA ESTAMOS CASI LISTOS!!!
+              BIEN {{ firstFormGroup.value.nombre || uppercase }} YA ESTAMOS CASI LISTOS!!!
             </h1>
             <p class="vs-text-align-center vs-color-default vs-margin-bottom-large">
                accede o registarte
@@ -148,8 +149,8 @@
               </div>
               <div class="col-sm-12"></div>
               <div class="vs-input-field col-md-12">
-                <span class="vs-field-label">ingresa tu contraseña o crea si no tienes una</span>
-                <input formControlName="email" matInput required>
+                <span class="vs-field-label">Crea una contraseña o introduce tu contraseña si ya tienes una cuenta</span>
+                <input formControlName="correo" matInput required>
               </div>
               </div>
             </form>

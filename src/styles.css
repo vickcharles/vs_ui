@@ -13,6 +13,10 @@ p {
     font-size: 14px !important;
     margin: 0px !important;
 }
+
+.m {
+    color: #ef6e56 !important;
+  }
 hr {
     margin-top: 0px;
     margin-bottom: 10px;
@@ -105,11 +109,18 @@ body {
 
 
 
-
+.typed-cursor {
+    color:white !important;
+    font-size: 40px;
+}
 
 /*FLEX-BOX*/
 .vs-display-flex {
     display:flex !important;
+}
+
+.vs-display-inline {
+    display: inline !important;
 }
 /*HEADER MENU*/
 .header {
@@ -137,7 +148,7 @@ body {
 }
 
 .main-banner h2 {
-    color: white !important;
+    color: white;
     text-align: center;
     font-family: 'Roboto Condensed', sans-serif;
 }
@@ -158,6 +169,7 @@ body {
 
 .main-banner img{
     max-width: 200px;
+    padding-bottom: 20px !important;
 }
 
 /*FLOAT*/
@@ -346,7 +358,7 @@ body {
 }
 
 .vs-background-color-default {
-    background-color: #455A64 !important;
+    background-color: #3e3e3e !important;
 }
 
 .vs-background-color-light {
@@ -358,7 +370,7 @@ body {
 }
 
 .vs-color-default {
-   color: #455A64 !important;
+   color: #3e3e3e !important;
 }
 
 .vs-color-white {
@@ -482,7 +494,8 @@ body {
     }
 
     .main-banner img{
-      max-width: 400px;
+      max-width: 550px;
+      margin-top: 120px;
     }
 
     .vs-margin-left-xlarge-md {
