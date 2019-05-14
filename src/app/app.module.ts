@@ -21,9 +21,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContentComponent } from './components/homepage/content/content.component';
 import { FooterComponent } from './components/homepage/footer/footer.component';
 import { RequestComponent } from './components/request/request.component';
-
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
+import { PagesComponent } from './components/homepage/pages.component';
+
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { LoginComponent } from './components/login/login.component';
     ContentComponent,
     FooterComponent,
     RequestComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    PagesComponent
   ],
   imports: [
     BrowserModule,

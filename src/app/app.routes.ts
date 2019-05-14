@@ -2,19 +2,31 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from '../app/components/homepage/homepage/homepage.component';
 import { RequestComponent } from '../app/components/request/request.component';
 import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PagesComponent } from './components/homepage/pages.component';
 
 const APP_MODULE: Routes = [
   {
-    path: 'home',
-    component: HomepageComponent
+    path: '',
+    component: PagesComponent,
+    children: [
+      {
+        path: 'home',
+        component: HomepageComponent
+      },
+      {
+        path: 'solicitar-servicio',
+        component: RequestComponent
+      },
+      {
+        path: 'acceder',
+        component: LoginComponent
+      },
+    ]
   },
   {
-    path: 'solicitar-servicio',
-    component: RequestComponent
-  },
-  {
-    path: 'acceder',
-    component: LoginComponent
+    path: 'dashboard',
+    component: DashboardComponent
   },
   {
     path: '**',
