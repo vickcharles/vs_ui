@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from '../app/components/homepage/homepage/homepage.component';
 import { RequestComponent } from '../app/components/request/request.component';
+import { LoginComponent } from './components/login/login.component';
 
 const APP_MODULE: Routes = [
   {
@@ -10,6 +11,10 @@ const APP_MODULE: Routes = [
   {
     path: 'solicitar-servicio',
     component: RequestComponent
+  },
+  {
+    path: 'acceder',
+    component: LoginComponent
   },
   {
     path: '**',

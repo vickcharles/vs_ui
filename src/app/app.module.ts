@@ -7,6 +7,10 @@ import { APP_ROUTING } from './app.routes';
 // Material Module
 import { MaterialModule } from './material.module';
 
+//HTTTP
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 // Componentes
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +23,7 @@ import { FooterComponent } from './components/homepage/footer/footer.component';
 import { RequestComponent } from './components/request/request.component';
 
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,8 @@ import { CommonModule } from '@angular/common';
     BannerComponent,
     ContentComponent,
     FooterComponent,
-    RequestComponent
+    RequestComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +42,7 @@ import { CommonModule } from '@angular/common';
     MaterialModule,
     BrowserAnimationsModule,
     CommonModule,
+    HttpClientModule,
     APP_ROUTING
   ],
   providers: [],

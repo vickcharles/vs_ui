@@ -1,0 +1,23 @@
+<div class="vs-background-color-light">
+  <div class="row vs-margin-remove vs-display-flex">
+    <div class="col col-sm-12 col-md-5 vs-margin-center">
+        <div class="vs-section vs-margin-top-small vs-input-field col-md-12 nabi-background-white">
+          <h1 class="vs-section-title vs-color-vs vs-text-align-center">
+            ACCEDER
+          </h1>
+          <form [formGroup]="credentials" >
+            <span class="vs-field-label">Correo</span>
+            <input formControlName="email" matInput>
+            <span class="vs-field-label">Contraseña</span>
+            <input type="password" formControlName="password" matInput>
+          </form>
+          <button class="vs-margin-top-xsmall" (click)="login()" mat-flat-button color="primary">
+            CONTINUAR
+          </button>
+          <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
+            {{serverErrorMessages}}
+          </div>
+        </div>
+    </div>
+   </div>
+</div>

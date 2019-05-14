@@ -5,7 +5,7 @@
 			<img class="main-logo-mobile hide-on-desktop" src="../../../../assets/img/logo-mobile.png" alt="">
 		</div>
 		<div *ngIf="router.url === '/home'" class="vs-color-default header-menu">
-			<a class="vs-margin-right-small acceder-btn vs-font-xsmall  vs-cursor-pointer vs-color-default vs-text-semibold">
+			<a [routerLink]="['/acceder']" class="vs-margin-right-small acceder-btn vs-font-xsmall  vs-cursor-pointer vs-color-default vs-text-semibold">
 				ACCEDER
 			</a>
 			<a href="https://24/7.typeform.com/to/wkpqpt" class="vs-color-default hide-on-mobile  vs-cursor-pointer vs-font-xsmall  vs-text-semibold">
