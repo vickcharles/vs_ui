@@ -54,7 +54,7 @@ export class RequestComponent implements OnInit {
     this.userService.login(credentials).subscribe(
       res => {
         this.userService.setToken(res['token']);
-        this.router.navigateByUrl('/userprofile');
+        this.router.navigateByUrl('/dashboard');
       },
       err => {
         this.serverErrorMessages = err.error.message;

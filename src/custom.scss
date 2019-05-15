@@ -45,10 +45,35 @@ $candy-app-warn: mat-palette($mat-red);
         background-color: #ebeef1;
     }
 
+    .mat-tab-label-container {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
     .mat-radio-button .mat-radio-inner-circle {
         background-color: #ffca28 !important;
         border-color: #ebeef1  !important;
     }
+
+    .mat-tab-header {
+        background-color: white;
+    }
+
+    /* Using plain CSS */
+   @media (min-width: 768px) {
+    .mat-tab-label-container {
+        margin: 0 auto;
+		padding-left: 115px;
+		padding-right: 115px;
+		width: 700px;
+    }
+   }
+
+   @media (min-width: 960px) {
+       .mat-tab-label-container {
+         width: 800px;
+       }
+   }
 
     button {
         color: white !important;

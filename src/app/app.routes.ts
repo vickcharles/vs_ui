@@ -1,9 +1,10 @@
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { HomepageComponent } from '../app/components/homepage/homepage/homepage.component';
 import { RequestComponent } from '../app/components/request/request.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PagesComponent } from './components/homepage/pages.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const APP_MODULE: Routes = [
   {
@@ -26,7 +27,8 @@ const APP_MODULE: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

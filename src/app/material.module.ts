@@ -6,6 +6,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio'
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import {
   MatFormFieldModule,
@@ -23,7 +26,10 @@ import {
 		MatRippleModule,
 		CdkStepperModule,
 		ReactiveFormsModule,
-		MatRadioModule
+		MatRadioModule,
+		MatTabsModule,
+		MatMenuModule,
+		MatToolbarModule
   ],
   exports: [
 		MatButtonModule,
@@ -34,7 +40,10 @@ import {
 		MatRippleModule,
 		ReactiveFormsModule,
 		CdkStepperModule,
-		MatRadioModule
+		MatRadioModule,
+		MatTabsModule,
+		MatMenuModule,
+		MatToolbarModule
   ]
 })
 export class MaterialModule {}

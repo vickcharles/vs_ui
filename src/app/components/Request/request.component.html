@@ -1,7 +1,7 @@
 <div class="vs-background-color-light">
   <div class="row vs-margin-remove vs-display-flex">
     <div class="col col-sm-12 vs-margin-top-small col-md-9 vs-margin-center">
-      <div class="vs-section nabi-background-white">
+      <div class="vs-section vs-background-color-white">
         <mat-horizontal-stepper labelPosition="bottom" #stepper>
           <!-- first stepper -->
           <mat-step>
@@ -78,7 +78,7 @@
 
               <!-- Origen -->
               <div *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-input-field col-md-3">
-                <span class="vs-field-label">Origen</span>
+                  <span class="vs-field-label">Origen</span>
                   <input placeholder="Ej: Bogotá" formControlName="origen">
                   <span *ngIf="submitted && request.controls['origen'].errors?.required" class="invalid-feedback">
                     Este campo es requerido.

@@ -7,6 +7,8 @@ import { APP_ROUTING } from './app.routes';
 // Material Module
 import { MaterialModule } from './material.module';
 
+import { AuthInterceptor } from './auth/auth.interceptor';
+
 //HTTTP
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -25,7 +27,12 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { PagesComponent } from './components/homepage/pages.component';
 
+import { UserService } from './service/user.service';
+
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+// Import your AvatarModule
+import { AvatarModule } from 'ngx-avatar';
+import { RequestViewComponent } from './components/request/request-view/request-view.component';
 
 @NgModule({
   declarations: [
@@ -38,18 +45,25 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     RequestComponent,
     LoginComponent,
     DashboardComponent,
-    PagesComponent
+    PagesComponent,
+    RequestViewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
+    AvatarModule,
     CommonModule,
     HttpClientModule,
     APP_ROUTING
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },
+  UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
