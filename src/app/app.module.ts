@@ -10,8 +10,12 @@ import { MaterialModule } from './material.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 
 //HTTTP
-
+import { UserService } from './service/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+//Pipes
+import { FistChartPipe } from './pipes/first-chart.pipe';
+import { FistChartUppercasePipe } from './pipes/fisrt-chart-uppercase.pipe';
 
 // Componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +31,6 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { PagesComponent } from './components/homepage/pages.component';
 
-import { UserService } from './service/user.service';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 // Import your AvatarModule
@@ -46,7 +49,10 @@ import { RequestViewComponent } from './components/request/request-view/request-
     LoginComponent,
     DashboardComponent,
     PagesComponent,
-    RequestViewComponent
+    RequestViewComponent,
+    //Pipes
+    FistChartPipe,
+    FistChartUppercasePipe
   ],
   imports: [
     BrowserModule,

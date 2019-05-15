@@ -4,7 +4,7 @@
     <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
     <div class="header-menu">
       <h1 [matMenuTriggerFor]="menu" class="vs-display-inline vs-cursor-pointer vs-font-xsmall vs-margin-right-small">
-        Hola {{userDetails.name}} {{userDetails.lastName}}
+        Hola {{userDetails.name | firstChartUppercase }} {{userDetails.lastName | firstChart | uppercase }}
         <i class="fas fa-caret-down vs-color-white"></i>
       </h1>
       <mat-menu class="vs-margin-top-xsmall menu" #menu="matMenu" xPosition="before">
@@ -16,7 +16,7 @@
           Cerrar Sesion
         </button>
       </mat-menu>
-      <ngx-avatar fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name="Vickler Charls" [round]="true"></ngx-avatar>
+      <ngx-avatar fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
     </div>
   </div>
 </div>

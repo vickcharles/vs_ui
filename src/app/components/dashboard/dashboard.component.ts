@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 })
 export class DashboardComponent implements OnInit {
   userDetails: any;
+  displayName: any;
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       res => {
         this.userDetails = res['user'];
+        this.displayName = res['user'].name + ' ' + res['user'].lastName;
         console.log(res);
       },
       err => {
