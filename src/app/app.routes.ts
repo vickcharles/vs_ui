@@ -4,7 +4,7 @@ import { RequestComponent } from '../app/components/request/request.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PagesComponent } from './components/homepage/pages.component';
-import { AuthGuard } from './auth/auth.guard';
+// import { AuthGuard } from './auth/auth.guard';
 
 const APP_MODULE: Routes = [
   {
@@ -27,8 +27,7 @@ const APP_MODULE: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard]
+    component: DashboardComponent
   },
   {
     path: '**',

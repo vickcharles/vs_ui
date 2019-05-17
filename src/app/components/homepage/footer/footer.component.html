@@ -1,6 +1,53 @@
-<div class="vs-background-color-light footer">
-    <div class="vs-container vs-text-align-center vs-color-default">
-       © 2019 Copyright Text
-    <!-- <a class="grey-text text-lighten-4 right" href="#!">More Links</a> -->
-    </div>
+
+
+
+<div *ngIf="router.url === '/home'; else second" class="vs-background-color-white footer">
+  <div class="vs-container">
+    <div class="row vs-text-align-center vs-text-align-left-md vs-padding-top-small vs-padding-bottom-small">
+      <div class="col col-xs-12 col-md-4">
+        <img class="main-logo" src="../../../../assets/img/main-logo.png" alt="">
+        <div class="vs-margin-bottom-xsmall vs-margin-top-small vs-color-grey">
+          Siguenos en nuestras redes sociales
+        </div>
+        <div class="vs-margin-top-xsmall">
+          <i class="fab vs-color-default vs-margin-right-xsmall fa-facebook-square fa-2x"></i>
+          <i class="fab vs-color-default fa-instagram fa-2x"></i>
+        </div>
+		  </div>
+		<div class="col col-xs-12 col-md-4">
+			<div class="vs-margin-top-small email-to">
+				<a class="vs-margin-bottom-xsmall vs-color-grey" href="mailto:info@23-7ls.com">
+					Trabaja con nosotros
+				</a>
+			</div>
+			<div class="email-to">
+				<a class="vs-margin-bottom-xsmall vs-color-grey" href="mailto:info@23-7ls.com">
+					Bogota, Colombia
+				</a>
+			</div>
+		</div>
+		<div class="col col-xs-12 col-md-4">
+			<div class="vs-margin-top-small email-to">
+				<i class="far vs-color-vs fa-envelope fa-lg vs-margin-right-xsmall"></i>
+				<a class="vs-margin-bottom-xsmall vs-color-grey" href="mailto:info@23-7ls.com">
+					info@23-7ls.com
+				</a>
+			</div>
+			<div>
+				<i class="fas fa-phone fa-lg vs-color-vs "></i>
+				<a class="vs-margin-bottom-xsmall vs-color-grey" href="mailto:info@23-7ls.com">
+					+57 3118069824
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="vs-text-align-center vs-color-grey ">
+		24/7 LOGISTIC SOLUTIONS © 2019
+	</div>
 </div>
+</div>
+<ng-template #second class="vs-background-color-light footer">
+  <div class="vs-container vs-text-align-center vs-color-grey ">
+    24/7 LOGISTIC SOLUTIONS © 2019
+  </div>
+</ng-template>

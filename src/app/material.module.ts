@@ -9,6 +9,8 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 
 import {
   MatFormFieldModule,
@@ -29,7 +31,9 @@ import {
 		MatRadioModule,
 		MatTabsModule,
 		MatMenuModule,
-		MatToolbarModule
+		MatToolbarModule,
+		MatCardModule,
+		MatListModule
   ],
   exports: [
 		MatButtonModule,
@@ -43,6 +47,8 @@ import {
 		MatRadioModule,
 		MatTabsModule,
 		MatMenuModule,
+		MatCardModule,
+		MatListModule,
 		MatToolbarModule
   ]
 })

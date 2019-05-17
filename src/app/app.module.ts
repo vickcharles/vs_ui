@@ -17,6 +17,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FistChartPipe } from './pipes/first-chart.pipe';
 import { FistChartUppercasePipe } from './pipes/fisrt-chart-uppercase.pipe';
 
+import { AngularSvgIconModule } from 'angular-svg-icon';
+
 // Componentes
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,9 +35,11 @@ import { PagesComponent } from './components/homepage/pages.component';
 
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
 import { RequestViewComponent } from './components/request/request-view/request-view.component';
+import { RequestCardComponent } from './components/request/request-card/request-card.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,8 @@ import { RequestViewComponent } from './components/request/request-view/request-
     RequestViewComponent,
     //Pipes
     FistChartPipe,
-    FistChartUppercasePipe
+    FistChartUppercasePipe,
+    RequestCardComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +65,7 @@ import { RequestViewComponent } from './components/request/request-view/request-
     MaterialModule,
     BrowserAnimationsModule,
     AvatarModule,
+    AngularSvgIconModule,
     CommonModule,
     HttpClientModule,
     APP_ROUTING

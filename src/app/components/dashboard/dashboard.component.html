@@ -24,7 +24,21 @@
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Mis Solicitudes">
       <div class="vs-container">
-        Content 1
+        <div class="row">
+          <div class="col col-md-8">
+            <app-request-card></app-request-card>
+            <app-request-card></app-request-card>
+          </div>
+          <div class="col col-md-4 vs-background-color-white vs-section-widest">
+            <div>
+              <mat-list role="list" class="menu">
+                <button class="vs-color-vs" mat-menu-item> Ver/Editar Perfil</button>
+                <button class="vs-color-vs" mat-menu-item> Mis Mensajes </button>
+                <button class="vs-color-vs" mat-menu-item>Ayuda</button>
+              </mat-list>
+            </div>
+          </div>
+        </div>
       </div>
     </mat-tab>
     <mat-tab label="Nueva Solicitud">
