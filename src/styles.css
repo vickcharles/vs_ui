@@ -200,8 +200,8 @@ body {
     text-align: center;
 }
 
-.main-banner img{
-    max-width: 200px;
+.main-banner img {
+    max-width: 100px !important;
     padding-bottom: 20px !important;
 }
 
@@ -647,7 +647,8 @@ body {
 @media only screen and (min-width: 375px) {
 
     .main-banner img{
-        max-width: 250px;
+        max-width: 330px !important;
+        margin-top: 20px !important;
     }
 
 }
@@ -664,7 +665,8 @@ body {
     }
 
     .main-banner img{
-       max-width: 300px;
+       max-width: 500px !important;
+       margin-top: 70px !important;
     }
 
     .vs-section-title {
