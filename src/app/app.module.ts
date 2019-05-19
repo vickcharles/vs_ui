@@ -20,7 +20,6 @@ import { FistChartUppercasePipe } from './pipes/fisrt-chart-uppercase.pipe';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 // Componentes
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/homepage/header/header.component';
 import { HomepageComponent } from './components/homepage/homepage/homepage.component';
@@ -61,7 +60,6 @@ import { RequestCardComponent } from './components/request/request-card/request-
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
     AvatarModule,

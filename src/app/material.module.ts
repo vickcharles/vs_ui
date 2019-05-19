@@ -11,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 import {
   MatFormFieldModule,
@@ -33,6 +34,7 @@ import {
 		MatMenuModule,
 		MatToolbarModule,
 		MatCardModule,
+		MatIconModule,
 		MatListModule
   ],
   exports: [
@@ -47,6 +49,7 @@ import {
 		MatRadioModule,
 		MatTabsModule,
 		MatMenuModule,
+		MatIconModule,
 		MatCardModule,
 		MatListModule,
 		MatToolbarModule

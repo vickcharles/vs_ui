@@ -8,7 +8,7 @@
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
               SELECCIONA TU TIPO DE SERVICIO
             </h1>
-            <p class="vs-text-align-center vs-color-default vs-margin-bottom-medium">
+            <p class="vs-text-align-center vs-color-grey vs-margin-bottom-medium">
               Tenemos disponibilidad las 24 horas
             </p>
             <form [formGroup]="request">
@@ -46,7 +46,7 @@
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
               {{ request.value.tipoDeServicio.nombre | uppercase }}? LISTO!!
             </h1>
-            <p class="vs-text-align-center vs-color-default vs-margin-bottom-large">
+            <p class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
               LLena los siguientes campos y te contactaremos un {{request.value.tipoDeServicio.nombre}} en minutos!!
             </p>
             <form [formGroup]="request" class="row" (ngSubmit)="nextStep(stepper)">
@@ -120,6 +120,9 @@
                     <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.pattern" class="invalid-feedback">
                       Introduce un {{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cedula'}} valido.
                     </span>
+                    <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.maxlength" class="invalid-feedback">
+                       Minimo limite de caracteres 10.
+                    </span>
                 </div>
                 <div class="col-sm-12"></div>
                   <div formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'"  class="vs-input-field col-md-5">
@@ -150,7 +153,7 @@
                   </span>
                 </div>
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
-                  <button class="vs-color-vs" color="accent" mat-button matStepperPrevious>REGRESAR</button>
+                  <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
                   <button mat-flat-button color="primary">CONTINUAR</button>
                 </div>
             </form>
@@ -159,7 +162,7 @@
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
               BIEN, YA ESTAMOS CASI LISTOS!!!
             </h1>
-            <p class="vs-text-align-center vs-color-default vs-margin-bottom-large">
+            <p class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
                Registrate para darle seguimiento a tu solicitud
             </p>
             <form [formGroup]="user" class="row">
@@ -173,9 +176,7 @@
                     <span *ngIf="submitted && user.controls['nombre'].errors?.pattern" class="invalid-feedback">
                       Introduce un nombre valido.
                     </span>
-                    <span *ngIf="submitted && user.controls['nombre'].errors?.maxlength" class="invalid-feedback">
-                      Maximo limite de carateres 20.
-                    </span>
+              
                   </div>
                   <div class="vs-input-field col-md-5">
                     <span class="vs-field-label">Apellido</span>
@@ -185,9 +186,6 @@
                     </span>
                     <span *ngIf="submitted && user.controls['apellido'].errors?.pattern" class="invalid-feedback">
                       Introduce un apellido valido.
-                    </span>
-                    <span *ngIf="submitted && user.controls['apellido'].errors?.maxlength" class="invalid-feedback">
-                      Maximo limite de carateres 20.
                     </span>
                   </div>
                   <div class="col-sm-12"></div>
@@ -199,6 +197,9 @@
                     </span>
                     <span *ngIf="submitted && user.controls['telefono'].errors?.pattern" class="invalid-feedback">
                       Introduce un telefono valido.
+                    </span>
+                    <span *ngIf="submitted && user.controls['telefono'].errors?.maxlength" class="invalid-feedback">
+                      Maximo limite de carateres 11.
                     </span>
                   </div>
                   <div class="vs-input-field col-md-5">
@@ -223,22 +224,44 @@
                     </span>
                   </div>
                   <div class="col-sm-12"></div>
-              <div class="vs-input-field col-md-5">
-                <span class="vs-field-label">
-                  Contraseña
-                </span>
-                <input formControlName="contrasena" matInput>
-              </div>
-              </div>
-              {{serverErrorMessages}}
+                    <div class="vs-input-field col-md-5">
+                       <span class="vs-field-label">
+                         Contraseña
+                        </span>
+                        <input formControlName="contrasena" matInput>
+                        <span *ngIf="submitted && user.controls['correo'].errors?.required" class="invalid-feedback">
+                          Este campo es requerido.
+                        </span>
+                        <span *ngIf="submitted && user.controls['contrasena'].errors?.minlength" class="invalid-feedback">
+                          Minimo limite de caracteres 6.
+                        </span>
+                     </div>
+                     <div class="col-sm-12"></div>
+                      <div class="vs-input-field col-md-5">
+                        <span class="vs-field-label">
+                          Confirmar contraseña
+                        </span>
+                        <input formControlName="contrasenaConfirmada" matInput>
+                        <span *ngIf="submitted && user.controls['contrasenaConfirmada'].errors?.required" class="invalid-feedback">
+                          Este campo es requerido.
+                        </span>
+                        <span *ngIf="submitted && user.controls['contrasenaConfirmada'].errors?.mustMatch" class="invalid-feedback">
+                          Las contraseñas deben coincidir.
+                        </span>
+                      </div>
+                      <div class="col-sm-12"></div>
+                      <div class="col-sm-6">
+                        <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
+                          {{serverErrorMessages}}
+                        </div>
+                      </div>
+                  </div>
             </form>
-            <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
-              <button class="vs-color-vs" color="accent" mat-button matStepperPrevious>REGRESAR</button>
-              <button mat-flat-button color="primary" (click)="register()" matStepperNext>CONTINUAR</button>
-            </div>
             <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+            <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
+              <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
+              <button mat-flat-button color="primary" (click)="register()" matStepperNext>CONTINUAR</button>
             </div>
          </mat-step>
        </mat-horizontal-stepper>

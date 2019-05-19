@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather|Roboto+Condensed: 400,500,600,800');
 
 @import url('https://fonts.googleapis.com/css?family=Heebo|Nunito+Sans|Open+Sans+Condensed:400,500,600,700,800');
-
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 html, body {
   height: 100%;
@@ -530,7 +530,7 @@ body {
 }
 /*Color*/
 .vs-color-vs {
-    color: #FFD15C;
+    color: #FFD15C !important;
 }
 
 .vs-color-grey {
@@ -599,7 +599,7 @@ body {
 .vs-section-wide,
 .vs-section-widest {
 	border-radius: 17px;
-	padding: 25px 20px;
+	padding: 25px 25px;
 }
 
 /*Card Request*/

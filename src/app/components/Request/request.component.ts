@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { UserService } from '../../service/user.service';
 import { Router } from "@angular/router";
+import { MustMatch } from '../../validators/password-match';
 
 @Component({
   selector: 'app-request',
@@ -18,6 +19,7 @@ export class RequestComponent implements OnInit {
   errors: any = {
     tipoDeServicio: String
   };
+  data: any;
   submitted = false;
 
   constructor(private userService: UserService,private router: Router, private formBuilder: FormBuilder) {}
@@ -31,10 +33,10 @@ export class RequestComponent implements OnInit {
       cliente: this.formBuilder.group({
         tipo: ['', Validators.required],
         tipoDocumento: [''],
-        documento: ['', [Validators.required, Validators.maxLength(11),Validators.pattern('^[0-9]*$')]],
+        documento: ['', [Validators.required, Validators.maxLength(11) ,Validators.pattern('^[0-9]*$')]],
         nombreEmpresa: ['']
       }),
-      origen: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      origen: ['', [ Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       destino: ['', Validators.pattern('^[a-zA-Z ]*$')],
       mensaje: ['', [Validators.required, Validators.maxLength(160), Validators.pattern('^[a-zA-Z ]*$')]]
     });
@@ -42,10 +44,14 @@ export class RequestComponent implements OnInit {
     this.user = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      telefono: ['', [Validators.required, Validators.minLength(15), Validators.pattern('^[0-9]*$')]],
+      telefono: ['', [Validators.required, Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
       ciudad: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      correo: ['', Validators.required],
-      contrasena: ['', Validators.required]
+      correo: ['', [ Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
+      contrasena: ['', [Validators.required, Validators.minLength(6)]],
+      contrasenaConfirmada: ['', Validators.required]
+    },
+    {
+      validator: MustMatch('contrasena', 'contrasenaConfirmada')
     });
   }
 
@@ -64,24 +70,35 @@ export class RequestComponent implements OnInit {
 
 
   register() {
-    console.log(this.user.value);
-    this.userService.postUser(this.user.value).subscribe(
-      res => {
-        console.log(res);
-        const credentials = {
-          email: this.user.value.correo,
-          password: this.user.value.contrasena
-        }
-        this.login(credentials)
-      },
-      err => {
-        if (err.status === 422) {
-          this.serverErrorMessages = err.error.join('<br/>');
-        }
-        else
-          this.serverErrorMessages = 'Something went wrong. Please contact admin.';
+    this.submitted = true;
+    console.log(this.user);
+    if(this.user.valid) {
+      this.data = {
+        user: this.user.value,
+        request: this.request.value
       }
-    );
+      console.log(this.data)
+
+      this.userService.postUserAndRequest(this.data).subscribe(
+        res => {
+          console.log(res);
+          const credentials = {
+            email: this.user.value.correo,
+            password: this.user.value.contrasena
+          }
+          this.login(credentials)
+        },
+        err => {
+          if (err.status === 422) {
+            this.serverErrorMessages = err.error.join('<br/>');
+          }
+          else
+            this.serverErrorMessages = 'Something went wrong. Please contact admin.' + err;
+        }
+      );
+
+    }
+  
   }
 
 
@@ -118,6 +135,7 @@ export class RequestComponent implements OnInit {
     console.log(errors);
     console.log("error " + !isError);
     console.log("form " + this.request.valid);
+    console.log(this.request);
 
     if(!isError && this.request.valid) {
       stepper.next();
