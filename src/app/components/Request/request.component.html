@@ -14,22 +14,28 @@
             <form [formGroup]="request">
               <div formGroupName="tipoDeServicio" class="vs-input-field row vs-text-align-center">
                 <mat-radio-group formControlName="nombre" class="radio-group">
-                  <mat-radio-button class="col-sm-12 col-md-4 radio-button" value="transporte de carga">
-                    <img src="../../../assets/img/camion-radio.jpg" alt="">
+                  <mat-radio-button class="col-sm-12 col-md-4 radio-button vs-margin-bottom-small" value="transporte de carga">
+                    <img src="../../../assets/img/servicios/transporte de carga.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Transporte de carga
                     </h1>
                   </mat-radio-button>
-                  <mat-radio-button class="col-sm-12 col-md-4" value="alquiler de montacarga">
-                    <img src="../../../assets/img/montacargas-radio.png" alt="">
+                  <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de montacarga">
+                    <img src="../../../assets/img/servicios/alquiler de montacarga.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Alquiler montacargas
                     </h1>
                   </mat-radio-button>
-                  <mat-radio-button class="col-sm-12 col-md-4" value="alquiler de grua">
-                    <img src="../../../assets/img/montacargas-radio.png" alt="">
+                  <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de grua">
+                    <img src="../../../assets/img/servicios/alquiler de grua.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Alquiler de gruas
+                    </h1>
+                  </mat-radio-button>
+                  <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="operario de cargue y descargue">
+                    <img src="../../../assets/img/servicios/operario de cargue y descargue.png" alt="">
+                    <h1 class="vs-font-small vs-color-default vs-text-align-center">
+                      Operario de cargue y descargue
                     </h1>
                   </mat-radio-button>
                 </mat-radio-group>
@@ -77,7 +83,7 @@
               <div class="col-sm-12"></div>
 
               <!-- Origen -->
-              <div *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-input-field col-md-3">
+              <div class="vs-input-field col-md-3">
                   <span class="vs-field-label">Origen</span>
                   <input placeholder="Ej: Bogotá" formControlName="origen">
                   <span *ngIf="submitted && request.controls['origen'].errors?.required" class="invalid-feedback">
@@ -162,10 +168,13 @@
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
               BIEN, YA ESTAMOS CASI LISTOS!!!
             </h1>
-            <p class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
-               Registrate para darle seguimiento a tu solicitud
+            <p *ngIf="!isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
+              Registrate o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Accede Aqui </a> para darle seguimiento a tu solicitud
             </p>
-            <form [formGroup]="user" class="row">
+            <p *ngIf="isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
+              Accede o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Registrate Aqui </a> para darle seguimiento a tu solicitud
+            </p>
+            <form [formGroup]="user" class="row" *ngIf="!isRegistered ; else login">
               <div class="vs-margin-center">
                   <div class="vs-input-field col-md-5">
                     <span class="vs-field-label">Nombre</span>
@@ -176,7 +185,6 @@
                     <span *ngIf="submitted && user.controls['nombre'].errors?.pattern" class="invalid-feedback">
                       Introduce un nombre valido.
                     </span>
-              
                   </div>
                   <div class="vs-input-field col-md-5">
                     <span class="vs-field-label">Apellido</span>
@@ -257,8 +265,25 @@
                       </div>
                   </div>
             </form>
-            <div>
-            </div>
+            <ng-template #login class="row">
+              <form [formGroup]="credentials" class="vs-input-field" >
+                <div class="col-md-6">
+                    <span class="vs-field-label">Correo</span>
+                  <input formControlName="email" matInput>
+                </div>
+                <div class="col-md-12"></div>
+                <div class="col-md-6">
+                  <span class="vs-field-label">Contraseña</span>
+                  <input type="password" formControlName="password" matInput>
+                </div>
+                <div class="col-md-12"></div>
+                <div class="col-md-6"> 
+                  <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
+                    {{serverErrorMessages}}
+                  </div>
+                </div>
+              </form>
+            </ng-template>
             <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
               <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
               <button mat-flat-button color="primary" (click)="register()" matStepperNext>CONTINUAR</button>

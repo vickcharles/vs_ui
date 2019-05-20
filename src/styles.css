@@ -97,8 +97,8 @@ body {
 
 
 .radio-group img {
-    width: 190px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
 }
 
 /* .radio-group .radio-button {
@@ -622,6 +622,10 @@ body {
     background-color: #Fff;
     border-radius: 4px;
     padding: 20px 15px 20px 25px;
+}
+
+.vs-border-decoration {
+    box-shadow: 0 2px 0 rgba(0,0,0,0.1) !important;
 }
 
 .vs-services-banner .card:hover {

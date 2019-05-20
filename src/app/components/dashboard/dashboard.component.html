@@ -25,16 +25,24 @@
     <mat-tab label="Mis Solicitudes">
       <div class="vs-container">
         <div class="row">
+
+          <!-- Request list -->
           <div class="col col-md-8">
-            <app-request-card></app-request-card>
-            <app-request-card></app-request-card>
+            <app-request-list></app-request-list>
           </div>
+
           <div class="col col-md-4 vs-background-color-white vs-section-widest">
+              <h1 class="vs-font-small vs-color-vs  vs-margin-remove">
+                BUSQUEDA DE SOLICITUDES
+              </h1>
+              <p class="vs-color-grey">Refina tu busqueda</p>
             <div>
               <mat-list role="list" class="menu">
-                <button class="vs-color-vs" mat-menu-item> Ver/Editar Perfil</button>
-                <button class="vs-color-vs" mat-menu-item> Mis Mensajes </button>
-                <button class="vs-color-vs" mat-menu-item>Ayuda</button>
+                <mat-checkbox color="primary">Todos</mat-checkbox>
+                <br>
+                <mat-checkbox color="primary">En Proceso</mat-checkbox>
+                <br>
+                <mat-checkbox color="primary">Cancelados</mat-checkbox>
               </mat-list>
             </div>
           </div>

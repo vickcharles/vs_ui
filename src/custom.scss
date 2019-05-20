@@ -30,6 +30,11 @@ $candy-app-warn: mat-palette($mat-red);
         pointer-events: none !important;
     }
 
+    .mat-checkbox-layout .mat-checkbox-label {
+        color: #a2a2a2 ;
+        font-weight: 400;
+    }
+
     .mat-step-header .mat-step-icon-state-edit {
       background-color: #ffca28 !important;
     }

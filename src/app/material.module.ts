@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import {
   MatFormFieldModule,
@@ -35,7 +36,8 @@ import {
 		MatToolbarModule,
 		MatCardModule,
 		MatIconModule,
-		MatListModule
+		MatListModule,
+		MatCheckboxModule
   ],
   exports: [
 		MatButtonModule,
@@ -47,6 +49,7 @@ import {
 		ReactiveFormsModule,
 		CdkStepperModule,
 		MatRadioModule,
+		MatCheckboxModule,
 		MatTabsModule,
 		MatMenuModule,
 		MatIconModule,

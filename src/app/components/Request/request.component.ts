@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { UserService } from '../../service/user.service';
+import { RequestService } from '../../service/request.service';
 import { Router } from "@angular/router";
 import { MustMatch } from '../../validators/password-match';
 
@@ -11,7 +12,9 @@ import { MustMatch } from '../../validators/password-match';
   styleUrls: ['./request.component.css']
 })
 export class RequestComponent implements OnInit {
+  credentials: FormGroup;
   isLinear = false;
+  isRegistered = false;
   serverErrorMessages: String;
   request: FormGroup;
   user: FormGroup;
@@ -22,9 +25,14 @@ export class RequestComponent implements OnInit {
   data: any;
   submitted = false;
 
-  constructor(private userService: UserService,private router: Router, private formBuilder: FormBuilder) {}
+  constructor(private userService: UserService, private requestService: RequestService, private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    this.credentials = this.formBuilder.group({
+      email: [''.toLowerCase(), Validators.required],
+      password: ['', Validators.required],
+    });
+  
     this.request = this.formBuilder.group({
       tipoDeServicio: this.formBuilder.group({
         nombre: ['', Validators.required],
@@ -68,16 +76,31 @@ export class RequestComponent implements OnInit {
     );
   }
 
+  toggleForm() {
+    this.isRegistered = !this.isRegistered;
+    console.log(this.isRegistered);
+  }
+
+  createRequest(request: any) {
+    this.requestService.postRequest(request).subscribe(
+      res => {
+        console.log(res)
+      },
+      err => {
+        this.serverErrorMessages = err.error.message;
+      }
+    );
+  }
 
   register() {
     this.submitted = true;
-    console.log(this.user);
-    if(this.user.valid) {
+
+    if(this.user.valid && !this.isRegistered) {
+
       this.data = {
         user: this.user.value,
         request: this.request.value
       }
-      console.log(this.data)
 
       this.userService.postUserAndRequest(this.data).subscribe(
         res => {
@@ -96,9 +119,18 @@ export class RequestComponent implements OnInit {
             this.serverErrorMessages = 'Something went wrong. Please contact admin.' + err;
         }
       );
-
+    } else if(this.credentials.valid && this.isRegistered) {
+      this.userService.login(this.credentials.value).subscribe(
+        res => {
+          this.userService.setToken(res['token']);
+          this.createRequest(this.request.value);
+          this.router.navigateByUrl('/dashboard');
+        },
+        err => {
+          this.serverErrorMessages = err.error.message;
+        }
+      );
     }
-  
   }
 
 

@@ -1,14 +1,17 @@
-<div class="card-request vs-section-widest vs-background-color-white vs-margin-bottom-medium">
+<div class="card-request vs-border-decoration vs-section-widest vs-background-color-white vs-margin-bottom-medium">
   <div class="row">
-    <div class="col col-md-4">
-      <img src="../../../../assets/img/montacargas-radio.png" alt="">
+    <div class="col col-md-4 vs-text-align-center">
+      <img src="../../../../assets/img/servicios/{{request.tipoDeServicio.nombre}}.png" alt="" />
     </div>
     <div class="col col-md-8">
       <mat-list role="list">
-        <h1 class="vs-font-large">
-          Alquiler de montacarga
+        <h1 class="vs-font-large vs-margin-remove">
+         {{request.tipoDeServicio.nombre | firstChartUppercase }}
         </h1>
-        <div class="vs-display-flex">
+        <p class="vs-font-small vs-color-grey vs-margin-top-zero">
+          ({{request.tipoDeServicio.especificamente| firstChartUppercase }})
+        </p>
+        <div class="vs-display-flex vs-margin-top-small">
           <img src="../../../../assets/img/Diana-Zamora.png" alt="Avatar" class="avatar">
           <h1 class="vs-font-xsmall vs-text-mediumbold vs-color-grey">
             Diana Zamora
