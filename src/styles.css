@@ -97,7 +97,7 @@ body {
 
 
 .radio-group img {
-    width: 100px;
+    width: 115px;
     height: 100px;
 }
 
@@ -605,8 +605,14 @@ body {
 /*Card Request*/
 
 .card-request img {
-  max-width: 150px;
+  max-width: 100px;
 }
+
+.card-request a:hover {
+    color: #FFD15C !important;
+    transition: 0.1s;
+    text-decoration: none;
+};
 
 .vs-services-banner {
    padding-top: 50px;
@@ -641,7 +647,18 @@ body {
     padding-right: 60px !important;
 }
 
-/**/
+.vs-remove-shadow {
+    box-shadow: none !important;
+}
+/*REQUEST VIEW*/
+
+.request-view img{
+   width: 100px;
+}
+
+.request-view .avatar-container {
+  margin: 0 auto !important;
+}
 
 .footer img {
     max-width: 180px;

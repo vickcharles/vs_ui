@@ -40,6 +40,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { RequestViewComponent } from './components/request/request-view/request-view.component';
 import { RequestCardComponent } from './components/request/request-card/request-card.component';
 import { RequestListComponent } from './components/request/request-list/request-list.component';
+import { RequestsComponent } from './components/request/requests/requests.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { RequestListComponent } from './components/request/request-list/request-
     FistChartPipe,
     FistChartUppercasePipe,
     RequestCardComponent,
-    RequestListComponent
+    RequestListComponent,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FistChartPipe implements PipeTransform {
   transform(value: string) : string {
-    return value.charAt(0)
+    return value && value.charAt(0)
   }
 }

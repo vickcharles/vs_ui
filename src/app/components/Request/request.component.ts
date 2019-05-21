@@ -32,7 +32,7 @@ export class RequestComponent implements OnInit {
       email: [''.toLowerCase(), Validators.required],
       password: ['', Validators.required],
     });
-  
+
     this.request = this.formBuilder.group({
       tipoDeServicio: this.formBuilder.group({
         nombre: ['', Validators.required],
@@ -119,7 +119,7 @@ export class RequestComponent implements OnInit {
             this.serverErrorMessages = 'Something went wrong. Please contact admin.' + err;
         }
       );
-    } else if(this.credentials.valid && this.isRegistered) {
+    } else if (this.credentials.valid && this.isRegistered) {
       this.userService.login(this.credentials.value).subscribe(
         res => {
           this.userService.setToken(res['token']);

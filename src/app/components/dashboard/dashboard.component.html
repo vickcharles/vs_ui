@@ -1,10 +1,12 @@
 
 <div class="vs-background-color-default">
   <div class="vs-container header vs-color-white">
-    <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
+    <div [routerLink]="['/dashboard']" class="remove-focus vs-cursor-pointer">
+      <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
+    </div>
     <div class="header-menu">
       <h1 [matMenuTriggerFor]="menu" class="vs-display-inline vs-cursor-pointer vs-font-xsmall vs-margin-right-small">
-        Hola {{userDetails.name | firstChartUppercase }} {{userDetails.lastName | firstChart | uppercase }}
+        Hola {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChart | uppercase }}
         <i class="fas fa-caret-down vs-color-white"></i>
       </h1>
       <mat-menu class="vs-margin-top-xsmall menu" #menu="matMenu" xPosition="before">
@@ -20,45 +22,7 @@
     </div>
   </div>
 </div>
-<div>
-  <mat-tab-group animationDuration="0ms">
-    <mat-tab label="Mis Solicitudes">
-      <div class="vs-container">
-        <div class="row">
-
-          <!-- Request list -->
-          <div class="col col-md-8">
-            <app-request-list></app-request-list>
-          </div>
-
-          <div class="col col-md-4 vs-background-color-white vs-section-widest">
-              <h1 class="vs-font-small vs-color-vs  vs-margin-remove">
-                BUSQUEDA DE SOLICITUDES
-              </h1>
-              <p class="vs-color-grey">Refina tu busqueda</p>
-            <div>
-              <mat-list role="list" class="menu">
-                <mat-checkbox color="primary">Todos</mat-checkbox>
-                <br>
-                <mat-checkbox color="primary">En Proceso</mat-checkbox>
-                <br>
-                <mat-checkbox color="primary">Cancelados</mat-checkbox>
-              </mat-list>
-            </div>
-          </div>
-        </div>
-      </div>
-    </mat-tab>
-    <mat-tab label="Nueva Solicitud">
-      <div class="vs-container">
-        Content 1
-      </div>
-    </mat-tab>
-  </mat-tab-group>
-</div>
-
-
-
+<router-outlet></router-outlet>
 
 
  <!-- <div class="vs-background-color-white">

@@ -1,3 +1,51 @@
-<p>
-  request-view works!
-</p>
+
+  <div class="row vs-margin-remove vs-display-flex">
+    <div class="col col-xs-10 col-md-5 col-lg-5 vs-margin-center vs-margin-top-small">
+      <div class="vs-section vs-text-align-center col-md-12 vs-background-color-white request-view">
+        <img src="../../../../assets/img/servicios/alquiler de montacarga.png" alt="">
+        <h1 class="vs-color-vs vs-font-large">
+          {{requestDetails?.tipoDeServicio.nombre}}
+        </h1>
+        <div class="vs-margin-bottom-xsmall">
+          <ngx-avatar size="80" src="assets/img/admin/{{requestDetails?.operadorId?.name}}.png"></ngx-avatar>
+        </div>
+        <h1 class="vs-font-xsmall vs-margin-remove vs-text-mediumbold vs-color-grey">
+            {{requestDetails?.operadorId?.name}} {{requestDetails?.operadorId?.lastName}}
+        </h1>
+        <div>
+          <h1 class="vs-font-small">
+            Status:
+          </h1>
+          <h1 class="vs-color-status vs-font-small vs-margin-remove">
+            {{requestDetails.estado}}
+          </h1>
+        </div>
+        <div class="vs-margin-top-medium">
+          <h1 class="vs-font-small">
+            Mensaje:
+          </h1>
+          <p class="vs-margin-remove vs-color-grey">
+            {{requestDetails.mensaje}}
+          </p>
+        </div>
+        <div class="vs-margin-top-medium">
+          <h1 class="vs-font-small">
+            Ultima actualizacion:
+          </h1>
+          <p class="vs-margin-remove vs-color-grey">
+            Hace 2 horas
+          </p>
+        </div>
+          <div class="col col-md-6">
+            <button mat-raised-button class="vs-text-uppercase vs-margin-bottom-large vs-remove-shadow vs-margin-top-large" color="primary">
+              Enviar mensaje
+            </button>
+          </div>
+          <div class="col col-md-6">
+            <button mat-raised-button [routerLink]="['/dashboard']" class="vs-text-uppercase vs-margin-bottom-large vs-remove-shadow vs-margin-top-large vs-background-color-default" color="primary">
+              mis solicitudes
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>

@@ -19,4 +19,8 @@ export class RequestService {
   getRequests() {
     return this.http.get(environment.apiBaseUrl + '/request/getAll');
   }
+
+  getRequest(id) {
+    return this.http.get(environment.apiBaseUrl + '/request/getById/' + id);
+  }
 }
