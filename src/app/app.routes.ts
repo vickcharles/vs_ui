@@ -9,7 +9,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PagesComponent } from './components/homepage/pages.component';
 import { RequestListComponent } from './components/request/request-list/request-list.component'
 import { RequestViewComponent } from './components/request/request-view/request-view.component';
-
+import { ProfileComponent } from './components/profile/profile.component';
 
 const APP_MODULE: Routes = [
   {
@@ -43,6 +43,10 @@ const APP_MODULE: Routes = [
       {
         path: 'request/:id',
         component: RequestViewComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent 
       }
     ],
   },

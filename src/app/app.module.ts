@@ -41,6 +41,7 @@ import { RequestViewComponent } from './components/request/request-view/request-
 import { RequestCardComponent } from './components/request/request-card/request-card.component';
 import { RequestListComponent } from './components/request/request-list/request-list.component';
 import { RequestsComponent } from './components/request/requests/requests.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { RequestsComponent } from './components/request/requests/requests.compon
     FistChartUppercasePipe,
     RequestCardComponent,
     RequestListComponent,
-    RequestsComponent
+    RequestsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,8 @@
 <div class="vs-background-color-light">
   <div class="row vs-margin-remove vs-display-flex">
-    <div [ngClass]="{'col-md-9': isCreatingRequest == 'false', 'col-md-10': isCreatingRequest == 'true'}" class="col col-sm-12 vs-margin-top-small vs-margin-center">
+    <div [ngClass]="{'col-md-10': isCreatingRequest, 'col-md-9': !isCreatingRequest}"
+      class="col col-sm-12 vs-margin-top-small vs-margin-center"
+    >
       <div class="vs-section vs-background-color-white">
         <mat-horizontal-stepper labelPosition="bottom" #stepper>
 
@@ -160,7 +162,7 @@
                 </div>
             </form>
           </mat-step>
-    
+
           <!-- third step -->
           <mat-step *ngIf="isCreatingRequest == 'false'">
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">

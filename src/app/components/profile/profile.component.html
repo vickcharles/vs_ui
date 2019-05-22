@@ -1,0 +1,144 @@
+<div class="vs-container">
+  <div class="row">
+
+    <!-- Profile header -->
+    <div class="col col-md-4">
+      <div class="vs-background-color-white vs-section-widest vs-text-align-center">
+        <div class="vs-text-align-center">
+          <ngx-avatar bgColor="#f5f5f5" fgColor="" class="webkit-inline-box" size="80" name="Vickler Charles"></ngx-avatar>
+        </div>
+        <h1 class="vs-font-medium vs-color-default vs-margin-bottom-medium">
+          Vickler Charles
+        </h1>
+        <h1 class="vs-font-xsmall vs-color-dark-grey vs-margin-remove">
+          Servicios completados
+        </h1>
+        <h1 class="vs-font-large vs-color-status vs-font-super-large vs-margin-top-xsmall">
+          60
+        </h1>
+        <div>
+          <h1 class="vs-font-xsmall vs-color-dark-grey vs-margin-remove vs-display-inline">
+            Servicios pendientes:
+          </h1>
+          <h1 class="vs-font-xsmall vs-text-300  vs-color-grey vs-margin-top-xsmall vs-display-inline">
+            2
+          </h1>
+        </div>
+        <div class="vs-margin-top-medium">
+          <h1 class="vs-font-xsmall vs-color-dark-grey vs-margin-remove">
+            Registrado desde:
+          </h1>
+          <h1 class="vs-font-xsmall vs-text-300  vs-color-grey vs-margin-top-xsmall">
+            2 años atras
+          </h1>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Profile content-->
+    <div class="col col-md-8">
+      <div class="vs-background-color-white vs-section-wide row">
+        <div *ngIf="isEditingPerfil; else editProfile">
+           <h1 class="vs-font-xsmall vs-color-vs  vs-margin-remove col-md-12 vs-margin-bottom-small">
+            EDITAR PERFIL
+          </h1>
+          <div class="vs-input-field col-md-6">
+            <span class="vs-field-label">Nombre</span>
+            <input matInput>
+          </div>
+          <div class="vs-input-field col-md-6">
+            <span class="vs-field-label">Apellido</span>
+            <input matInput>
+          </div>
+          <div class="col-sm-12"></div>
+          <div class="vs-input-field col-md-6">
+            <span class="vs-field-label">Telefono</span>
+            <input matInput>
+          </div>
+          <div class="vs-input-field col-md-4">
+            <span class="vs-field-label">Ciudad</span>
+            <input matInput>
+          </div>
+          <div class="col-sm-12"></div>
+          <div class="vs-input-field col-md-6">
+            <span class="vs-field-label">Correo</span>
+            <input matInput>
+          </div>
+          <div class="col-sm-12"></div>
+          <div class="vs-input-field col-md-6">
+            <span class="vs-field-label">Contraseña</span>
+            <input type="password" matInput disabled="true">
+          </div>
+          <div class="col-sm-12"></div>
+          <div class="col-sm-12 vs-margin-top-small">
+            <button mat-raised-button (click)="toggleEditPerfil()" class="vs-text-uppercase vs-remove-shadow" color="primary">
+              Guardar cambios
+            </button>
+            <button mat-button (click)="toggleEditPerfil()" class="vs-text-uppercase vs-color-grey">
+              Cancelar
+            </button>
+          </div>
+        </div>
+        <ng-template #editProfile>
+          <h1 class="vs-font-xsmall vs-color-vs vs-margin-remove vs-margin-bottom-medium">
+            MY PERFIL
+          </h1>
+          <div>
+            <h1 class="vs-color-dark-grey vs-font-xsmall  vs-display-inline vs-margin-right-small">
+              Nombre:
+            </h1>
+            <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
+              Vickler
+            </h1>
+          </div>
+          <div class="vs-margin-top-small">
+            <h1 class="vs-color-dark-grey vs-font-xsmall vs-display-inline vs-margin-right-small">
+              Apellido:
+            </h1>
+            <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
+              Charles
+            </h1>
+          </div>
+          <div class="vs-margin-top-small">
+            <h1 class="vs-color-dark-grey vs-font-xsmall vs-display-inline vs-margin-right-small">
+              Telefono:
+            </h1>
+            <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
+              3183953025
+            </h1>
+          </div>
+          <div class="vs-margin-top-small">
+            <h1 class="vs-color-dark-grey vs-font-xsmall vs-display-inline vs-margin-right-small">
+              Ciudad:
+            </h1>
+            <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
+              Bogotá
+            </h1>
+          </div>
+          <div class="vs-margin-top-small">
+            <h1 class="vs-color-dark-grey vs-font-xsmall vs-display-inline vs-margin-right-small">
+              Correo:
+            </h1>
+            <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
+              Charlesvikler@gmail.com
+            </h1>
+          </div>
+          <div class="vs-margin-top-small">
+            <h1 class="vs-color-dark-grey vs-font-xsmall vs-display-inline vs-margin-right-small">
+              Contraseña:
+            </h1>
+            <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
+              **********
+            </h1>
+          </div>
+          <div class="vs-margin-top-medium">
+            <button mat-raised-button (click)="toggleEditPerfil()" class="vs-text-uppercase vs-remove-shadow "  color="primary">
+              EDITAR PERFIL
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

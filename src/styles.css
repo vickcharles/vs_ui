@@ -125,7 +125,7 @@ body {
 }
 
 .vs-field-label {
-    color: #717a8a !important;
+    color: #888888 !important;
 }
 
 .vs-input-field input:focus {
@@ -224,7 +224,7 @@ body {
 }
 
 .vs-font-xsmall {
-    font-size: 13px !important;
+    font-size: 15px !important;
 }
 
 .vs-font-main-title {
@@ -240,11 +240,15 @@ body {
 
 /*FONT SIZE*/
 .vs-font-medium {
-	font-size: 25px !important;
+	font-size: 22px !important;
 }
 
 .vs-font-large {
 	font-size: 20px !important;
+}
+
+.vs-font-super-large {
+	font-size: 45px !important;
 }
 
 /*TEXT TRANSFORM*/
@@ -541,6 +545,10 @@ body {
   color: #a2a2a2 !important
 }
 
+.vs-color-dark-grey {
+    color: #888888;
+}
+
 .vs-color-status {
     color: #FF7058 !important;
 }
@@ -670,6 +678,12 @@ body {
 
 .footer img {
     max-width: 180px;
+}
+
+/*PROFILE */
+
+.webkit-inline-box {
+    display: -webkit-inline-box !important;
 }
 
 /* iPhones(landscape) ----------- */

@@ -10,7 +10,7 @@
         <i class="fas fa-caret-down vs-color-white"></i>
       </h1>
       <mat-menu class="vs-margin-top-xsmall menu" #menu="matMenu" xPosition="before">
-        <button class="vs-color-vs" mat-menu-item> Ver/Editar Perfil</button>
+        <button class="vs-color-vs" [routerLink]="['/dashboard/profile']"  mat-menu-item> Ver/Editar Perfil</button>
         <button class="vs-color-vs" mat-menu-item> Mis Mensajes </button>
         <button class="vs-color-vs" mat-menu-item>Ayuda</button>
         <button (click)="onLogout()" class="vs-color-vs" mat-menu-item>
@@ -23,21 +23,3 @@
   </div>
 </div>
 <router-outlet></router-outlet>
-
-
- <!-- <div class="vs-background-color-white">
-      <nav class="vs-container vs-padding-top-zero vs-padding-bottom-zero" mat-tab-nav-bar>
-        <a mat-tab-link
-           [routerLink]="link.path"
-            routerLinkActive #rla="routerLinkActive"
-            [active]="rla.isActive">
-            home
-        </a>
-        <a mat-tab-link
-          [routerLink]="link.path"
-          routerLinkActive #rla="routerLinkActive"
-          [active]="isActive">
-            un poco mas
-        </a>
-      </nav>
-    </div> -->

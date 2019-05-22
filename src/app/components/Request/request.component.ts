@@ -27,10 +27,11 @@ export class RequestComponent implements OnInit {
   data: any;
   submitted = false;
 
-  @Input('isCreatingRequest') isCreatingRequest: String = "false";
+  @Input('isCreatingRequest') isCreatingRequest;
   constructor(private snackBar: MatSnackBar, private userService: UserService, private requestService: RequestService, private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    console.log('mi dato:' + this.isCreatingRequest);
     this.credentials = this.formBuilder.group({
       email: [''.toLowerCase(), Validators.required],
       password: ['', Validators.required],
