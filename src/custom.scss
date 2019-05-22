@@ -35,10 +35,13 @@ $candy-app-warn: mat-palette($mat-red);
         font-weight: 400;
     }
 
+    .mat-snack-bar-container .mat-simple-snackbar {
+        color: whitesmoke !important;
+    }
+
     .mat-step-header .mat-step-icon-state-edit {
       background-color: #ffca28 !important;
     }
-
 
     .mat-step-header .mat-step-icon {
         background-color: #3e3e3e;

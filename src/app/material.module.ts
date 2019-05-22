@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import {
   MatFormFieldModule,
@@ -37,13 +38,15 @@ import {
 		MatCardModule,
 		MatIconModule,
 		MatListModule,
-		MatCheckboxModule
+		MatCheckboxModule,
+		MatSnackBarModule
   ],
   exports: [
 		MatButtonModule,
 		MatStepperModule,
 		MatButtonModule,
-    MatFormFieldModule,
+		MatFormFieldModule,
+		MatSnackBarModule,
     MatInputModule,
 		MatRippleModule,
 		ReactiveFormsModule,
@@ -58,4 +61,5 @@ import {
 		MatToolbarModule
   ]
 })
+
 export class MaterialModule {}

@@ -1,39 +1,37 @@
 
-<div>
-    <mat-tab-group animationDuration="0ms">
-      <mat-tab label="Mis Solicitudes">
-        <div class="vs-container">
-          <div class="row">
-
-            <!-- Request list -->
-            <div class="col col-md-8">
-                <div *ngFor="let request of requests">
-                  <app-request-card [request]="request"></app-request-card>
-                </div>
-            </div>
-            <!-- Request filter -->
-            <div class="col col-md-4 vs-background-color-white vs-section-widest">
-                <h1 class="vs-font-small vs-color-vs  vs-margin-remove">
-                  FILTRO DE SOLICITUDES
-                </h1>
-                <p class="vs-color-grey vs-margin-top-xsmall">Refina tu busqueda</p>
-              <div class="vs-margin-top-small">
-                <mat-list role="list" class="menu">
-                  <mat-checkbox color="primary">Todos</mat-checkbox>
-                  <br>
-                  <mat-checkbox color="primary">En Proceso</mat-checkbox>
-                  <br>
-                  <mat-checkbox color="primary">Cancelados</mat-checkbox>
-                </mat-list>
-              </div>
-            </div>
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="Mis Solicitudes">
+    <div class="vs-container">
+      <div class="row">
+        <!-- Request list -->
+        <div class="col col-md-8">
+          <div *ngFor="let request of requests">
+            <app-request-card [request]="request"></app-request-card>
           </div>
         </div>
-      </mat-tab>
-      <mat-tab label="Nueva Solicitud">
-        <div class="vs-container">
-          Content 1
+            <!-- Request filter -->
+        <div class="col col-md-4 vs-background-color-white vs-section-widest">
+          <h1 class="vs-font-small vs-color-vs  vs-margin-remove">
+            FILTRO DE SOLICITUDES
+          </h1>
+          <p class="vs-color-grey vs-margin-top-xsmall">Refina tu busqueda</p>
+          <div class="vs-margin-top-xsmall">
+            <mat-list role="list" class="menu">
+              <mat-checkbox color="primary">Todos</mat-checkbox>
+              <br>
+              <mat-checkbox color="primary">En Proceso</mat-checkbox>
+              <br>
+              <mat-checkbox color="primary">Cancelados</mat-checkbox>
+            </mat-list>
+          </div>
         </div>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Nueva Solicitud">
+    <div class="vs-container">
+      <app-request isCreatingRequest="true">
+      </app-request>
+    </div>
+  </mat-tab>
+</mat-tab-group>

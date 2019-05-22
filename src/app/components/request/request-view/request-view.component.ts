@@ -4,8 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-request-view',
-  templateUrl: './request-view.component.html',
-  styleUrls: ['./request-view.component.css']
+  templateUrl: './request-view.component.html'
 })
 export class RequestViewComponent implements OnInit {
   requestDetails: any;

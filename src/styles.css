@@ -14,13 +14,17 @@ html, body {
   position: relative !important;
 }
 
+h1 {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
 .icon-img {
   fill: red !important;
 }
 
 .vs-about-us {
-    padding-top: 20px;
-    padding-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .avatar {
@@ -36,15 +40,15 @@ html, body {
 }
 
 p {
-    font-size: 14px !important;
-    margin: 0px !important;
+  font-size: 14px !important;
+  margin: 0px !important;
 }
 
 .footer {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-  }
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
 
 hr {
     margin-top: 0px;
@@ -563,6 +567,10 @@ body {
 
 
 /*FONT WEIGHT*/
+
+.vs-text-300 {
+	font-weight: 300 !important;
+}
 .vs-text-mediumbold {
 	font-weight: 400 !important;
 }
@@ -686,8 +694,8 @@ body {
     }
 
     .main-banner img{
-       max-width: 500px !important;
-       margin-top: 70px !important;
+        max-width: 584px !important;
+        margin-top: 70px !important;
     }
 
     .vs-section-title {

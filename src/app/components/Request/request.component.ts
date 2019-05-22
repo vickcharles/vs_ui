@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { UserService } from '../../service/user.service';
 import { RequestService } from '../../service/request.service';
 import { Router } from "@angular/router";
 import { MustMatch } from '../../validators/password-match';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-request',
@@ -12,6 +13,7 @@ import { MustMatch } from '../../validators/password-match';
   styleUrls: ['./request.component.css']
 })
 export class RequestComponent implements OnInit {
+
   credentials: FormGroup;
   isLinear = false;
   isRegistered = false;
@@ -25,7 +27,8 @@ export class RequestComponent implements OnInit {
   data: any;
   submitted = false;
 
-  constructor(private userService: UserService, private requestService: RequestService, private router: Router, private formBuilder: FormBuilder) {}
+  @Input('isCreatingRequest') isCreatingRequest: String = "false";
+  constructor(private snackBar: MatSnackBar, private userService: UserService, private requestService: RequestService, private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.credentials = this.formBuilder.group({
@@ -68,7 +71,6 @@ export class RequestComponent implements OnInit {
     this.userService.login(credentials).subscribe(
       res => {
         this.userService.setToken(res['token']);
-        this.router.navigateByUrl('/dashboard');
       },
       err => {
         this.serverErrorMessages = err.error.message;
@@ -81,10 +83,19 @@ export class RequestComponent implements OnInit {
     console.log(this.isRegistered);
   }
 
-  createRequest(request: any) {
+
+  openSnackBar() {
+    this.snackBar.open('Solicitud enviada satisfactoriamete', 'ok', {
+      duration: 4000,
+      horizontalPosition: 'left'
+    });
+  }
+
+  createRequest(request: any): any {
     this.requestService.postRequest(request).subscribe(
       res => {
-        console.log(res)
+        this.openSnackBar();
+        this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
       },
       err => {
         this.serverErrorMessages = err.error.message;
@@ -104,12 +115,9 @@ export class RequestComponent implements OnInit {
 
       this.userService.postUserAndRequest(this.data).subscribe(
         res => {
-          console.log(res);
-          const credentials = {
-            email: this.user.value.correo,
-            password: this.user.value.contrasena
-          }
-          this.login(credentials)
+          this.userService.setToken(res['token']);
+          this.openSnackBar();
+          this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
         },
         err => {
           if (err.status === 422) {
@@ -119,12 +127,12 @@ export class RequestComponent implements OnInit {
             this.serverErrorMessages = 'Something went wrong. Please contact admin.' + err;
         }
       );
+      //loggin if user is registered
     } else if (this.credentials.valid && this.isRegistered) {
       this.userService.login(this.credentials.value).subscribe(
         res => {
           this.userService.setToken(res['token']);
           this.createRequest(this.request.value);
-          this.router.navigateByUrl('/dashboard');
         },
         err => {
           this.serverErrorMessages = err.error.message;
@@ -133,15 +141,14 @@ export class RequestComponent implements OnInit {
     }
   }
 
-
-  validar() {
+  //Validaciones
+  public validar() {
     if(this.request.value.tipoDeServicio.nombre == "transporte de carga" &&
       !this.request.value.tipoDeServicio.especificamente) {
         this.errors.tipoDeServicio = 'Este campo es requerido';
     } else {
        this.errors.tipoDeServicio = '';
     }
-
     if(this.request.value.tipoDeServicio.nombre == "alquiler de grua" &&
       !this.request.value.tipoDeServicio.especificamente) {
         this.errors.tipoDeServicio = 'Este campo es requerido';
@@ -164,16 +171,19 @@ export class RequestComponent implements OnInit {
     const errorsArray: any = Object.values(errors);
     const isError = errorsArray.some(value => value);
 
-    console.log(errors);
-    console.log("error " + !isError);
-    console.log("form " + this.request.valid);
-    console.log(this.request);
-
     if(!isError && this.request.valid) {
       stepper.next();
       this.submitted = false;
-    } else{
-      alert("mal");
+    }
+  }
+
+  nextCreateRequest() {
+    this.submitted = true;
+    let errors = this.validar();
+    const errorsArray: any = Object.values(errors);
+    const isError = errorsArray.some(value => value);
+    if(!isError && this.request.valid) {
+      this.createRequest(this.request.value);
     }
   }
 }

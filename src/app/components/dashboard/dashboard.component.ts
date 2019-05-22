@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/user.service';
 import { Router } from "@angular/router";
+// import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,7 @@ export class DashboardComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    // this.openSnackBar();
     this.userService.getUserProfile().subscribe(
       res => {
         this.userDetails = res['user'];
@@ -25,6 +27,13 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+
+  // openSnackBar() {
+  //   this.snackBar.open('Message archived', 'Undo', {
+  //     duration: 3000,
+  //     horizontalPosition: 'left'
+  //   });
+  // }
 
   onLogout() {
     this.userService.deleteToken();

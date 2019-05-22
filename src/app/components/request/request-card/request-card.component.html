@@ -5,11 +5,11 @@
     </div>
     <div class="col col-md-9">
       <mat-list role="list">
-        <h1 class="vs-font-large vs-margin-remove vs-color-vs">
+        <h1 class="vs-font-large vs-margin-remove vs-color-vs vs-text-mediumbold">
          {{request.tipoDeServicio.nombre | firstChartUppercase }}
         </h1>
-        <p *ngIf="request.tipoDeServicio.especificamente" class="vs-font-small vs-color-grey vs-margin-top-zero">
-          ({{request.tipoDeServicio.especificamente| firstChartUppercase }})
+        <p *ngIf="request.tipoDeServicio.especificamente" class="vs-font-small vs-color-grey vs-margin-top-zero vs-text-300">
+          ( {{request.tipoDeServicio.especificamente| firstChartUppercase }} )
         </p>
         <div class="vs-display-flex vs-margin-top-small">
           <ngx-avatar size="50" src="assets/img/admin/{{request.operadorId.name}}.png"></ngx-avatar>
@@ -26,7 +26,7 @@
           </h1>
         </div>
         <div class="vs-text-align-right">
-          <a [routerLink]="['/dashboard/request', request._id]" class="vs-font-small vs-margin-right-xsmall vs-color-default vs-cursor-pointer">
+          <a [routerLink]="['/dashboard/request', request._id]" class="vs-font-small vs-margin-right-xsmall vs-color-grey vs-cursor-pointer">
             Ver detalles
           </a>
         </div>

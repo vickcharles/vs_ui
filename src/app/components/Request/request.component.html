@@ -1,8 +1,9 @@
 <div class="vs-background-color-light">
   <div class="row vs-margin-remove vs-display-flex">
-    <div class="col col-sm-12 vs-margin-top-small col-md-9 vs-margin-center">
+    <div [ngClass]="{'col-md-9': isCreatingRequest == 'false', 'col-md-10': isCreatingRequest == 'true'}" class="col col-sm-12 vs-margin-top-small vs-margin-center">
       <div class="vs-section vs-background-color-white">
         <mat-horizontal-stepper labelPosition="bottom" #stepper>
+
           <!-- first stepper -->
           <mat-step>
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
@@ -47,6 +48,7 @@
               </div>
             </form>
           </mat-step>
+
            <!-- second step -->
           <mat-step>
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
@@ -55,7 +57,7 @@
             <p class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
               LLena los siguientes campos y te contactaremos un {{request.value.tipoDeServicio.nombre}} en minutos!!
             </p>
-            <form [formGroup]="request" class="row" (ngSubmit)="nextStep(stepper)">
+            <form [formGroup]="request" class="row">
               <!-- Tipo de Servico-->
               <div formGroupName="tipoDeServicio" class="vs-input-field col-md-5">
                 <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de Servicio</span>
@@ -93,6 +95,7 @@
                     Introduce un origen valido.
                   </span>
               </div>
+
               <!-- Destino -->
               <div *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-input-field col-md-3">
                 <span class="vs-field-label">Destino</span>
@@ -115,20 +118,21 @@
                     Este campo es requerido.
                   </span>
                 </div>
+
                 <!-- Cedula or Nit-->
                 <div *ngIf="request.value.cliente.tipo != ''" formGroupName="cliente" class="vs-input-field col-md-5">
                   <span class="vs-field-label">{{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cedula'}}</span>
                   <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'empresa'"  matInput>
                   <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'natural'" matInput>
                   <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.required" class="invalid-feedback">
-                      Este campo es requerido.
-                    </span>
-                    <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.pattern" class="invalid-feedback">
-                      Introduce un {{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cedula'}} valido.
-                    </span>
-                    <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.maxlength" class="invalid-feedback">
-                       Minimo limite de caracteres 10.
-                    </span>
+                    Este campo es requerido.
+                  </span>
+                  <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.pattern" class="invalid-feedback">
+                    Introduce un {{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cedula'}} valido.
+                  </span>
+                  <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.maxlength" class="invalid-feedback">
+                    Minimo limite de caracteres 10.
+                  </span>
                 </div>
                 <div class="col-sm-12"></div>
                   <div formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'"  class="vs-input-field col-md-5">
@@ -136,16 +140,7 @@
                     <input formControlName="nombreEmpresa" matInput>
                   </div>
                   <div class="col-sm-12"></div>
-                  <div *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de montacarga'" class="vs-input-field col-md-3">
-                    <span class="vs-field-label">Ciudad</span>
-                    <input placeholder="Ej: Bogotá" formControlName="origen">
-                    <span *ngIf="submitted && request.controls['origen'].errors?.required" class="invalid-feedback">
-                      Este campo es requerido.
-                    </span>
-                    <span *ngIf="submitted && request.controls['origen'].errors?.pattern" class="invalid-feedback">
-                      Introduce un origen valido.
-                    </span>
-                  </div>
+
                     <div class="col-sm-12"></div>
                 <!-- Mensaje-->
                 <div class="vs-input-field multiline col-md-6">
@@ -160,11 +155,14 @@
                 </div>
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
                   <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
-                  <button mat-flat-button color="primary">CONTINUAR</button>
+                  <button mat-flat-button *ngIf="isCreatingRequest == 'false'" (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
+                  <button mat-flat-button *ngIf="isCreatingRequest == 'true'" (click)="nextCreateRequest()" color="primary">ENVIAR SOLICITUD</button>
                 </div>
             </form>
           </mat-step>
-          <mat-step>
+    
+          <!-- third step -->
+          <mat-step *ngIf="isCreatingRequest == 'false'">
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
               BIEN, YA ESTAMOS CASI LISTOS!!!
             </h1>
@@ -265,6 +263,7 @@
                       </div>
                   </div>
             </form>
+
             <ng-template #login class="row">
               <form [formGroup]="credentials" class="vs-input-field" >
                 <div class="col-md-6">
@@ -277,17 +276,19 @@
                   <input type="password" formControlName="password" matInput>
                 </div>
                 <div class="col-md-12"></div>
-                <div class="col-md-6"> 
+                <div class="col-md-6">
                   <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
                     {{serverErrorMessages}}
                   </div>
                 </div>
               </form>
             </ng-template>
+
             <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
               <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
               <button mat-flat-button color="primary" (click)="register()" matStepperNext>CONTINUAR</button>
             </div>
+
          </mat-step>
        </mat-horizontal-stepper>
       </div>
