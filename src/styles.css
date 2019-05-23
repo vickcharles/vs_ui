@@ -130,7 +130,7 @@ body {
 
 .vs-input-field input:focus {
     outline: 0px;
-    background-color: #fff !important;
+    background-color: none !important;
 }
 
 .vs-input-field select:focus {
