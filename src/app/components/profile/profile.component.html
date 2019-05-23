@@ -1,26 +1,26 @@
 <div class="vs-container">
-  <div class="row">
+  <div class="row vs-margin-top-xsmall">
 
     <!-- Profile header -->
     <div class="col col-md-4">
-      <div class="vs-background-color-white vs-section-widest vs-text-align-center">
+      <div class="vs-background-color-white vs-section-wide vs-text-align-center">
         <div class="vs-text-align-center">
-          <ngx-avatar bgColor="#f5f5f5" fgColor="" class="webkit-inline-box" size="80" name="Vickler Charles"></ngx-avatar>
+          <ngx-avatar bgColor="#3e3e3e" fgColor="#f5f5f5" class="webkit-inline-box" size="90" name="Vickler Charles"></ngx-avatar>
         </div>
-        <h1 class="vs-font-medium vs-color-default vs-margin-bottom-medium">
-          Vickler Charles
+        <h1 class="vs-font-medium vs-color-vs vs-margin-bottom-medium">
+            {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChartUppercase }}
         </h1>
         <h1 class="vs-font-xsmall vs-color-dark-grey vs-margin-remove">
-          Servicios completados
+          Servicios pendientes
         </h1>
-        <h1 class="vs-font-large vs-color-status vs-font-super-large vs-margin-top-xsmall">
+        <h1 class="vs-font-large vs-color-default vs-font-super-large vs-margin-top-xsmall">
           60
         </h1>
         <div>
-          <h1 class="vs-font-xsmall vs-color-dark-grey vs-margin-remove vs-display-inline">
-            Servicios pendientes:
+          <h1 class="vs-font-xsmall vs-color-dark-grey vs-margin-remove">
+            Servicios completados:
           </h1>
-          <h1 class="vs-font-xsmall vs-text-300  vs-color-grey vs-margin-top-xsmall vs-display-inline">
+          <h1 class="vs-font-large vs-color-default  vs-margin-top-xsmall">
             2
           </h1>
         </div>
@@ -38,48 +38,81 @@
 
     <!-- Profile content-->
     <div class="col col-md-8">
-      <div class="vs-background-color-white vs-section-wide row">
-        <div *ngIf="isEditingPerfil; else editProfile">
+      <div class="vs-background-color-white vs-section-wide">
+        <form [formGroup]="user" class="row" *ngIf="isEditingPerfil; else editProfile">
            <h1 class="vs-font-xsmall vs-color-vs  vs-margin-remove col-md-12 vs-margin-bottom-small">
             EDITAR PERFIL
           </h1>
           <div class="vs-input-field col-md-6">
             <span class="vs-field-label">Nombre</span>
-            <input matInput>
+            <input formControlName="nombre" matInput>
+            <span *ngIf="submitted && user.controls['nombre'].errors?.required" class="invalid-feedback">
+              Este campo es requerido.
+            </span>
+            <span *ngIf="submitted && user.controls['nombre'].errors?.pattern" class="invalid-feedback">
+              Introduce un nombre valido.
+            </span>
           </div>
           <div class="vs-input-field col-md-6">
             <span class="vs-field-label">Apellido</span>
-            <input matInput>
+            <input formControlName="apellido" matInput>
+            <span *ngIf="submitted && user.controls['apellido'].errors?.required" class="invalid-feedback">
+              Este campo es requerido.
+            </span>
+            <span *ngIf="submitted && user.controls['apellido'].errors?.pattern" class="invalid-feedback">
+              Introduce un apellido valido.
+            </span>
           </div>
           <div class="col-sm-12"></div>
           <div class="vs-input-field col-md-6">
             <span class="vs-field-label">Telefono</span>
-            <input matInput>
+            <input formControlName="telefono" matInput>
+            <span *ngIf="submitted && user.controls['telefono'].errors?.required" class="invalid-feedback">
+                Este campo es requerido.
+              </span>
+              <span *ngIf="submitted && user.controls['telefono'].errors?.pattern" class="invalid-feedback">
+                Introduce un telefono valido.
+              </span>
+              <span *ngIf="submitted && user.controls['telefono'].errors?.maxlength" class="invalid-feedback">
+                Maximo limite de carateres 11.
+              </span>
           </div>
           <div class="vs-input-field col-md-4">
             <span class="vs-field-label">Ciudad</span>
-            <input matInput>
+            <input formControlName="ciudad" matInput>
+            <span *ngIf="submitted && user.controls['ciudad'].errors?.required" class="invalid-feedback">
+                Este campo es requerido.
+              </span>
+              <span *ngIf="submitted && user.controls['ciudad'].errors?.pattern" class="invalid-feedback">
+                Introduce una ciudad valido.
+              </span>
           </div>
           <div class="col-sm-12"></div>
           <div class="vs-input-field col-md-6">
             <span class="vs-field-label">Correo</span>
-            <input matInput>
+            <input formControlName="correo" matInput>
+            <span *ngIf="submitted && user.controls['correo'].errors?.required" class="invalid-feedback">
+              Este campo es requerido.
+            </span>
+            <span *ngIf="submitted && user.controls['correo'].errors?.pattern" class="invalid-feedback">
+              Introduce un correo valido.
+            </span>
           </div>
           <div class="col-sm-12"></div>
           <div class="vs-input-field col-md-6">
             <span class="vs-field-label">Contraseña</span>
-            <input type="password" matInput disabled="true">
+            <input formControlName="contrasena" value="fakepassword" type="password" matInput>
           </div>
           <div class="col-sm-12"></div>
           <div class="col-sm-12 vs-margin-top-small">
-            <button mat-raised-button (click)="toggleEditPerfil()" class="vs-text-uppercase vs-remove-shadow" color="primary">
+            <button mat-raised-button (click)="updatedUser()" class="vs-text-uppercase vs-remove-shadow" color="primary">
               Guardar cambios
             </button>
             <button mat-button (click)="toggleEditPerfil()" class="vs-text-uppercase vs-color-grey">
               Cancelar
             </button>
           </div>
-        </div>
+        </form>
         <ng-template #editProfile>
           <h1 class="vs-font-xsmall vs-color-vs vs-margin-remove vs-margin-bottom-medium">
             MY PERFIL
@@ -89,7 +122,7 @@
               Nombre:
             </h1>
             <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
-              Vickler
+              {{userDetails?.name | firstChartUppercase }}
             </h1>
           </div>
           <div class="vs-margin-top-small">
@@ -97,7 +130,7 @@
               Apellido:
             </h1>
             <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
-              Charles
+              {{userDetails?.lastName | firstChartUppercase }}
             </h1>
           </div>
           <div class="vs-margin-top-small">
@@ -105,7 +138,7 @@
               Telefono:
             </h1>
             <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
-              3183953025
+              {{userDetails?.cellPhone}}
             </h1>
           </div>
           <div class="vs-margin-top-small">
@@ -113,7 +146,7 @@
               Ciudad:
             </h1>
             <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
-              Bogotá
+                {{userDetails?.city | firstChartUppercase }}
             </h1>
           </div>
           <div class="vs-margin-top-small">
@@ -121,7 +154,7 @@
               Correo:
             </h1>
             <h1 class="vs-color-grey vs-font-xsmall vs-text-300 vs-display-inline">
-              Charlesvikler@gmail.com
+              {{userDetails?.email}}
             </h1>
           </div>
           <div class="vs-margin-top-small">

@@ -1,10 +1,10 @@
 
-<div class="row vs-margin-remove vs-display-flex">
+<div class="row vs-display-flex vs-margin-top-xsmall">
   <div class="col col-xs-10 col-md-5 col-lg-5 vs-margin-center vs-margin-top-small">
     <div class="vs-section vs-text-align-center col-md-12 vs-background-color-white request-view animated fadeIn">
       <img src="../../../../assets/img/servicios/alquiler de montacarga.png" alt="">
       <h1 class="vs-color-vs vs-font-large">
-        {{requestDetails?.tipoDeServicio.nombre}}
+        {{requestDetails?.tipoDeServicio.nombre | firstChartUppercase }}
       </h1>
       <div class="vs-margin-bottom-xsmall">
         <ngx-avatar size="80" src="assets/img/admin/{{requestDetails?.operadorId?.name}}.png"></ngx-avatar>

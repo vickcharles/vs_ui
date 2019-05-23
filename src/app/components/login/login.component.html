@@ -5,7 +5,7 @@
         <h1 class="vs-section-title vs-color-vs vs-text-align-center">
           ACCEDER
         </h1>
-        <form [formGroup]="credentials" >
+        <form autocomplete="off" [formGroup]="credentials" >
           <span class="vs-field-label">Correo</span>
           <input formControlName="email" matInput>
           <span class="vs-field-label">Contraseña</span>

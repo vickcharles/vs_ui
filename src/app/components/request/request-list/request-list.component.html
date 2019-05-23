@@ -9,12 +9,12 @@
             <app-request-card [request]="request"></app-request-card>
           </div>
         </div>
-            <!-- Request filter -->
+        <!-- Request filter -->
         <div class="col col-md-4 vs-background-color-white vs-section-widest">
           <h1 class="vs-font-small vs-color-vs  vs-margin-remove">
             FILTRO DE SOLICITUDES
           </h1>
-          <p class="vs-color-grey vs-margin-top-xsmall">Refina tu busqueda</p>
+          <p class="vs-color-grey vs-font-xsmall vs-margin-top-xsmall">Refina tu busqueda</p>
           <div class="vs-margin-top-xsmall">
             <mat-list role="list" class="menu">
               <mat-checkbox color="primary">Todos</mat-checkbox>
@@ -29,9 +29,7 @@
     </div>
   </mat-tab>
   <mat-tab label="Nueva Solicitud">
-    <div class="vs-container">
-      <app-request isCreatingRequest="true">
-      </app-request>
-    </div>
+    <app-request isCreatingRequest="true">
+    </app-request>
   </mat-tab>
 </mat-tab-group>

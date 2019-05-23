@@ -68,7 +68,7 @@ export class RequestComponent implements OnInit {
   }
 
 
-  login(credentials: any){
+  login(credentials: any) {
     this.userService.login(credentials).subscribe(
       res => {
         this.userService.setToken(res['token']);

@@ -36,6 +36,10 @@ export class UserService {
     return this.http.get(environment.apiBaseUrl + '/userProfile');
   }
 
+  updateUser(user) {
+    return this.http.post(environment.apiBaseUrl + '/user/update', user);
+  }
+
 
   //Helper Methods
   setToken(token: string) {

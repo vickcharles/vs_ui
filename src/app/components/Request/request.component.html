@@ -157,14 +157,14 @@
                 </div>
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
                   <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
-                  <button mat-flat-button *ngIf="isCreatingRequest == 'false'" (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
+                  <button mat-flat-button *ngIf="!isCreatingRequest" (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
                   <button mat-flat-button *ngIf="isCreatingRequest == 'true'" (click)="nextCreateRequest()" color="primary">ENVIAR SOLICITUD</button>
                 </div>
             </form>
           </mat-step>
 
           <!-- third step -->
-          <mat-step *ngIf="isCreatingRequest == 'false'">
+          <mat-step *ngIf="!isCreatingRequest">
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
               BIEN, YA ESTAMOS CASI LISTOS!!!
             </h1>
@@ -217,7 +217,7 @@
                       Este campo es requerido.
                     </span>
                     <span *ngIf="submitted && user.controls['ciudad'].errors?.pattern" class="invalid-feedback">
-                      Introduce un telefono valido.
+                      Introduce una ciudad valida.
                     </span>
                   </div>
                   <div class="col-sm-12"></div>
@@ -269,7 +269,7 @@
             <ng-template #login class="row">
               <form [formGroup]="credentials" class="vs-input-field" >
                 <div class="col-md-6">
-                    <span class="vs-field-label">Correo</span>
+                  <span class="vs-field-label">Correo</span>
                   <input formControlName="email" matInput>
                 </div>
                 <div class="col-md-12"></div>
