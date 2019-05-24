@@ -11,6 +11,8 @@ import { RequestListComponent } from './components/request/request-list/request-
 import { RequestViewComponent } from './components/request/request-view/request-view.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+import { ChatComponent } from './components/chat/chat.component';
+
 const APP_MODULE: Routes = [
   {
     path: '',
@@ -46,7 +48,11 @@ const APP_MODULE: Routes = [
       },
       {
         path: 'profile',
-        component: ProfileComponent 
+        component: ProfileComponent
+      },
+      {
+        path: 'chat/:id',
+        component: ChatComponent
       }
     ],
   },

@@ -13,11 +13,20 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserService } from './service/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+//FIREBASE SETTINGS 
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
 //Pipes
 import { FistChartPipe } from './pipes/first-chart.pipe';
 import { FistChartUppercasePipe } from './pipes/fisrt-chart-uppercase.pipe';
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
+
+import { FormsModule } from "@angular/forms";
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -43,6 +52,8 @@ import { RequestListComponent } from './components/request/request-list/request-
 import { RequestsComponent } from './components/request/requests/requests.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+import { ChatComponent } from './components/chat/chat.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +73,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     RequestCardComponent,
     RequestListComponent,
     RequestsComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +84,12 @@ import { ProfileComponent } from './components/profile/profile.component';
     AngularSvgIconModule,
     CommonModule,
     HttpClientModule,
-    APP_ROUTING
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    APP_ROUTING,
+    FormsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

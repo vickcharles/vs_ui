@@ -7,6 +7,66 @@
 @import url('https://fonts.googleapis.com/css?family=Heebo|Nunito+Sans|Open+Sans+Condensed:400,500,600,700,800');
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
+
+
+
+/*STYLOS DEL CHAT PARA PRUEBA */
+.main-container{
+    margin-top: 40px;
+    margin-bottom: 150px;
+  }
+
+  .puntero{
+    cursor: pointer;
+  }
+
+
+  .remove-scroll {
+    overflow: hidden !important;
+  }
+
+  .vs-message span {
+      font-size: 11px !important;
+  }
+
+  .app-mensajes {
+    overflow-y: scroll !important;
+    height: 420px !important;
+    /*background:gray;*/
+  }
+
+  /* Animaciones */
+  .animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+
+
+  .fast {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
+  .fadeIn {
+    animation-name: fadeIn;
+  }
+
+
+
 html, body {
   height: 100%;
   font-family: 'Montserrat', sans-serif !important;
@@ -69,6 +129,32 @@ body {
 .login-signup {
     width: 100%;
 }
+
+.vs-border-top {
+    border-top: 1px solid #dfe1e5;
+    border-radius: 0px !important;
+}
+
+.vs-message-input input{
+    box-shadow: none;
+    background: #fff;
+    font-size: 14px;
+    padding: 20px 20px;
+    background: none;
+    color: #888888;
+    width: 195px;
+    height: 20px;
+    border: 1px solid #dfe1e5 !important;
+    appearance: none;
+    width: 100%;
+    outline: none;
+    border-radius: 40px;
+
+}
+
+/* .vs-message-input input:focus {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+} */
 
 /*FORM*/
 .vs-input-field input, select {
@@ -156,6 +242,9 @@ body {
 .vs-display-inline {
     display: inline !important;
 }
+.vs-display-inline-block {
+    display: inline-block !important;
+}
 /*HEADER MENU*/
 .header {
     display: flex;
@@ -223,6 +312,7 @@ body {
 .vs-font-xsmall {
     font-size: 14px !important;
 }
+
 
 .vs-font-main-title {
    font-size: 35px !important;
@@ -570,6 +660,13 @@ body {
 	display: block !important;
 }
 
+/*CHAT*/
+
+.vs-message {
+    padding: 6px 20px 6px 20px !important;
+    border-radius: 5px !important;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
 
 /*FONT WEIGHT*/
 
@@ -696,6 +793,7 @@ body {
         margin-top: 20px !important;
     }
 
+
 }
 
 /* iPads (landscape) ----------- */
@@ -760,10 +858,14 @@ body {
 }
 
 /* Tablets small laptops ----------- */
-@media (min-width: 960px) {
+@media (min-width: 965px) {
     /****CUSTOM ELEMENTS****/
 	.vs-container {
 	  width: 800px;
+    }
+
+    .vs-message-right {
+        margin-top: 35px;
     }
 
     .main-banner img{

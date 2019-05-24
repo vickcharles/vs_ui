@@ -16,6 +16,8 @@ $candy-app-accent:  mat-palette($mat-blue-gray, 700);
 $candy-app-warn: mat-palette($mat-red);
 
 @mixin comp-a-theme($theme) {
+
+
     .mat-step-header .mat-step-icon-selected {
         color: white !important;
         background-color: #ffca28 !important;
