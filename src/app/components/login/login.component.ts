@@ -23,8 +23,14 @@ export class LoginComponent implements OnInit {
   public login() {
     this.userService.login(this.credentials.value).subscribe(
       res => {
-        this.userService.setToken(res['token']);
-        this.router.navigateByUrl('/dashboard');
+        if(res['user'].role == 'ADMIN') {
+          this.userService.setToken(res['token']);
+          this.router.navigateByUrl('/dashboard/admin');
+        } else {
+          this.userService.setToken(res['token']);
+          this.router.navigateByUrl('/dashboard');
+        }
+
       },
       err => {
         this.serverErrorMessages = err.error.message;

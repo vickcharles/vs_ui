@@ -13,6 +13,11 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserService } from './service/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+ 
+const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
+
+
 //FIREBASE SETTINGS 
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -83,6 +88,7 @@ import { ChatComponent } from './components/chat/chat.component';
     AvatarModule,
     AngularSvgIconModule,
     CommonModule,
+    SocketIoModule.forRoot(config),
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features

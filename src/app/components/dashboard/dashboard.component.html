@@ -18,7 +18,9 @@
           Cerrar Sesion
         </button>
       </mat-menu>
-      <ngx-avatar fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
+
+      <ngx-avatar *ngIf="userDetails.role == 'User'"  fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
+      <ngx-avatar *ngIf="userDetails.role == 'ADMIN'" src="assets/img/admin/{{userDetails.name}}.png" fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
     </div>
   </div>
 </div>

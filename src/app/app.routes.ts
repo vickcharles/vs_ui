@@ -2,6 +2,8 @@ import { RouterModule, Routes, CanActivate } from '@angular/router';
 
 import { AuthGuard } from './auth/auth.guard';
 
+import { AdminGuard } from './auth/admin.guard';
+
 import { HomepageComponent } from '../app/components/homepage/homepage/homepage.component';
 import { RequestComponent } from '../app/components/request/request.component';
 import { LoginComponent } from './components/login/login.component';
@@ -32,6 +34,11 @@ const APP_MODULE: Routes = [
       },
       { path: '', redirectTo: 'home' , pathMatch: 'full' },
     ]
+  },
+  {
+    path: 'dashboard/admin',
+    component: DashboardComponent,
+    data: {role: 'ADMIN'}
   },
   {
     path: 'dashboard',

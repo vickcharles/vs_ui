@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   firebase: {
     apiKey: "AIzaSyBpb-DOICx4GO0Vcnv9nirdeD5wqjLskAE",
     authDomain: "project-2997275986633744204.firebaseapp.com",
@@ -13,7 +13,7 @@ export const environment = {
     messagingSenderId: "683959836650",
     appId: "1:683959836650:web:2111ab93acca43d8"
   },
-  apiBaseUrl: 'https://vs-rest-api.herokuapp.com/api'
+  apiBaseUrl: 'http://localhost:8000/api'
   // apiBaseUrl: 'http://localhost:3000/api'
 };
 
