@@ -9,14 +9,17 @@ import { environment } from '../../environments/environment';
 
 export class UserService {
   selectedUser = {
-    fullName: '',
-    email: '',
-    password: ''
+    role: ''
   };
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+    this.http.get(environment.apiBaseUrl + '/userProfile').subscribe(res => {
+      this.selectedUser.role = res['user'].role
+    });
+  }
 
   //HttpMethods
   postUser(user: any){

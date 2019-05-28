@@ -1,7 +1,11 @@
 
 <div class="vs-background-color-default">
   <div class="vs-container header vs-color-white">
-    <div [routerLink]="['/dashboard']" class="remove-focus vs-cursor-pointer">
+    <div *ngIf="userDetails?.role == 'ADMIN'" [routerLink]="['/dashboard/admin']" class="remove-focus vs-cursor-pointer">
+      <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
+    </div>
+
+    <div *ngIf="userDetails?.role == 'User'" [routerLink]="['/dashboard']" class="remove-focus vs-cursor-pointer">
       <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
     </div>
     <div class="header-menu">
@@ -11,7 +15,7 @@
       </h1>
       <mat-menu class="vs-margin-top-xsmall menu" #menu="matMenu" xPosition="before">
         <button class="vs-color-vs" [routerLink]="['/dashboard/profile']"  mat-menu-item> Ver/Editar Perfil</button>
-        <button class="vs-color-vs" mat-menu-item> Mis Mensajes </button>
+        <button class="vs-color-vs" mat-menu-item> Mensajes </button>
         <button class="vs-color-vs" mat-menu-item>Ayuda</button>
         <button (click)="onLogout()" class="vs-color-vs" mat-menu-item>
           <i class="fas fa-sign-out-alt vs-color-default"></i>
@@ -19,8 +23,8 @@
         </button>
       </mat-menu>
 
-      <ngx-avatar *ngIf="userDetails.role == 'User'"  fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
-      <ngx-avatar *ngIf="userDetails.role == 'ADMIN'" src="assets/img/admin/{{userDetails.name}}.png" fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
+      <ngx-avatar *ngIf="userDetails?.role == 'User'"  fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
+      <ngx-avatar *ngIf="userDetails?.role == 'ADMIN'" src="assets/img/admin/{{userDetails.name}}.png" fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
     </div>
   </div>
 </div>

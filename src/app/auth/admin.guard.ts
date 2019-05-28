@@ -3,6 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angul
 import { Observable } from 'rxjs';
 import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
+import decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +15,23 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-      if (!this.userService.isLoggedIn() ) {
-         this.router.navigateByUrl('/home');
-         this.userService.deleteToken();
-         return false;
+       // this will be passed from the route config
+      // on the data property
+     const expectedRole = next.data.role;
+     const token = localStorage.getItem('token');
+     // decode the token to get its payload
+     const tokenPayload = decode(token);
+     console.log('role papa: '+ this.userService.selectedUser.role)
 
-      } else {
-
-        this.userService.getUserProfile().subscribe(res => {
-            if(res['user'].role == next.data.role) {
-              return true;
-            } else {
-              this.router.navigateByUrl('/dashboard');
-              return false;
-            }
-        })
+     if (
+        !this.userService.isLoggedIn() ||
+        this.userService.selectedUser.role !== expectedRole
+      ) {
+        this.router.navigate(['home']);
+        return false;
       }
+
+      return true;
+
   }
 }

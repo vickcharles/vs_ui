@@ -38,7 +38,8 @@ const APP_MODULE: Routes = [
   {
     path: 'dashboard/admin',
     component: DashboardComponent,
-    data: {role: 'ADMIN'}
+    canActivate: [AdminGuard],
+    data: { role: 'ADMIN'}
   },
   {
     path: 'dashboard',
