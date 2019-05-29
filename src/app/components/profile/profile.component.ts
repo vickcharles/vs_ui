@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
           nombre: this.userDetails.name,
           apellido: this.userDetails.lastName,
           telefono: this.userDetails.cellPhone,
-          ciudad: this.userDetails.city ? this.userDetails.city : '',
+          ciudad: this.userDetails.city,
           correo: this.userDetails.email
         });
       },

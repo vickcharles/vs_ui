@@ -20,7 +20,15 @@ export class RequestService {
     return this.http.get(environment.apiBaseUrl + '/request/getAll');
   }
 
+  getAdminRequests() {
+    return this.http.get(environment.apiBaseUrl + '/request/getAllAdmin');
+  }
+
   getRequest(id) {
     return this.http.get(environment.apiBaseUrl + '/request/getById/' + id);
+  }
+
+  updateStatus(id, status) {
+    return this.http.put(environment.apiBaseUrl + `/request/update/status/${id}`, status);
   }
 }

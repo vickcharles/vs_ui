@@ -1,17 +1,17 @@
 
 
 
-<mat-tab-group animationDuration="0ms">
-  <mat-tab label="Mis Solicitudes">
+<!-- <mat-tab-group animationDuration="0ms"> -->
+  <!-- <mat-tab label="Mis Solicitudes">
     <div class="vs-container">
       <div class="row">
-        <!-- Request list -->
+
         <div class="col col-md-8">
           <div *ngFor="let request of requests">
             <app-request-card [request]="request"></app-request-card>
           </div>
         </div>
-        <!-- Request filter -->
+
         <div class="col col-md-4 vs-background-color-white vs-section-widest">
           <h1 class="vs-font-small vs-color-vs  vs-margin-remove">
             FILTRO DE SOLICITUDES
@@ -34,4 +34,62 @@
     <app-request isCreatingRequest="true">
     </app-request>
   </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
+
+
+
+
+<div class="vs-container">
+  <div class="row">
+
+    <!-- Request list -->
+    <div class="col col-md-8">
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Pendiente">
+          <div className="vs-margin-top-small">
+            <div *ngFor="let request of requests">
+              <app-request-card [request]="request"></app-request-card>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="En proceso (0)">
+          <h1 class="vs-color-grey vs-font-small vs-text-align-center">
+            No hay nada todavia :(
+          </h1>
+        </mat-tab>
+        <mat-tab label="Historial (0)">
+          <h1 class="vs-color-grey vs-font-small vs-text-align-center">
+            No hay nada todavia :(
+          </h1>
+         </mat-tab>
+      </mat-tab-group>
+    </div>
+
+    <!-- Request filter -->
+    <div class="col col-md-4">
+     <div class="vs-background-color-white vs-section-widest">
+        <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
+          MIS SOLICITUDES
+        </h1>
+        <hr>
+        <div class="vs-margin-top-xsmall">
+          <mat-list role="list" class="menu">
+            <button  mat-menu-item>
+              <mat-icon>message</mat-icon>
+              Mensajes
+            </button>
+          </mat-list>
+        </div>
+     </div>
+     <div class="vs-background-color-white vs-margin-top-small vs-section-widest">
+        <button
+          mat-raised-button [routerLink]="['/dashboard/solicitar-servicio']"
+          class="vs-text-uppercase vs-remove-shadow vs-full-width"
+          color="primary"
+        >
+          Nueva solicitud
+        </button>
+     </div>
+    </div>
+  </div>
+</div>

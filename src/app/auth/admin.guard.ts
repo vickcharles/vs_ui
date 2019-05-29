@@ -24,10 +24,12 @@ export class AdminGuard implements CanActivate {
      console.log('role papa: '+ this.userService.selectedUser.role)
 
      if (
-        !this.userService.isLoggedIn() ||
-        this.userService.selectedUser.role !== expectedRole
+        !this.userService.isLoggedIn()
+        // this.userService.selectedUser.role !== expectedRole
       ) {
         this.router.navigate(['home']);
+        console.log('esta logueado' + this.userService.isLoggedIn() )
+        console.log('de que tipo es' + this.userService.selectedUser.role )
         return false;
       }
 

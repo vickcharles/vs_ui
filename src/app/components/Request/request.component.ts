@@ -7,6 +7,8 @@ import { Router } from "@angular/router";
 import { MustMatch } from '../../validators/password-match';
 import { MatSnackBar } from '@angular/material';
 
+import { CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
+
 @Component({
   selector: 'app-request',
   templateUrl: './request.component.html',
@@ -26,11 +28,18 @@ export class RequestComponent implements OnInit {
   };
   data: any;
   submitted = false;
+  isCreatingRequest = false;
 
-  @Input('isCreatingRequest') isCreatingRequest;
-  constructor(private snackBar: MatSnackBar, private userService: UserService, private requestService: RequestService, private router: Router, private formBuilder: FormBuilder) {}
+
+  constructor(private next: ActivatedRoute, private snackBar: MatSnackBar, private userService: UserService, private requestService: RequestService, private router: Router, private formBuilder: FormBuilder) {
+    this.next.data.subscribe(v =>
+      this.isCreatingRequest = v.isRequesting
+    );
+  }
 
   ngOnInit() {
+
+
     console.log('mi dato:' + this.isCreatingRequest);
     this.credentials = this.formBuilder.group({
       email: [''.toLowerCase(), Validators.required],

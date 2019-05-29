@@ -1,0 +1,53 @@
+<div class="vs-container">
+    <div class="row">
+
+      <div class="col col-md-8">
+        <div class="row vs-margin-bottom-small">
+          <div class="col col-md-6">
+            <div class="vs-section-widest vs-background-color-vs">
+              <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
+                Nuevas solicitudes
+              </h1>
+              <h1 class="vs-font-super-large vs-text-align-center">
+                  {{requests.length}}
+              </h1>
+            </div>
+          </div>
+
+          <div class="col col-md-6">
+            <div class="vs-section-widest vs-background-color-grey ">
+              <div>
+                <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
+                   Solicitudes en proceso
+                  </h1>
+                  <h1 class="vs-font-super-large vs-text-align-center">
+                      0
+                  </h1>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let request of requests">
+          <admin-app-request-card [request]="request"> </admin-app-request-card>
+        </div>
+        </div>
+
+
+      <div class="col col-md-4">
+       <div class="vs-background-color-white vs-section-widest">
+          <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
+            MIS SOLICITUDES
+          </h1>
+          <hr>
+          <div class="vs-margin-top-xsmall">
+            <mat-list role="list" class="menu">
+              <button  mat-menu-item>
+                <mat-icon>message</mat-icon>
+                Mensajes
+              </button>
+            </mat-list>
+          </div>
+       </div>
+      </div>
+    </div>
+  </div>

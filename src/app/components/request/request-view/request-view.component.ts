@@ -12,13 +12,13 @@ export class RequestViewComponent implements OnInit {
 
   ngOnInit() {
     const id = this.actRoute.snapshot.paramMap.get('id');
+    console.log(id);
     this.getRequest(id);
   }
 
   public getRequest(id: any) {
     this.requestService.getRequest(id).subscribe(
       res => {
-        console.log('BIEN')
         this.requestDetails = res['request'];
         console.log(res['request']);
       },

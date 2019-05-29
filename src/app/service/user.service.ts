@@ -43,7 +43,6 @@ export class UserService {
     return this.http.post(environment.apiBaseUrl + '/user/update', user);
   }
 
-
   //Helper Methods
   setToken(token: string) {
     localStorage.setItem('token', token);

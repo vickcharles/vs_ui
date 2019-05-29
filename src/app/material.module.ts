@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import {
   MatFormFieldModule,
@@ -39,7 +40,8 @@ import {
 		MatIconModule,
 		MatListModule,
 		MatCheckboxModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatDialogModule
   ],
   exports: [
 		MatButtonModule,
@@ -58,6 +60,7 @@ import {
 		MatIconModule,
 		MatCardModule,
 		MatListModule,
+		MatDialogModule,
 		MatToolbarModule
   ]
 })

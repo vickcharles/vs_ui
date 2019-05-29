@@ -23,6 +23,15 @@ $candy-app-warn: mat-palette($mat-red);
         background-color: #ffca28 !important;
     }
 
+    .mat-menu-item .mat-icon {
+        margin-right: 10px !important;
+    }
+
+    .mat-tab-header {
+        margin-bottom: 15px !important;
+        border-radius: 5px !important;
+    }
+
     .mat-raised-button.mat-accent  {
         color: white !important; 
         background-color: #333 !important;
@@ -75,18 +84,11 @@ $candy-app-warn: mat-palette($mat-red);
 
     /* Using plain CSS */
    @media (min-width: 768px) {
-    .mat-tab-label-container {
-        margin: 0 auto;
-		padding-left: 115px;
-		padding-right: 115px;
-		width: 700px;
-    }
+
    }
 
    @media (min-width: 960px) {
-       .mat-tab-label-container {
-         width: 800px;
-       }
+
    }
 
     button {

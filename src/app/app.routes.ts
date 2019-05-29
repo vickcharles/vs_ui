@@ -13,6 +13,10 @@ import { RequestListComponent } from './components/request/request-list/request-
 import { RequestViewComponent } from './components/request/request-view/request-view.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+
+//Admin
+import { AdminRequestViewComponent } from './admin/components/request/request-view/request-view.component';
+import { AdminRequestListComponent } from './admin/components/request/request-list/request-list.component'
 import { ChatComponent } from './components/chat/chat.component';
 
 const APP_MODULE: Routes = [
@@ -39,7 +43,18 @@ const APP_MODULE: Routes = [
     path: 'dashboard/admin',
     component: DashboardComponent,
     canActivate: [AdminGuard],
-    data: { role: 'ADMIN'}
+    data: { role: 'ADMIN'},
+    children: [
+      {
+        path: '',
+        component: AdminRequestListComponent
+      },
+      {
+        path: 'request/:id',
+        component: AdminRequestViewComponent
+      },
+      { path: '', redirectTo: 'dashboard/admin' , pathMatch: 'full' },
+    ],
   },
   {
     path: 'dashboard',
@@ -49,6 +64,11 @@ const APP_MODULE: Routes = [
       {
         path: '',
         component: RequestListComponent
+      },
+      {
+        path: 'solicitar-servicio',
+        component: RequestComponent,
+        data: { isRequesting: true }
       },
       {
         path: 'request/:id',

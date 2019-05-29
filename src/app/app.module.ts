@@ -14,11 +14,11 @@ import { UserService } from './service/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
- 
+
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
 
-//FIREBASE SETTINGS 
+//FIREBASE SETTINGS
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -59,6 +59,13 @@ import { ProfileComponent } from './components/profile/profile.component';
 
 import { ChatComponent } from './components/chat/chat.component';
 
+//admin
+import { AdminRequestListComponent } from './admin/components/request/request-list/request-list.component';
+
+import { AdminRequestCardComponent } from './admin/components/request/request-card/request-card.component';
+
+import { AdminRequestViewComponent } from './admin/components/request/request-view/request-view.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +86,10 @@ import { ChatComponent } from './components/chat/chat.component';
     RequestListComponent,
     RequestsComponent,
     ProfileComponent,
-    ChatComponent
+    ChatComponent,
+    AdminRequestListComponent,
+    AdminRequestCardComponent,
+    AdminRequestViewComponent
   ],
   imports: [
     BrowserModule,

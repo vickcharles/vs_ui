@@ -12,7 +12,7 @@ export class ChatService {
   private itemsCollection: AngularFirestoreCollection<any>;
   public chats: Mensaje[] = [];
   userDetails: any = {};
-
+  private currentCollection: AngularFirestoreCollection<any>;
 
   constructor(private afs: AngularFirestore, private userService: UserService ) {
     this.userService.getUserProfile().subscribe(
@@ -41,4 +41,16 @@ export class ChatService {
      }
      return this.itemsCollection.add(mensaje)
    }
+
+   agregarChatMensaje(texto: string, id: any) {
+    this.currentCollection = this.afs.collection<any>(`chats/${id}/mensajes`);
+    // Falta el ID del usuario
+   let mensaje: Mensaje = {
+      nombre: this.userDetails.name,
+      mensaje: texto,
+      fecha: Date.now(),
+      uid: this.userDetails._id
+    }
+    return this.currentCollection.add(mensaje)
+  }
 }

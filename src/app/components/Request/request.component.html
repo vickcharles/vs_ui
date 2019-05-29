@@ -3,6 +3,12 @@
     <div [ngClass]="{'col-md-10': isCreatingRequest, 'col-md-9': !isCreatingRequest}"
       class="col col-sm-12 vs-margin-top-small vs-margin-center"
     >
+
+      <h1 *ngIf="isCreatingRequest" [routerLink]="['/dashboard']" class="vs-font-xsmall vs-color-dark-grey remove-focus vs-cursor-pointer vs-color-vs">
+        <i class="fas fa-arrow-left vs-color-vs fa-sm vs-margin-right-xsmall"></i>
+          REGRESAR AL DASHBOARD
+      </h1>
+
       <div class="vs-section vs-background-color-white">
         <mat-horizontal-stepper labelPosition="bottom" #stepper>
 
@@ -158,7 +164,7 @@
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
                   <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
                   <button mat-flat-button *ngIf="!isCreatingRequest" (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
-                  <button mat-flat-button *ngIf="isCreatingRequest == 'true'" (click)="nextCreateRequest()" color="primary">ENVIAR SOLICITUD</button>
+                  <button mat-flat-button *ngIf="isCreatingRequest" (click)="nextCreateRequest()" color="primary">ENVIAR SOLICITUD</button>
                 </div>
             </form>
           </mat-step>
