@@ -28,16 +28,15 @@ export class ChatService {
 
   cargarMensajes(id: any) {
     this.itemsCollection = this.afs.collection<any>(`chats/${id}/mensajes`, ref => ref.orderBy('fecha', 'desc').limit(50));
-    return this.itemsCollection.valueChanges().pipe(
+    return this.itemsCollection.snapshotChanges().pipe(
       map((mensajes) => {
-        console.log(mensajes)
         this.chats = []
+        mensajes.forEach((catData: any) => {
+          this.chats.unshift(catData.payload.doc.data());
+        });
 
-        for(let mensaje of mensajes) {
-          this.chats.unshift(mensaje);
-        }
-
-      }))
+        console.log(this.chats)
+      }));
    }
 
    agregarMensaje(texto: string) {

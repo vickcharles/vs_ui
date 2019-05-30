@@ -15,6 +15,7 @@ export class ChatComponent implements OnInit {
   mensaje: string = "";
   elemento: any;
   displayName: String;
+  chats: any[] = [];
   id: any;
   userDetails: any;
   requestDetails: any;
@@ -24,11 +25,8 @@ export class ChatComponent implements OnInit {
     this.cargarMensajes(this.id);
   }
 
-  public cargarMensajes (id) {
+  public cargarMensajes(id) {
     this._cs.cargarMensajes(id).subscribe(() => {
-      setTimeout(() => {
-        this.elemento.scrollTop = this.elemento.scrollHeight;
-      }, 20)
     });
   }
 
