@@ -1,7 +1,7 @@
 <div class="row vs-display-flex vs-margin-top-xsmall">
     <div class="col col-xs-10 col-md-5 col-lg-5 vs-margin-center vs-margin-top-small">
       <div class="vs-section vs-text-align-center col-md-12 vs-background-color-white request-view animated fadeIn">
-        <img src="../../../../assets/img/servicios/alquiler de montacarga.png" alt="">
+        <img src="../../../../assets/img/servicios/{{requestDetails?.tipoDeServicio.nombre}}.png" alt="">
         <h1 class="vs-color-vs vs-font-large">
           {{requestDetails.tipoDeServicio?.nombre | firstChartUppercase }}
         </h1>
@@ -9,7 +9,7 @@
          ( {{requestDetails.tipoDeServicio?.especificamente | firstChartUppercase }} )
         </h1>
         <div class="vs-margin-top-small">
-          <h1 class="vs-font-small vs-display-inline">
+          <h1 class="vs-font-small vs-color-grey vs-display-inline">
             Origen:
           </h1>
           <p class="vs-color-grey vs-font-small vs-margin-remove vs-display-inline">
@@ -17,7 +17,7 @@
           </p>
         </div>
         <div *ngIf="requestDetails.destino">
-          <h1 class="vs-font-small vs-display-inline vs-margin-remove ">
+          <h1 class="vs-font-small vs-color-grey vs-display-inline vs-margin-remove ">
             Destino:
           </h1>
           <p class="vs-color-grey vs-font-small vs-margin-remove vs-display-inline">
@@ -49,14 +49,14 @@
             Hace 2 horas
           </p>
         </div>
-        <h1 *ngIf="fakeStatus === 'Recibido'" class="vs-font-xsmall vs-text-align-left vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
+        <h1 *ngIf="requestDetails.estado === 'recibido'" class="vs-font-xsmall vs-text-align-left vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
           MENSAJES DE ACEPTACION
         </h1>
         <hr>
-        <div *ngIf="fakeStatus === 'Recibido'" class="vs-input-field multiline vs-margin-top-small">
+        <div *ngIf="requestDetails.estado === 'recibido'" class="vs-input-field multiline vs-margin-top-small">
           <input [(ngModel)]="mensaje" class="txt-a" matInput />
         </div>
-        <div *ngIf="fakeStatus == 'Recibido'; else name">
+        <div *ngIf="requestDetails.estado === 'recibido'; else name">
           <div class="col col-md-12 col-md-12">
             <button (click)="aceptarSolicitud()" mat-raised-button  class="vs-text-uppercase vs-remove-shadow" color="primary">
               ACEPTAR SOLICITUD
@@ -64,15 +64,17 @@
           </div>
         </div>
         <ng-template #name>
-          <div class="col col-md-12 col-md-6">
-            <button [routerLink]="['/dashboard/chat', requestDetails._id]" mat-raised-button [routerLink]="['/dashboard/chat/6']" class="vs-text-uppercase vs-margin-bottom-large vs-remove-shadow vs-margin-top-large" color="primary">
-              Enviar mensaje
-            </button>
-          </div>
-          <div class="col col-md-12 col-md-6">
-            <button mat-raised-button [routerLink]="['/dashboard']" class="vs-text-uppercase vs-margin-bottom-large vs-remove-shadow vs-margin-top-large vs-background-color-default" color="primary">
-              mis solicitudes
-            </button>
+          <div class="vs-margin-top-small">
+            <div class="col col-xs-12 col-md-6">
+              <button [routerLink]="['/dashboard/chat', requestDetails._id]" mat-raised-button [routerLink]="['/dashboard/chat/6']" class="vs-text-uppercase  vs-remove-shadow vs-margin-top-xsmall" color="primary">
+                Enviar mensaje
+              </button>
+            </div>
+            <div class="col col-xs-12 col-md-6">
+              <button mat-raised-button [routerLink]="['/dashboard/admin']" class="vs-text-uppercase  vs-remove-shadow vs-background-color-default vs-margin-top-xsmall" color="primary">
+                mis solicitudes
+              </button>
+            </div>
           </div>
         </ng-template>
       </div>

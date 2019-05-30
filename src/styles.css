@@ -628,6 +628,10 @@ body {
     background-color:  #a2a2a2 !important;
 }
 
+.vs-background-color-grey-light {
+   background-color: #e6e6e6;
+}
+
 .vs-background-color-default {
     background-color: #3e3e3e !important;
 }
@@ -805,7 +809,6 @@ body {
         margin-top: 20px !important;
     }
 
-
 }
 
 /* iPads (landscape) ----------- */
@@ -832,6 +835,7 @@ body {
         text-align: left !important;
     }
 
+
     /* Main Banner */
     .main-banner {
       width: 100%;
@@ -855,6 +859,10 @@ body {
 		padding-left: 15px;
 		padding-right: 15px;
 		width: 700px;
+    }
+
+    .vs-margin-right-small-md {
+        margin-right: 20px !important;
     }
 
     .vs-about-us {

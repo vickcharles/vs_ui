@@ -46,7 +46,7 @@ export class AdminRequestViewComponent implements OnInit {
   // *TODO* Enviar mensaje al CHAT y ACTUALIZAR request
   public aceptarSolicitud() {
     const id = this.actRoute.snapshot.paramMap.get('id');
-    this.requestService.updateStatus(id, { status: "en progeso"}).subscribe(
+    this.requestService.updateStatus(id, { status: "en progreso"}).subscribe(
       res => {
         console.log('REQUEST ACTUALIZADO' + res['request']);
         this. _cs.agregarChatMensaje(this.mensaje, id)
@@ -62,7 +62,6 @@ export class AdminRequestViewComponent implements OnInit {
         console.log('ERROR ACEPTANDO SOLICITUD' + err);
       }
     );
-
   }
 
 }

@@ -2,6 +2,22 @@
   <div class="row">
     <div class="col col-md-3 vs-text-align-center">
       <img src="../../../../assets/img/servicios/{{request.tipoDeServicio.nombre}}.png" alt="" />
+      <div class="vs-margin-top-small vs-text-align-center">
+          <p class="vs-font-xsmall vs-color-grey vs-margin-right-xsmall vs-display-inline-block">
+            Origen:
+          </p>
+          <p class="vs-color-grey vs-text-300 vs-font-xsmall vs-display-inline-block">
+            {{request?.origen | firstChartUppercase }}
+          </p>
+        </div>
+        <div *ngIf="request?.destino" class="vs-text-align-center">
+          <p class="vs-font-xsmall vs-color-grey vs-margin-right-xsmall vs-display-inline-block">
+            Destino:
+          </p>
+          <p class="vs-color-grey vs-text-300 vs-font-xsmall vs-display-inline-block">
+            {{request?.destino | firstChartUppercase }}
+          </p>
+        </div>
     </div>
     <div class="col col-md-9">
       <mat-list role="list">

@@ -38,9 +38,6 @@ export class RequestComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
-    console.log('mi dato:' + this.isCreatingRequest);
     this.credentials = this.formBuilder.group({
       email: [''.toLowerCase(), Validators.required],
       password: ['', Validators.required],

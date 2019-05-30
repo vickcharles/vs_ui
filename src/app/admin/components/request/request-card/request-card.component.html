@@ -61,12 +61,17 @@
 
           <div class="vs-text-align-right">
             <button
+              *ngIf="request.estado === 'recibido'"
               mat-raised-button [routerLink]="['/dashboard/admin/request/', request._id]"
               class="vs-text-uppercase vs-remove-shadow"
               color="primary"
             >
               Aceptar
             </button>
+
+            <a *ngIf="request.estado === 'en progreso' " [routerLink]="['/dashboard/admin/request/', request._id]" class="vs-font-small vs-margin-right-xsmall vs-color-grey vs-cursor-pointer">
+              Ver detalles
+            </a>
           </div>
         </mat-list>
       </div>
