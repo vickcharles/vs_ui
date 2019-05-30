@@ -5,7 +5,7 @@
       <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
     </div>
 
-    <div *ngIf="userDetails?.role == 'User'" [routerLink]="['/dashboard']" class="remove-focus vs-cursor-pointer">
+    <div *ngIf="userDetails?.role == 'USER'" [routerLink]="['/dashboard']" class="remove-focus vs-cursor-pointer">
       <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
     </div>
     <div class="header-menu">
@@ -23,7 +23,7 @@
         </button>
       </mat-menu>
 
-      <ngx-avatar *ngIf="userDetails?.role == 'User'"  fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#f5f5f5" name={{displayName}} [round]="true"></ngx-avatar>
+      <ngx-avatar *ngIf="userDetails?.role == 'USER'"  fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#f5f5f5" name={{displayName}} [round]="true"></ngx-avatar>
       <ngx-avatar *ngIf="userDetails?.role == 'ADMIN'" src="assets/img/admin/{{userDetails.name}}.png" fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
     </div>
   </div>

@@ -13,10 +13,10 @@ export class AppComponent implements OnInit {
   constructor(db: AngularFirestore, private wsService: WebsocketService ) {}
 
   ngOnInit() {
-    this.wsService.emit('mensaje', 'nuevo mesnaje perra')
-    this.wsService.listen('mensaje-nuevo').subscribe(res => {
-      console.log(res)
-    })
+    // this.wsService.emit('mensaje', 'nuevo mesnaje perra')
+    // this.wsService.listen('mensaje-nuevo').subscribe(res => {
+    //   console.log(res)
+    // })
   }
 
 }

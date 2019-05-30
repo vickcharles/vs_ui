@@ -14,12 +14,7 @@ export class UserService {
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
-  constructor(private http: HttpClient) {
-
-    this.http.get(environment.apiBaseUrl + '/userProfile').subscribe(res => {
-      this.selectedUser.role = res['user'].role
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   //HttpMethods
   postUser(user: any){

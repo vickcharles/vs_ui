@@ -6,7 +6,7 @@
     <div class="col col-xs-12 col-md-11 vs-margin-center">
       <div class="vs-section-widest vs-background-color-white">
          <div class="vs-display-flex">
-            <ngx-avatar *ngIf="userDetails?.role == 'User'" size="50" src="assets/img/admin/{{requestDetails?.operadorId.name}}.png"></ngx-avatar>
+            <ngx-avatar *ngIf="userDetails?.role == 'USER'" size="50" src="assets/img/admin/{{requestDetails?.operadorId.name}}.png"></ngx-avatar>
             <ngx-avatar *ngIf="userDetails?.role == 'ADMIN'" size="50" name="{{requestDetails?.usuario.name + requestDetails?.usuario.lastName}}"></ngx-avatar>
             <div *ngIf="userDetails?.role == 'User'" class="vs-margin-left-small">
               <h4 class="vs-font-small vs-color-default vs-margin-remove">
