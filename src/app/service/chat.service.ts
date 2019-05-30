@@ -26,9 +26,19 @@ export class ChatService {
     );
   }
 
-   cargarMensajes(id: any) {
+  cargarMensajes(id: any) {
     this.itemsCollection = this.afs.collection<any>(`chats/${id}/mensajes`, ref => ref.orderBy('fecha', 'desc').limit(50));
-    return this.itemsCollection.valueChanges()
+    return this.itemsCollection.valueChanges().pipe(
+      map((mensajes) => {
+        console.log(mensajes)
+        this.chats = []
+        
+        for(let mensaje of mensajes) {
+          this.chats.unshift(mensaje);
+        }
+
+      }))
+
    }
 
    agregarMensaje(texto: string) {
@@ -45,7 +55,7 @@ export class ChatService {
    agregarChatMensaje(texto: string, id: any) {
     this.currentCollection = this.afs.collection<any>(`chats/${id}/mensajes`);
     // Falta el ID del usuario
-   let mensaje: Mensaje = {
+    let mensaje: Mensaje = {
       nombre: this.userDetails.name,
       mensaje: texto,
       fecha: Date.now(),

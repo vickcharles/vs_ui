@@ -18,20 +18,16 @@ export class ChatComponent implements OnInit {
   displayName: String;
 
   userDetails: any;
-
   requestDetails: any;
 
   constructor(private userService: UserService, public _cs: ChatService, private actRoute: ActivatedRoute, private requestService: RequestService) {
     const requestId = this.actRoute.snapshot.paramMap.get('id');
-    this._cs.cargarMensajes(requestId).subscribe((res: any) => {
+    this._cs.cargarMensajes(requestId).subscribe(() => {
+
       setTimeout(() => {
         this.elemento.scrollTop = this.elemento.scrollHeight;
       }, 20)
-        this.chats = [];
-        for(let mensaje of res) {
-          this.chats.unshift(mensaje)
-        }
-    })
+    });
   }
 
   ngOnInit() {
