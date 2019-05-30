@@ -13,17 +13,19 @@ import { UserService } from '../../service/user.service';
 })
 export class ChatComponent implements OnInit {
   mensaje: string = "";
-  chats: any[] = [];
   elemento: any;
   displayName: String;
-
+  id: any;
   userDetails: any;
   requestDetails: any;
 
   constructor(private userService: UserService, public _cs: ChatService, private actRoute: ActivatedRoute, private requestService: RequestService) {
-    const requestId = this.actRoute.snapshot.paramMap.get('id');
-    this._cs.cargarMensajes(requestId).subscribe(() => {
+    this.id = this.actRoute.snapshot.paramMap.get('id');
+    this.cargarMensajes(this.id);
+  }
 
+  public cargarMensajes (id) {
+    this._cs.cargarMensajes(id).subscribe(() => {
       setTimeout(() => {
         this.elemento.scrollTop = this.elemento.scrollHeight;
       }, 20)

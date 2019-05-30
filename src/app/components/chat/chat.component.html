@@ -42,7 +42,8 @@
                 name="mensaje"
                 [(ngModel)]="mensaje"
                 (keyup.enter)="enviar_mensaje()"
-                placeholder="{{userDetails?.role == 'ADMIN' ? 'Escribele un mensaje a ' + requestDetails?.usuario.name : 'Escribele un mensaje a ' + requestDetails?.operadorId.name }}" >
+                placeholder="{{userDetails?.role == 'ADMIN' ? 'Escribele un mensaje a ' + requestDetails?.usuario.name : 'Escribele un mensaje a ' + requestDetails?.operadorId.name }}" 
+              >
             </div>
           </div>
        </div>

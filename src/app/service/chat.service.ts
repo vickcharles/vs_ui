@@ -32,13 +32,12 @@ export class ChatService {
       map((mensajes) => {
         console.log(mensajes)
         this.chats = []
-        
+
         for(let mensaje of mensajes) {
           this.chats.unshift(mensaje);
         }
 
       }))
-
    }
 
    agregarMensaje(texto: string) {
