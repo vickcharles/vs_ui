@@ -31,10 +31,10 @@
             {{!onProgress ? "NUEVAS SOLICITUDES" : "SOLICITUDES EN PROGRESO" }}
           </h1>
           <hr class="vs-background-color-grey-light vs-margin-bottom-small">
-          <h1 *ngIf="!onProgress && requests.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
+          <h1 *ngIf="!onProgress && requests?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
               No tienes nuevas solicitudes
           </h1>
-          <h1 *ngIf="onProgress && requestOnProgress.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
+          <h1 *ngIf="onProgress && requestOnProgress?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
               No tienes solicitudes en progreso
           </h1>
           <div *ngIf="!onProgress">

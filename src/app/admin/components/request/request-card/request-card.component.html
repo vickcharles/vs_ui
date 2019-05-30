@@ -1,7 +1,7 @@
 <div class="card-request vs-border-decoration vs-section-widest vs-background-color-white vs-margin-bottom-small">
     <div class="row">
       <div class="col col-md-3 vs-text-align-center">
-        <img src="../../../../assets/img/servicios/{{request.tipoDeServicio.nombre}}.png" alt="" />
+        <img src="../../../../assets/img/servicios/{{request?.tipoDeServicio.nombre}}.png" alt="" />
           <div class="vs-margin-top-small vs-text-align-center">
             <p class="vs-font-xsmall vs-color-dark-grey vs-margin-right-xsmall vs-display-inline-block">
               Origen:
@@ -30,15 +30,15 @@
                 Tipo de servicio:
               </p>
               <p class="vs-color-grey vs-text-300 vs-font-xsmall vs-display-inline-block">
-                {{request.tipoDeServicio?.nombre | firstChartUppercase }}
+                {{request?.tipoDeServicio?.nombre | firstChartUppercase }}
               </p>
             </div>
-            <div *ngIf="request.tipoDeServicio.especificamente">
+            <div *ngIf="request?.tipoDeServicio.especificamente">
               <p class="vs-font-xsmall vs-color-dark-grey vs-margin-right-xsmall vs-display-inline-block">
                 Especificamente:
               </p>
               <p class="vs-color-grey vs-text-300 vs-font-xsmall vs-display-inline-block">
-                {{request.tipoDeServicio?.especificamente | firstChartUppercase }}
+                {{request?.tipoDeServicio?.especificamente | firstChartUppercase }}
               </p>
             </div>
               <div>

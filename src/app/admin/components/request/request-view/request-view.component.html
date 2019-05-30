@@ -3,10 +3,10 @@
       <div class="vs-section vs-text-align-center col-md-12 vs-background-color-white request-view animated fadeIn">
         <img src="../../../../assets/img/servicios/{{requestDetails?.tipoDeServicio.nombre}}.png" alt="">
         <h1 class="vs-color-vs vs-font-large">
-          {{requestDetails.tipoDeServicio?.nombre | firstChartUppercase }}
+          {{requestDetails?.tipoDeServicio?.nombre | firstChartUppercase }}
         </h1>
-        <h1 *ngIf="requestDetails.tipoDeServicio.especificamente" class="vs-color-grey vs-font-small vs-margin-remove">
-         ( {{requestDetails.tipoDeServicio?.especificamente | firstChartUppercase }} )
+        <h1 *ngIf="requestDetails?.tipoDeServicio?.especificamente" class="vs-color-grey vs-font-small vs-margin-remove">
+         ( {{requestDetails?.tipoDeServicio?.especificamente | firstChartUppercase }} )
         </h1>
         <div class="vs-margin-top-small">
           <h1 class="vs-font-small vs-color-grey vs-display-inline">
@@ -16,7 +16,7 @@
             {{requestDetails?.origen | firstChartUppercase }}
           </p>
         </div>
-        <div *ngIf="requestDetails.destino">
+        <div *ngIf="requestDetails?.destino">
           <h1 class="vs-font-small vs-color-grey vs-display-inline vs-margin-remove ">
             Destino:
           </h1>
@@ -29,8 +29,8 @@
             Cliente:
           </h1>
           <p class="vs-color-grey vs-font-small vs-margin-remove">
-            {{requestDetails.usuario.name | firstChartUppercase }}
-            {{requestDetails.usuario.lastName | firstChartUppercase }}
+            {{requestDetails?.usuario.name | firstChartUppercase }}
+            {{requestDetails?.usuario.lastName | firstChartUppercase }}
           </p>
         </div>
         <div class="vs-margin-top-medium">
@@ -38,7 +38,7 @@
             Mensaje:
           </h1>
           <p class="vs-margin-remove vs-color-grey">
-            {{requestDetails.mensaje}}
+            {{requestDetails?.mensaje}}
           </p>
         </div>
         <div class="vs-margin-top-medium vs-margin-bottom-small">
@@ -49,14 +49,14 @@
             Hace 2 horas
           </p>
         </div>
-        <h1 *ngIf="requestDetails.estado === 'recibido'" class="vs-font-xsmall vs-text-align-left vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
+        <h1 *ngIf="requestDetails?.estado === 'recibido'" class="vs-font-xsmall vs-text-align-left vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
           MENSAJES DE ACEPTACION
         </h1>
         <hr>
-        <div *ngIf="requestDetails.estado === 'recibido'" class="vs-input-field multiline vs-margin-top-small">
+        <div *ngIf="requestDetails?.estado === 'recibido'" class="vs-input-field multiline vs-margin-top-small">
           <input [(ngModel)]="mensaje" class="txt-a" matInput />
         </div>
-        <div *ngIf="requestDetails.estado === 'recibido'; else name">
+        <div *ngIf="requestDetails?.estado === 'recibido'; else name">
           <div class="col col-md-12 col-md-12">
             <button (click)="aceptarSolicitud()" mat-raised-button  class="vs-text-uppercase vs-remove-shadow" color="primary">
               ACEPTAR SOLICITUD
@@ -66,13 +66,13 @@
         <ng-template #name>
           <div class="vs-margin-top-small">
             <div class="col col-xs-12 col-md-6">
-              <button [routerLink]="['/dashboard/chat', requestDetails._id]" mat-raised-button [routerLink]="['/dashboard/chat/6']" class="vs-text-uppercase  vs-remove-shadow vs-margin-top-xsmall" color="primary">
+              <button [routerLink]="['/dashboard/chat', requestDetails?._id]" mat-raised-button [routerLink]="['/dashboard/chat/6']" class="vs-text-uppercase  vs-remove-shadow vs-margin-top-xsmall" color="primary">
                 Enviar mensaje
               </button>
             </div>
             <div class="col col-xs-12 col-md-6">
               <button mat-raised-button [routerLink]="['/dashboard/admin']" class="vs-text-uppercase  vs-remove-shadow vs-background-color-default vs-margin-top-xsmall" color="primary">
-                mis solicitudes
+                ir al dashboard
               </button>
             </div>
           </div>
