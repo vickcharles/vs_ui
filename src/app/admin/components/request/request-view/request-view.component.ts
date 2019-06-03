@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../../service/request.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ChatService } from '../../../../service/chat.service';
+import { WebsocketService } from '../../../../service/websocket.service'
 
 @Component({
   selector: 'app-request-view',
@@ -12,7 +13,7 @@ export class AdminRequestViewComponent implements OnInit {
   fakeStatus =  'Recibido';
   mensaje: string = "";
 
-  constructor(public _cs: ChatService, private requestService: RequestService, private actRoute: ActivatedRoute, private router: Router) { }
+  constructor(private wsService: WebsocketService, public _cs: ChatService, private requestService: RequestService, private actRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const id = this.actRoute.snapshot.paramMap.get('id');
@@ -44,10 +45,18 @@ export class AdminRequestViewComponent implements OnInit {
   }
 
   // *TODO* Enviar mensaje al CHAT y ACTUALIZAR request
-  public aceptarSolicitud() {
+  public aceptarSolicitud(idUsuario: any) {
+    console.log(idUsuario)
     const id = this.actRoute.snapshot.paramMap.get('id');
     this.requestService.updateStatus(id, { status: "en progreso"}).subscribe(
+
       res => {
+        let payload = {
+           receiver: idUsuario,
+           message: 'ha cambiado pues tu solicitud en proceso',
+        }
+        this.wsService.emit('notifications', payload)
+
         console.log('REQUEST ACTUALIZADO' + res['request']);
         this. _cs.agregarChatMensaje(this.mensaje, id)
           .then(() => {

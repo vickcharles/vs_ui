@@ -57,7 +57,7 @@
         </mat-tab>
         <mat-tab label="En progreso ({{requestsOnProgress.length}})">
           <h1 *ngIf="requestsOnProgress.length == 0; else request" class="vs-color-grey vs-font-small vs-text-align-center">
-              No hay nada todavia :(
+            No hay nada todavia :(
           </h1>
           <ng-template #request>
             <div *ngFor="let request of requestsOnProgress">
@@ -77,6 +77,17 @@
     <!-- Request filter -->
     <div class="col col-md-4">
      <div class="vs-background-color-white vs-section-widest">
+        <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
+          <i class="far fa-bell fa-lg vs-margin-right-xsmall"></i>
+          NOTIFICACIONES
+        </h1>
+        <hr>
+        <div class="vs-margin-top-xsmall">
+          <app-notifications>
+          </app-notifications>
+        </div>
+     </div>
+     <div class="vs-background-color-white vs-section-widest vs-margin-top-small">
         <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
           MIS SOLICITUDES
         </h1>

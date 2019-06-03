@@ -1,0 +1,34 @@
+
+<div class="vs-full-width">
+    <div class="vs-notification-list">
+      <div *ngFor="let notification of notifications"  class="vs-notification vs-cursor-pointer  vs-margin-top-small">
+        <div class="vs-display-flex">
+            <ngx-avatar class="vs-margin-right-xsmall" size="35" src="assets/img/admin/Maris.png" fgColor="#3e3e3e"  bgColor="#FFF"  [round]="true"></ngx-avatar>
+            <h1 class="vs-font-xsmall vs-margin-remove">
+              <span class="vs-color-grey">
+                {{notification.sender.name}}
+                {{notification.sender.lastName}}
+              </span>
+              <span class="vs-color-grey vs-text-300">
+                {{notification.message}}
+              </span>
+              <br>
+              <span class="vs-color-grey time vs-margin-top-small vs-text-align-right">
+                {{notification.created_at | amLocale:'es'  | amTimeAgo}}
+              </span>
+            </h1>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- <mat-list role="list" class="menu">
+  <button  mat-menu-item>
+    <i class="far fa-bell fa-2x vs-margin-right-xsmall"></i>
+    <span> Notificationes </span>
+  </button>
+  <div class="vs-notifications-list">
+
+  </div>
+</mat-list> -->

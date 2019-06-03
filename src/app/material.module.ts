@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 // Material Components
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
-import {CdkStepperModule} from '@angular/cdk/stepper';
+import { CdkStepperModule } from '@angular/cdk/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio'
 import { MatTabsModule } from '@angular/material/tabs';

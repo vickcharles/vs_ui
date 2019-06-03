@@ -15,7 +15,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
-const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
+import { MomentModule } from 'angular2-moment';
+
+const config: SocketIoConfig = { url: 'http://localhost:8000', options: {
+    query: {
+      token: localStorage.getItem('token')
+    }
+  }};
 
 
 //FIREBASE SETTINGS
@@ -65,6 +71,7 @@ import { AdminRequestListComponent } from './admin/components/request/request-li
 import { AdminRequestCardComponent } from './admin/components/request/request-card/request-card.component';
 
 import { AdminRequestViewComponent } from './admin/components/request/request-view/request-view.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +96,8 @@ import { AdminRequestViewComponent } from './admin/components/request/request-vi
     ChatComponent,
     AdminRequestListComponent,
     AdminRequestCardComponent,
-    AdminRequestViewComponent
+    AdminRequestViewComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +113,8 @@ import { AdminRequestViewComponent } from './admin/components/request/request-vi
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     APP_ROUTING,
-    FormsModule
+    FormsModule,
+    MomentModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

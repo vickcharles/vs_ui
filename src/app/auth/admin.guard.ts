@@ -25,11 +25,9 @@ export class AdminGuard implements CanActivate {
 
      if (
         !this.userService.isLoggedIn()
-        // this.userService.selectedUser.role !== expectedRole
+        || tokenPayload.role !== expectedRole
       ) {
         this.router.navigate(['home']);
-        console.log('esta logueado' + this.userService.isLoggedIn() )
-        console.log('de que tipo es' + this.userService.selectedUser.role )
         return false;
       }
 

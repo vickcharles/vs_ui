@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/user.service';
 import { Router } from "@angular/router";
 // import { MatSnackBar } from '@angular/material';
+import { WebsocketService } from '../../service/websocket.service'
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,10 @@ export class DashboardComponent implements OnInit {
   userDetails: any;
   displayName: any;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(
+    private userService: UserService, 
+    private router: Router,
+  private ws: WebsocketService ) { }
 
   ngOnInit() {
     // this.openSnackBar();

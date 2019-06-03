@@ -58,7 +58,7 @@
         </div>
         <div *ngIf="requestDetails?.estado === 'recibido'; else name">
           <div class="col col-md-12 col-md-12">
-            <button (click)="aceptarSolicitud()" mat-raised-button  class="vs-text-uppercase vs-remove-shadow" color="primary">
+            <button (click)="aceptarSolicitud(requestDetails.usuario._id)" mat-raised-button  class="vs-text-uppercase vs-remove-shadow" color="primary">
               ACEPTAR SOLICITUD
             </button>
           </div>
