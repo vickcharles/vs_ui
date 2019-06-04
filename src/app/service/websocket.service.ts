@@ -11,19 +11,19 @@ export class WebsocketService {
     this.checkStatus()
   }
 
-  reconectar() {
-    this.socket.on('reconnect_attempt', () => {
-      this.socket.emptyConfig.options.query = {
-        token: localStorage.getItem('token')
-      }
-    });
-  }
 
   checkStatus() {
     this.socket.on('connect', () => {
+      this.socket.emit('authenticate', {token: localStorage.getItem('token')}); //send the jwt
       console.log('Conectado al servidor')
       this.socketStatus = true;
+
+      this.socket
+    .on('authenticated', function () {
+      console.log('USUARIO AUTENTICADO CON SOCKEY')
+    })
     });
+
 
     this.socket.on('disconnect', () => {
       console.log('Desconectado del servidor')

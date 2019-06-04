@@ -17,13 +17,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { MomentModule } from 'angular2-moment';
 
-const config: SocketIoConfig = { url: 'http://localhost:8000', options: {
-    query: {
-      token: localStorage.getItem('token')
-    }
-  }};
-
-
+const config: SocketIoConfig = { url: 'http://localhost:8000', options: {}};
 
 //FIREBASE SETTINGS
 import { AngularFireModule } from '@angular/fire';

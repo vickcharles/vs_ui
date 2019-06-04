@@ -13,11 +13,8 @@ export class LoginComponent implements OnInit {
   serverErrorMessages: String;
 
   constructor(private userService: UserService,
-    private router: Router, 
-    private formBuilder: FormBuilder,
-    public ws: WebsocketService) {
-
-   }
+    private router: Router,
+    private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.credentials = this.formBuilder.group({
@@ -36,11 +33,11 @@ export class LoginComponent implements OnInit {
           this.userService.setToken(res['token']);
           this.router.navigateByUrl('/dashboard');
         }
-
       },
       err => {
         this.serverErrorMessages = err.error.message;
       }
     );
   }
+
 }

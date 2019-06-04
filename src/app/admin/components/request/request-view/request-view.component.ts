@@ -3,6 +3,7 @@ import { RequestService } from '../../../../service/request.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ChatService } from '../../../../service/chat.service';
 import { WebsocketService } from '../../../../service/websocket.service'
+import { UserService } from '../../../../service/user.service';
 
 @Component({
   selector: 'app-request-view',
@@ -12,8 +13,24 @@ export class AdminRequestViewComponent implements OnInit {
   requestDetails: any;
   fakeStatus =  'Recibido';
   mensaje: string = "";
+  UserId: any;
 
-  constructor(private wsService: WebsocketService, public _cs: ChatService, private requestService: RequestService, private actRoute: ActivatedRoute, private router: Router) { }
+  constructor(private wsService: WebsocketService,
+    public _cs: ChatService,
+    private requestService: RequestService,
+    private actRoute: ActivatedRoute,
+    private us: UserService,
+    private router: Router) {
+
+      this.us.getUserProfile().subscribe(
+        res => {
+          this.UserId = res['user']._id;
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
 
   ngOnInit() {
     const id = this.actRoute.snapshot.paramMap.get('id');
@@ -52,6 +69,7 @@ export class AdminRequestViewComponent implements OnInit {
 
       res => {
         let payload = {
+           userId: this.UserId,
            receiver: idUsuario,
            message: 'ha cambiado pues tu solicitud en proceso',
         }

@@ -34,7 +34,6 @@ export class ChatService {
         mensajes.forEach((catData: any) => {
           this.chats.unshift(catData.payload.doc.data());
         });
-
         console.log(this.chats)
       }));
    }

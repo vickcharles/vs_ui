@@ -10,7 +10,7 @@ import { WebsocketService } from './service/websocket.service';
 export class AppComponent implements OnInit {
   title = 'vs-ui';
 
-  constructor(db: AngularFirestore, public wS: WebsocketService) {
+  constructor(db: AngularFirestore) {
   }
 
   ngOnInit() {}

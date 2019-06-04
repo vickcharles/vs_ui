@@ -11,7 +11,6 @@ export class AdminRequestListComponent implements OnInit {
   requestOnProgress: any;
   onProgress = true;
 
-
   constructor(private requestService: RequestService) { }
 
   ngOnInit() {
