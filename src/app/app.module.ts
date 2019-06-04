@@ -24,6 +24,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8000', options: {
   }};
 
 
+
 //FIREBASE SETTINGS
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';

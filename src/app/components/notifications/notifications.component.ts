@@ -9,7 +9,7 @@ import { WebsocketService } from '../../service/websocket.service'
 export class NotificationsComponent implements OnInit {
   notifications: any;
   constructor(private wsService: WebsocketService) {
-    this.wsService.emit('listen-notifications')
+    this.wsService.emit('listen-notifications');
     this.wsService.listen('new-notifications')
     .subscribe(res => {
       this.notifications = res

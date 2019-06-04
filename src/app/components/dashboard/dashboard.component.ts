@@ -3,6 +3,7 @@ import { UserService } from '../../service/user.service';
 import { Router } from "@angular/router";
 // import { MatSnackBar } from '@angular/material';
 import { WebsocketService } from '../../service/websocket.service'
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,13 +11,16 @@ import { WebsocketService } from '../../service/websocket.service'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
   userDetails: any;
   displayName: any;
 
   constructor(
-    private userService: UserService, 
+    private userService: UserService,
+    private socket: Socket,
     private router: Router,
-  private ws: WebsocketService ) { }
+    public ws: WebsocketService ) {
+    }
 
   ngOnInit() {
     // this.openSnackBar();

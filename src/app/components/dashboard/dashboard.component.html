@@ -5,7 +5,7 @@
       <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
     </div>
 
-    <div *ngIf="userDetails?.role == 'USER'" [routerLink]="['/dashboard']" class="remove-focus vs-cursor-pointer">
+    <div *ngIf="userDetails?.role == 'User'" [routerLink]="['/dashboard']" class="remove-focus vs-cursor-pointer">
       <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
     </div>
     <div class="header-menu">
@@ -14,7 +14,8 @@
         <i class="fas fa-caret-down vs-color-white"></i>
       </h1>
       <mat-menu class="vs-margin-top-xsmall menu" #menu="matMenu" xPosition="before">
-        <button class="vs-color-vs" [routerLink]="['/dashboard/profile']"  mat-menu-item> Ver/Editar Perfil</button>
+        <button *ngIf="userDetails?.role == 'ADMIN'" class="vs-color-vs" routerLink="/dashboard/admin/profile"  mat-menu-item> Ver/Editar Perfil</button>
+        <button *ngIf="userDetails?.role == 'User'" class="vs-color-vs" routerLink="/dashboard/profile"  mat-menu-item> Ver/Editar Perfil</button>
         <button class="vs-color-vs" mat-menu-item> Mensajes </button>
         <button class="vs-color-vs" mat-menu-item>Ayuda</button>
         <button (click)="onLogout()" class="vs-color-vs" mat-menu-item>

@@ -8,25 +8,30 @@ export class WebsocketService {
   public socketStatus = false;
 
   constructor(private socket: Socket) {
-    this.checkStatus();
+    this.checkStatus()
+  }
+
+  reconectar() {
+    this.socket.on('reconnect_attempt', () => {
+      this.socket.emptyConfig.options.query = {
+        token: localStorage.getItem('token')
+      }
+    });
   }
 
   checkStatus() {
     this.socket.on('connect', () => {
       console.log('Conectado al servidor')
-      this.socketStatus = false;
+      this.socketStatus = true;
     });
 
     this.socket.on('disconnect', () => {
       console.log('Desconectado del servidor')
-      this.socketStatus = true;
+      this.socketStatus = false;
     });
   }
 
   public emit(evento: string, payload?: any, callback?: Function) {
-    this.socket.emptyConfig.options.query = {
-      token: localStorage.getItem('token')
-    }
     this.socket.emit(evento, payload, callback);
   }
 

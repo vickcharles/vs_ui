@@ -45,9 +45,9 @@
     <!-- Request list -->
     <div class="col col-md-8">
       <mat-tab-group animationDuration="0ms">
-        <mat-tab label="Pendiente ({{requests.length}})">
+        <mat-tab label="Pendiente ({{requests?.length}})">
           <div className="vs-margin-top-small">
-              <h1 *ngIf="requests.length == 0" class="vs-color-grey vs-font-small vs-text-align-center">
+              <h1 *ngIf="requests?.length == 0" class="vs-color-grey vs-font-small vs-text-align-center">
                   No hay nada todavia :(
               </h1>
             <div *ngFor="let request of requests">
@@ -55,8 +55,8 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="En progreso ({{requestsOnProgress.length}})">
-          <h1 *ngIf="requestsOnProgress.length == 0; else request" class="vs-color-grey vs-font-small vs-text-align-center">
+        <mat-tab label="En progreso ({{requestsOnProgress?.length}})">
+          <h1 *ngIf="requestsOnProgress?.length == 0; else request" class="vs-color-grey vs-font-small vs-text-align-center">
             No hay nada todavia :(
           </h1>
           <ng-template #request>
