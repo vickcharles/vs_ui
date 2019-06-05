@@ -17,7 +17,7 @@
           Status:
         </h1>
         <h1 class="vs-color-status vs-font-small vs-margin-remove">
-          {{requestDetails.estado}}
+          {{requestDetails?.estado}}
         </h1>
       </div>
       <div class="vs-margin-top-medium">
@@ -25,7 +25,7 @@
           Mensaje:
         </h1>
         <p class="vs-margin-remove vs-color-grey">
-          {{requestDetails.mensaje}}
+          {{requestDetails?.mensaje}}
         </p>
       </div>
       <div class="vs-margin-top-medium">
@@ -33,7 +33,7 @@
           Ultima actualizacion:
         </h1>
         <p class="vs-margin-remove vs-color-grey">
-          Hace 2 horas
+          {{requestDetails?.created_at | amLocale: 'es'  | amTimeAgo}}
         </p>
       </div>
       <hr class="vs-margin-top-medium">

@@ -806,8 +806,12 @@ body {
     max-width: 180px;
 }
 
-/*PROFILE */
+.vs-notification-list {
+    height: 280px !important;
+    overflow-y: scroll !important;
+}
 
+/*PROFILE */
 .webkit-inline-box {
     display: -webkit-inline-box !important;
 }

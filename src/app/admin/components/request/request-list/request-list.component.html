@@ -18,7 +18,7 @@
             <div (click)="toggleMenuOnProgress()" class="vs-section-widest vs-cursor-pointer vs-background-color-grey-light">
               <div>
                 <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
-                   Solicitudes en progreso
+                   Solicitudes en proceso
                   </h1>
                   <h1 class="vs-font-super-large vs-text-align-center">
                     {{requestOnProgress?.length}}
@@ -28,14 +28,14 @@
           </div>
         </div>
           <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
-            {{!onProgress ? "NUEVAS SOLICITUDES" : "SOLICITUDES EN PROGRESO" }}
+            {{!onProgress ? "NUEVAS SOLICITUDES" : "SOLICITUDES EN PROCESO" }}
           </h1>
           <hr class="vs-background-color-grey-light vs-margin-bottom-small">
           <h1 *ngIf="!onProgress && requests?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
               No tienes nuevas solicitudes
           </h1>
           <h1 *ngIf="onProgress && requestOnProgress?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
-              No tienes solicitudes en progreso
+              No tienes solicitudes en proceso
           </h1>
           <div *ngIf="!onProgress">
             <div *ngFor="let request of requests">

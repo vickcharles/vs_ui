@@ -1,4 +1,7 @@
 <div class="card-request vs-border-decoration vs-section-widest vs-background-color-white vs-margin-bottom-small">
+  <h1 class="vs-text-align-right vs-font-xsmall vs-color-grey vs-margin-remove">
+      {{request.created_at | amLocale: 'es'  | amTimeAgo}}
+  </h1>
     <div class="row">
       <div class="col col-md-3 vs-text-align-center">
         <img src="../../../../assets/img/servicios/{{request?.tipoDeServicio.nombre}}.png" alt="" />
@@ -69,7 +72,7 @@
               Aceptar
             </button>
 
-            <a *ngIf="request.estado === 'en progreso' " [routerLink]="['/dashboard/admin/request/', request._id]" class="vs-font-small vs-margin-right-xsmall vs-color-grey vs-cursor-pointer">
+            <a *ngIf="request.estado === 'en proceso' " [routerLink]="['/dashboard/admin/request/', request._id]" class="vs-font-small vs-margin-right-xsmall vs-color-grey vs-cursor-pointer">
               Ver detalles
             </a>
           </div>

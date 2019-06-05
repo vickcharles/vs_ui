@@ -54,7 +54,7 @@ export class AdminRequestViewComponent implements OnInit {
   public updateRequest(id: any, status) {
     this.requestService.updateStatus(id, status).subscribe(
       res => {
-        console.log('REQUEST ACTUALIZADO' + res['request']);
+        console.log('REQUEST ACTUALIZADO ' + res['request']);
       },
       err => {
         console.log(err);
@@ -65,8 +65,9 @@ export class AdminRequestViewComponent implements OnInit {
   //METODOS PARA ACEPTAR SOLICITUDES NUEVAS
   public aceptarSolicitud(idUsuario: any) {
     this.isLoading = true;
+
     const id = this.actRoute.snapshot.paramMap.get('id');
-    this.requestService.updateStatus(id, { status: "en progreso"}).subscribe(
+    this.requestService.updateStatus(id, { status: "en proceso"}).subscribe(
 
       res => {
         let payload = {

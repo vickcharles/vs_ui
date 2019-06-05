@@ -43,7 +43,7 @@ export class AdminRequestListComponent implements OnInit {
     this.requestService.getAdminRequests().subscribe(
       res => {
         this.requestOnProgress = res['requests'];
-        this.requestOnProgress = this.requestOnProgress.filter((e) => e.estado === 'en progreso');
+        this.requestOnProgress = this.requestOnProgress.filter((e) => e.estado === 'en proceso');
         console.log(res['requests']);
       },
       err => {

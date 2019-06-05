@@ -19,9 +19,9 @@ export class RequestListComponent implements OnInit {
   public getAllRequestOnProgress() {
     this.requestService.getRequests().subscribe(
       res => {
-        this.requestsOnProgress = res['requests']
+        this.requestsOnProgress = res['requests'];
         console.log(res['requests']);
-        this.requestsOnProgress = this.requestsOnProgress.filter((e) => e.estado === 'en progreso');
+        this.requestsOnProgress = this.requestsOnProgress.filter((e) => e.estado === 'en proceso');
         console.log(this.requestsOnProgress);
       },
       err => {

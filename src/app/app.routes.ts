@@ -53,6 +53,10 @@ const APP_MODULE: Routes = [
         component: ProfileComponent
       },
       {
+        path: 'chat/:id',
+        component: ChatComponent
+      },
+      {
         path: 'request/:id',
         component: AdminRequestViewComponent
       },

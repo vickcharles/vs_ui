@@ -38,7 +38,15 @@
             Estado:
           </h1>
           <h1 class="vs-color-status vs-font-xsmall">
-            {{request.estado}}
+            {{request.estado | firstChartUppercase}}
+          </h1>
+        </div>
+        <div class="vs-display-flex">
+          <h1 class="vs-font-xsmall vs-margin-remove vs-margin-right-xsmall">
+            Fecha creacion:
+          </h1>
+          <h1 class="vs-color-grey vs-margin-remove vs-font-xsmall">
+            {{request.created_at | amLocale: 'es'  | amTimeAgo}}
           </h1>
         </div>
         <div class="vs-text-align-right">
