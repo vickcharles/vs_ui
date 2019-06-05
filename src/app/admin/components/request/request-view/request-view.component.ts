@@ -62,17 +62,17 @@ export class AdminRequestViewComponent implements OnInit {
     );
   }
 
+  //METODOS PARA ACEPTAR SOLICITUDES NUEVAS
   public aceptarSolicitud(idUsuario: any) {
     this.isLoading = true;
     const id = this.actRoute.snapshot.paramMap.get('id');
     this.requestService.updateStatus(id, { status: "en progreso"}).subscribe(
 
       res => {
-
         let payload = {
           userId: this.UserId,
           receiver: idUsuario,
-          message: 'ha cambiado pues tu solicitud en proceso',
+          message: 'ha puesto tu solicitud en proceso',
         }
 
         this.wsService.emit('notifications', payload)
