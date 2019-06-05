@@ -164,7 +164,13 @@
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
                   <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
                   <button mat-flat-button *ngIf="!isCreatingRequest" (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
-                  <button mat-flat-button *ngIf="isCreatingRequest" (click)="nextCreateRequest()" color="primary">ENVIAR SOLICITUD</button>
+                  <div *ngIf="isCreatingRequest" >
+                    <button mat-flat-button *ngIf="!isLoading; else spinner" (click)="nextCreateRequest()" color="primary">CREAR SOLICITUD</button>
+                    <ng-template #spinner>
+                      <mat-spinner class="vs-margin-center">
+                      </mat-spinner>
+                    </ng-template>
+                  </div>
                 </div>
             </form>
           </mat-step>
@@ -294,7 +300,13 @@
 
             <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
               <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
-              <button mat-flat-button color="primary" (click)="register()" matStepperNext>CONTINUAR</button>
+              <button *ngIf="!isLoading; else spinner" mat-flat-button color="primary" (click)="register()" matStepperNext>
+                CONTINUAR
+              </button>
+              <ng-template #spinner>
+                <mat-spinner class="vs-margin-center">
+                </mat-spinner>
+              </ng-template>
             </div>
 
          </mat-step>

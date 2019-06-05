@@ -11,9 +11,13 @@
           <span class="vs-field-label">Contraseña</span>
           <input type="password" formControlName="password" matInput>
         </form>
-        <button class="vs-margin-top-xsmall" (click)="login()" mat-flat-button color="primary">
+        <button *ngIf="!isLoading; else spinner" class="vs-margin-top-xsmall" (click)="login()" mat-flat-button color="primary">
           CONTINUAR
         </button>
+        <ng-template #spinner>
+          <mat-spinner class="vs-margin-center"></mat-spinner>
+        </ng-template>
+
         <hr class="vs-margin-top-small">
         <div>
         <p class="vs-color-grey">

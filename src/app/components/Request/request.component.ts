@@ -23,6 +23,8 @@ export class RequestComponent implements OnInit {
   request: FormGroup;
   user: FormGroup;
   isOptional= false;
+
+  isLoading: Boolean = false;
   errors: any = {
     tipoDeServicio: String
   };
@@ -90,7 +92,6 @@ export class RequestComponent implements OnInit {
     console.log(this.isRegistered);
   }
 
-
   openSnackBar() {
     this.snackBar.open('Solicitud enviada satisfactoriamete', 'ok', {
       duration: 4000,
@@ -105,12 +106,14 @@ export class RequestComponent implements OnInit {
         this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
       },
       err => {
+        console.log('Error creando request');
         this.serverErrorMessages = err.error.message;
       }
     );
   }
 
   register() {
+    this.isLoading = true;
     this.submitted = true;
 
     if(this.user.valid && !this.isRegistered) {
@@ -122,12 +125,14 @@ export class RequestComponent implements OnInit {
 
       this.userService.postUserAndRequest(this.data).subscribe(
         res => {
+          this.isLoading = false;
           this.userService.setToken(res['token']);
           this.openSnackBar();
           this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
         },
         err => {
           if (err.status === 422) {
+            this.isLoading = false;
             this.serverErrorMessages = err.error.join('<br/>');
           }
           else
@@ -138,10 +143,12 @@ export class RequestComponent implements OnInit {
     } else if (this.credentials.valid && this.isRegistered) {
       this.userService.login(this.credentials.value).subscribe(
         res => {
+          this.isLoading = false;
           this.userService.setToken(res['token']);
           this.createRequest(this.request.value);
         },
         err => {
+          this.isLoading = false;
           this.serverErrorMessages = err.error.message;
         }
       );

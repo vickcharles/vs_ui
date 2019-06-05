@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import {
   MatFormFieldModule,
@@ -41,7 +42,8 @@ import {
 		MatListModule,
 		MatCheckboxModule,
 		MatSnackBarModule,
-		MatDialogModule
+		MatDialogModule,
+		MatProgressSpinnerModule
   ],
   exports: [
 		MatButtonModule,
@@ -61,7 +63,8 @@ import {
 		MatCardModule,
 		MatListModule,
 		MatDialogModule,
-		MatToolbarModule
+		MatToolbarModule,
+		MatProgressSpinnerModule
   ]
 })
 

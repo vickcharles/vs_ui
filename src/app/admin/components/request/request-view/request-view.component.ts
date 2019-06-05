@@ -14,6 +14,7 @@ export class AdminRequestViewComponent implements OnInit {
   fakeStatus =  'Recibido';
   mensaje: string = "";
   UserId: any;
+  isLoading  = false;
 
   constructor(private wsService: WebsocketService,
     public _cs: ChatService,
@@ -61,31 +62,34 @@ export class AdminRequestViewComponent implements OnInit {
     );
   }
 
-  // *TODO* Enviar mensaje al CHAT y ACTUALIZAR request
   public aceptarSolicitud(idUsuario: any) {
-    console.log(idUsuario)
+    this.isLoading = true;
     const id = this.actRoute.snapshot.paramMap.get('id');
     this.requestService.updateStatus(id, { status: "en progreso"}).subscribe(
 
       res => {
+
         let payload = {
-           userId: this.UserId,
-           receiver: idUsuario,
-           message: 'ha cambiado pues tu solicitud en proceso',
+          userId: this.UserId,
+          receiver: idUsuario,
+          message: 'ha cambiado pues tu solicitud en proceso',
         }
+
         this.wsService.emit('notifications', payload)
 
-        console.log('REQUEST ACTUALIZADO' + res['request']);
         this. _cs.agregarChatMensaje(this.mensaje, id)
           .then(() => {
+            this.isLoading = false;
             this.mensaje = '';
             this.router.navigate(['/dashboard/admin']);
           })
           .catch((err) => {
+            this.isLoading = false;
              console.log('error al enviar mensaje' + err)
           })
       },
       err => {
+        this.isLoading = false;
         console.log('ERROR ACEPTANDO SOLICITUD' + err);
       }
     );

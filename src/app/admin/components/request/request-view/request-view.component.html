@@ -58,9 +58,16 @@
         </div>
         <div *ngIf="requestDetails?.estado === 'recibido'; else name">
           <div class="col col-md-12 col-md-12">
-            <button (click)="aceptarSolicitud(requestDetails.usuario._id)" mat-raised-button  class="vs-text-uppercase vs-remove-shadow" color="primary">
+            <button *ngIf="!isLoading; else spinner" (click)="aceptarSolicitud(requestDetails.usuario._id)"
+              mat-raised-button
+              class="vs-text-uppercase vs-remove-shadow"
+              color="primary"
+            >
               ACEPTAR SOLICITUD
             </button>
+            <ng-template #spinner>
+              <mat-spinner class="vs-margin-center"></mat-spinner>
+            </ng-template>
           </div>
         </div>
         <ng-template #name>

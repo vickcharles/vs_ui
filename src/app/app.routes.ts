@@ -49,6 +49,10 @@ const APP_MODULE: Routes = [
         component: AdminRequestListComponent
       },
       {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      {
         path: 'request/:id',
         component: AdminRequestViewComponent
       },
