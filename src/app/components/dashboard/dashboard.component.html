@@ -1,6 +1,7 @@
 
 <div class="vs-background-color-default">
   <div class="vs-container header vs-color-white">
+
     <div *ngIf="userDetails?.role == 'ADMIN'" [routerLink]="['/dashboard/admin']" class="remove-focus vs-cursor-pointer">
       <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
     </div>
@@ -24,8 +25,10 @@
         </button>
       </mat-menu>
 
-      <ngx-avatar *ngIf="userDetails?.role == 'User'"  fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#f5f5f5" name={{displayName}} [round]="true"></ngx-avatar>
-      <ngx-avatar *ngIf="userDetails?.role == 'ADMIN'" src="assets/img/admin/{{userDetails.name}}.png" fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
+      <ngx-avatar *ngIf="userDetails?.role == 'User'"  fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#f5f5f5" name={{displayName}} [round]="true">
+      </ngx-avatar>
+      <ngx-avatar *ngIf="userDetails?.role == 'ADMIN'" src="assets/img/admin/{{userDetails.name}}.png" fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true">
+      </ngx-avatar>
     </div>
   </div>
 </div>

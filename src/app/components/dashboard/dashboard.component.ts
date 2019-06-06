@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/user.service';
 import { Router } from "@angular/router";
-// import { MatSnackBar } from '@angular/material';
 import { WebsocketService } from '../../service/websocket.service'
 import { Socket } from 'ngx-socket-io';
 
@@ -19,10 +18,10 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private socket: Socket,
     private router: Router,
-    public ws: WebsocketService) {}
+    private ws: WebsocketService
+  ) {}
 
   ngOnInit() {
-    // this.openSnackBar();
     this.userService.getUserProfile().subscribe(
       res => {
         this.userDetails = res['user'];
@@ -34,13 +33,6 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
-  // openSnackBar() {
-  //   this.snackBar.open('Message archived', 'Undo', {
-  //     duration: 3000,
-  //     horizontalPosition: 'left'
-  //   });
-  // }
 
   onLogout() {
     this.userService.deleteToken();

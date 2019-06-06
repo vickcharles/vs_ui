@@ -12,6 +12,7 @@ export class NotificationsComponent implements OnInit {
   notifications: any[] = [];
   UserId: any;
   Role: any;
+
   constructor(private wsService: WebsocketService,
     private _notificationService: NotificationService,
     private us: UserService ) {

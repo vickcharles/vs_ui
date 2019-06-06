@@ -50,7 +50,7 @@
                 </mat-radio-group>
               </div>
               <div class="vs-input-field vs-margin-top-medium col-sm-12 vs-text-align-right">
-                <button mat-flat-button [disabled]="!request.controls.tipoDeServicio.valid" color="primary" matStepperNext>
+                <button mat-flat-button [disabled]="!request?.get('tipoDeServicio').valid" color="primary" matStepperNext>
                   CONTINUAR
                 </button>
               </div>
@@ -96,10 +96,10 @@
               <div class="vs-input-field col-md-3">
                   <span class="vs-field-label">Origen</span>
                   <input placeholder="Ej: Bogotá" formControlName="origen">
-                  <span *ngIf="submitted && request.controls['origen'].errors?.required" class="invalid-feedback">
+                  <span *ngIf="submitted && request.get('origen').errors?.required" class="invalid-feedback">
                     Este campo es requerido.
                   </span>
-                  <span *ngIf="submitted && request.controls['origen'].errors?.pattern" class="invalid-feedback">
+                  <span *ngIf="submitted && request.get('origen').errors?.pattern" class="invalid-feedback">
                     Introduce un origen valido.
                   </span>
               </div>
@@ -108,7 +108,7 @@
               <div *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-input-field col-md-3">
                 <span class="vs-field-label">Destino</span>
                 <input matInput placeholder="Ej: Manizales" formControlName="destino">
-                <span *ngIf="submitted && request.controls['destino'].errors?.pattern" class="invalid-feedback">
+                <span *ngIf="submitted && request.get('destino').errors?.pattern" class="invalid-feedback">
                   Introduce un destino valido.
                 </span>
               </div>
@@ -122,7 +122,7 @@
                     <option value="empresa">Empresa</option>
                     <option value="natural">Natural</option>
                   </select>
-                  <span *ngIf="submitted && request.controls['cliente'].controls['tipo'].errors?.required" class="invalid-feedback">
+                  <span *ngIf="submitted && request.get('cliente').get('tipo').errors?.required" class="invalid-feedback">
                     Este campo es requerido.
                   </span>
                 </div>
@@ -132,13 +132,13 @@
                   <span class="vs-field-label">{{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cedula'}}</span>
                   <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'empresa'"  matInput>
                   <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'natural'" matInput>
-                  <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.required" class="invalid-feedback">
+                  <span *ngIf="submitted && request.get('cliente').get('documento').errors?.required" class="invalid-feedback">
                     Este campo es requerido.
                   </span>
-                  <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.pattern" class="invalid-feedback">
+                  <span *ngIf="submitted && request.get('cliente').get('documento').errors?.pattern" class="invalid-feedback">
                     Introduce un {{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cedula'}} valido.
                   </span>
-                  <span *ngIf="submitted && request.controls['cliente'].controls['documento'].errors?.maxlength" class="invalid-feedback">
+                  <span *ngIf="submitted && request.get('cliente').get('documento').errors?.maxlength" class="invalid-feedback">
                     Minimo limite de caracteres 10.
                   </span>
                 </div>
@@ -154,10 +154,10 @@
                 <div class="vs-input-field multiline col-md-6">
                   <span class="vs-field-label"> Mensaje acerca tu solicitud</span>
                   <textarea formControlName="mensaje" class="txt-a" matInput> </textarea>
-                  <span *ngIf="submitted && request.controls['mensaje'].errors?.required" class="invalid-feedback">
+                  <span *ngIf="submitted && request.get('mensaje').errors?.required" class="invalid-feedback">
                     Este campo es requerido.
                   </span>
-                  <span *ngIf="submitted && request.controls['mensaje'].errors?.pattern" class="invalid-feedback">
+                  <span *ngIf="submitted && request.get('mensaje').errors?.pattern" class="invalid-feedback">
                     Introduce un mensaje valido.
                   </span>
                 </div>
@@ -191,20 +191,20 @@
                   <div class="vs-input-field col-md-5">
                     <span class="vs-field-label">Nombre</span>
                     <input formControlName="nombre" matInput>
-                    <span *ngIf="submitted && user.controls['nombre'].errors?.required" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('nombre').errors?.required" class="invalid-feedback">
                       Este campo es requerido.
                     </span>
-                    <span *ngIf="submitted && user.controls['nombre'].errors?.pattern" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('nombre').errors?.pattern" class="invalid-feedback">
                       Introduce un nombre valido.
                     </span>
                   </div>
                   <div class="vs-input-field col-md-5">
                     <span class="vs-field-label">Apellido</span>
                     <input formControlName="apellido" matInput>
-                    <span *ngIf="submitted && user.controls['apellido'].errors?.required" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('apellido').errors?.required" class="invalid-feedback">
                       Este campo es requerido.
                     </span>
-                    <span *ngIf="submitted && user.controls['apellido'].errors?.pattern" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('apellido').errors?.pattern" class="invalid-feedback">
                       Introduce un apellido valido.
                     </span>
                   </div>
@@ -212,23 +212,23 @@
                   <div class="vs-input-field col-md-5">
                     <span class="vs-field-label">Telefono</span>
                     <input formControlName="telefono" matInput>
-                    <span *ngIf="submitted && user.controls['telefono'].errors?.required" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('telefono').errors?.required" class="invalid-feedback">
                       Este campo es requerido.
                     </span>
-                    <span *ngIf="submitted && user.controls['telefono'].errors?.pattern" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('telefono').errors?.pattern" class="invalid-feedback">
                       Introduce un telefono valido.
                     </span>
-                    <span *ngIf="submitted && user.controls['telefono'].errors?.maxlength" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('telefono').errors?.maxlength" class="invalid-feedback">
                       Maximo limite de carateres 11.
                     </span>
                   </div>
                   <div class="vs-input-field col-md-5">
                     <span class="vs-field-label">Ciudad</span>
                     <input formControlName="ciudad" matInput>
-                    <span *ngIf="submitted && user.controls['ciudad'].errors?.required" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('ciudad').errors?.required" class="invalid-feedback">
                       Este campo es requerido.
                     </span>
-                    <span *ngIf="submitted && user.controls['ciudad'].errors?.pattern" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('ciudad').errors?.pattern" class="invalid-feedback">
                       Introduce una ciudad valida.
                     </span>
                   </div>
@@ -236,10 +236,10 @@
                   <div class="vs-input-field col-md-5">
                     <span class="vs-field-label">Correo</span>
                     <input formControlName="correo" matInput>
-                    <span *ngIf="submitted && user.controls['correo'].errors?.required" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('correo').errors?.required" class="invalid-feedback">
                       Este campo es requerido.
                     </span>
-                    <span *ngIf="submitted && user.controls['correo'].errors?.pattern" class="invalid-feedback">
+                    <span *ngIf="submitted && user.get('correo').errors?.pattern" class="invalid-feedback">
                       Introduce un correo valido.
                     </span>
                   </div>
@@ -249,10 +249,10 @@
                          Contraseña
                         </span>
                         <input formControlName="contrasena" matInput>
-                        <span *ngIf="submitted && user.controls['correo'].errors?.required" class="invalid-feedback">
+                        <span *ngIf="submitted && user.get('correo').errors?.required" class="invalid-feedback">
                           Este campo es requerido.
                         </span>
-                        <span *ngIf="submitted && user.controls['contrasena'].errors?.minlength" class="invalid-feedback">
+                        <span *ngIf="submitted && user.get('contrasena').errors?.minlength" class="invalid-feedback">
                           Minimo limite de caracteres 6.
                         </span>
                      </div>
@@ -262,10 +262,10 @@
                           Confirmar contraseña
                         </span>
                         <input formControlName="contrasenaConfirmada" matInput>
-                        <span *ngIf="submitted && user.controls['contrasenaConfirmada'].errors?.required" class="invalid-feedback">
+                        <span *ngIf="submitted && user.get('contrasenaConfirmada').errors?.required" class="invalid-feedback">
                           Este campo es requerido.
                         </span>
-                        <span *ngIf="submitted && user.controls['contrasenaConfirmada'].errors?.mustMatch" class="invalid-feedback">
+                        <span *ngIf="submitted && user.get('contrasenaConfirmada').errors?.mustMatch" class="invalid-feedback">
                           Las contraseñas deben coincidir.
                         </span>
                       </div>
