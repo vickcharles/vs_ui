@@ -11,6 +11,7 @@ import { NotificationService } from '../../service/notification.service';
 export class NotificationsComponent implements OnInit {
   notifications: any[] = [];
   UserId: any;
+  Role: any;
   constructor(private wsService: WebsocketService,
     private _notificationService: NotificationService,
     private us: UserService ) {
@@ -29,6 +30,7 @@ export class NotificationsComponent implements OnInit {
       this.us.getUserProfile().subscribe(
         res => {
           this.UserId = res['user']._id
+          this.Role = res['user'].role
         },
         err => {
           console.log(err);
@@ -39,12 +41,11 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
     this.wsService.listen('new-notifications')
       .subscribe((res: any) => {
-       console.log('NUEVA NOTIFICACIONES')
-       console.log(res);
-       console.log('USUARIO ID ' + this.UserId)
 
         if(res.receiver == this.UserId) {
-          this.notifications.push(res)
+          console.log('NUEVA NOTIFICACION')
+          console.log(res);
+          this.notifications.unshift(res)
         }
 
       });

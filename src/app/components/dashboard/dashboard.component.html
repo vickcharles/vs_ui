@@ -10,8 +10,8 @@
     </div>
     <div class="header-menu">
       <h1 [matMenuTriggerFor]="menu" class="vs-display-inline vs-cursor-pointer vs-font-xsmall vs-margin-right-small">
-        Hola {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChart | uppercase }}
-        <i class="fas fa-caret-down vs-color-white"></i>
+          Hola {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChart | uppercase }}
+          <i class="fas fa-caret-down vs-color-white"></i>
       </h1>
       <mat-menu class="vs-margin-top-xsmall menu" #menu="matMenu" xPosition="before">
         <button *ngIf="userDetails?.role == 'ADMIN'" class="vs-color-vs" routerLink="/dashboard/admin/profile"  mat-menu-item> Ver/Editar Perfil</button>
@@ -24,7 +24,7 @@
         </button>
       </mat-menu>
 
-      <ngx-avatar *ngIf="userDetails?.role == 'USER'"  fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#f5f5f5" name={{displayName}} [round]="true"></ngx-avatar>
+      <ngx-avatar *ngIf="userDetails?.role == 'User'"  fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#f5f5f5" name={{displayName}} [round]="true"></ngx-avatar>
       <ngx-avatar *ngIf="userDetails?.role == 'ADMIN'" src="assets/img/admin/{{userDetails.name}}.png" fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true"></ngx-avatar>
     </div>
   </div>

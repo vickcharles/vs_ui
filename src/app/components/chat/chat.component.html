@@ -31,7 +31,9 @@
             <div *ngFor="let chat of _cs.chats" [ngClass]="{'vs-display-inline vs-float-right': _cs.userDetails?._id == chat.uid}" class="text-right" class="col col-xs-12 col-md-7 vs-margin-top-xsmall">
               <p [ngClass]="{'vs-background-color-light vs-float-right': _cs.userDetails._id == chat.uid, 'vs-background-color-white ': _cs.userDetails._id != chat.uid}" class="vs-message vs-display-inline-block vs-color-default">
                 {{chat?.mensaje}}
-                <span class="vs-color-grey vs-margin-left-small">7:30 am</span>
+                <span class="vs-color-grey vs-margin-left-small">
+                  {{chat?.hora}}
+                </span>
               </p>
             </div>
           </div>

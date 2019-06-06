@@ -14,7 +14,7 @@ export class WebsocketService {
 
   checkStatus() {
     this.socket.on('connect', () => {
-      this.socket.emit('authenticate', {token: localStorage.getItem('token')}); //send the jwt
+      this.socket.emit('authenticate', { token: localStorage.getItem('token')}); //send the jwt
       console.log('Conectado al servidor')
       this.socketStatus = true;
 

@@ -6,6 +6,7 @@ import { RequestService } from '../../service/request.service';
 import { Router } from "@angular/router";
 import { MustMatch } from '../../validators/password-match';
 import { MatSnackBar } from '@angular/material';
+import { WebsocketService } from '../../service/websocket.service'
 
 import { CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 
@@ -33,7 +34,13 @@ export class RequestComponent implements OnInit {
   isCreatingRequest = false;
 
 
-  constructor(private next: ActivatedRoute, private snackBar: MatSnackBar, private userService: UserService, private requestService: RequestService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(
+    private next: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private wsService: WebsocketService,
+    private userService: UserService,
+    private requestService: RequestService,
+    private router: Router, private formBuilder: FormBuilder) {
     this.next.data.subscribe(v =>
       this.isCreatingRequest = v.isRequesting
     );
@@ -103,6 +110,19 @@ export class RequestComponent implements OnInit {
     this.requestService.postRequest(request).subscribe(
       res => {
         this.openSnackBar();
+
+        //EMITIR NOTIFICACION AL CLIENTE
+        let payload = {
+          userId: res['request'].usuario._id,
+          receiver: res['request'].operadorId._id,
+          message: 'ha creado una nueva solicitud',
+        }
+
+        console.log(payload);
+
+        this.wsService.emit('notifications', payload);
+
+        this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
         this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
       },
       err => {
@@ -113,10 +133,10 @@ export class RequestComponent implements OnInit {
   }
 
   register() {
-    this.isLoading = true;
     this.submitted = true;
 
     if(this.user.valid && !this.isRegistered) {
+      this.isLoading = true;
 
       this.data = {
         user: this.user.value,
@@ -127,8 +147,19 @@ export class RequestComponent implements OnInit {
         res => {
           this.isLoading = false;
           this.userService.setToken(res['token']);
-          this.openSnackBar();
+    
+
+         //EMITIR NOTIFICACION AL CLIENTE
+          let payload = {
+            userId: res['request'].usuario._id,
+            receiver: res['request'].operadorId._id,
+            message: 'ha creado una nueva solicitud',
+          }
+
+          this.wsService.emit('notifications', payload)
+
           this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
+          this.openSnackBar();
         },
         err => {
           if (err.status === 422) {
@@ -136,6 +167,7 @@ export class RequestComponent implements OnInit {
             this.serverErrorMessages = err.error.join('<br/>');
           }
           else
+            this.isLoading = false;
             this.serverErrorMessages = 'Something went wrong. Please contact admin.' + err;
         }
       );

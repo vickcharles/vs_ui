@@ -19,8 +19,7 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private socket: Socket,
     private router: Router,
-    public ws: WebsocketService ) {
-    }
+    public ws: WebsocketService) {}
 
   ngOnInit() {
     // this.openSnackBar();

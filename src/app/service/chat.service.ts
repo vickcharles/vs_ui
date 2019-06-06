@@ -40,10 +40,13 @@ export class ChatService {
 
    agregarMensaje(texto: string) {
      // Falta el ID del usuario
+     var hours = new Date().getHours()
+     var ampm = hours >= 12 ? 'pm' : 'am';
     let mensaje: Mensaje = {
        nombre: this.userDetails.name,
        mensaje: texto,
        fecha: Date.now(),
+       hora: new Date().getHours() + ':' + new Date().getMinutes() + ' ' + ampm ,
        uid: this.userDetails._id
      }
      return this.itemsCollection.add(mensaje)
@@ -56,6 +59,7 @@ export class ChatService {
       nombre: this.userDetails.name,
       mensaje: texto,
       fecha: Date.now(),
+      hora: new Date().getHours() + ':' + new Date().getMinutes(),
       uid: this.userDetails._id
     }
     return this.currentCollection.add(mensaje)
