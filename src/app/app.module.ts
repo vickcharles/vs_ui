@@ -36,7 +36,7 @@ import { FormsModule } from "@angular/forms";
 
 // Componentes
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/homepage/header/header.component';
+import HeaderComponent  from './components/homepage/header/header.component';
 import { HomepageComponent } from './components/homepage/homepage/homepage.component';
 import { BannerComponent } from './components/homepage/banner/banner.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
