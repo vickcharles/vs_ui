@@ -67,9 +67,9 @@ const APP_MODULE: Routes = [
         component: AdminRequestViewComponent
       },
       {
-        path: '', 
-        redirectTo: 'dashboard/admin' , 
-        pathMatch: 'full' 
+        path: '',
+        redirectTo: 'dashboard/admin' ,
+        pathMatch: 'full'
       },
     ],
   },
