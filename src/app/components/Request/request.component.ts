@@ -234,5 +234,3 @@ export class RequestComponent implements OnInit {
   }
 }
 
-
-export default RequestComponent;

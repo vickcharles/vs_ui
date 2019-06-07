@@ -37,13 +37,13 @@ import { FormsModule } from "@angular/forms";
 // Componentes
 import { AppComponent } from './app.component';
 
-import HeaderComponent  from './components/homepage/header/header.component';
+import { HeaderComponent }  from './components/homepage/header/header.component';
 import { HomepageComponent } from './components/homepage/homepage/homepage.component';
 import { BannerComponent } from './components/homepage/banner/banner.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContentComponent } from './components/homepage/content/content.component';
 import { FooterComponent } from './components/homepage/footer/footer.component';
-import RequestComponent from './components/request/request.component';
+import { RequestComponent } from './components/request/request.component';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { PagesComponent } from './components/homepage/pages.component';
@@ -82,7 +82,6 @@ import { NotificationsComponent } from './components/notifications/notifications
     DashboardComponent,
     PagesComponent,
     RequestViewComponent,
-    //Pipes
     FistChartPipe,
     FistChartUppercasePipe,
     RequestCardComponent,
