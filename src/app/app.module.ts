@@ -68,7 +68,6 @@ import { NotificationsComponent } from './components/notifications/notifications
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     HomepageComponent,
     BannerComponent,
     ContentComponent,
@@ -77,6 +76,7 @@ import { NotificationsComponent } from './components/notifications/notifications
     LoginComponent,
     DashboardComponent,
     PagesComponent,
+    HeaderComponent,
     RequestViewComponent,
     FistChartPipe,
     FistChartUppercasePipe,
