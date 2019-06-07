@@ -13,3 +13,6 @@ export class RequestsComponent implements OnInit {
   }
 
 }
+
+
+export default RequestsComponent;
