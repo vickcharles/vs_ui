@@ -10,6 +10,7 @@ export class BannerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
     let options = {
       strings: ["Carga de Transporte", "Alquiler de Gruas", "Maquinaria amarilla.", "operadores de cargue"],
       typeSpeed: 50,

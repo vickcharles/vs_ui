@@ -9,5 +9,5 @@ handlers:
 - url: /
   static_files: dist/index.html
   upload: dist/index.html
-skip_files:
+  skip_files:
 - ^(?!dist)  # Skip any files not in the dist folder

@@ -14,12 +14,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { MomentModule } from 'angular2-moment';
+import { environment } from '../environments/environment';
 
-const config: SocketIoConfig = { url: 'http://localhost:8000', options: {}};
+const config: SocketIoConfig = { url: environment.apiBaseUrl, options: {}};
 
 //FIREBASE SETTINGS
 import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -57,7 +57,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 
 import { ChatComponent } from './components/chat/chat.component';
 
-//admin
+// admin
 import { AdminRequestListComponent } from './admin/components/request/request-list/request-list.component';
 
 import { AdminRequestCardComponent } from './admin/components/request/request-card/request-card.component';
@@ -68,7 +68,6 @@ import { NotificationsComponent } from './components/notifications/notifications
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     HomepageComponent,
     BannerComponent,
     ContentComponent,
@@ -77,6 +76,7 @@ import { NotificationsComponent } from './components/notifications/notifications
     LoginComponent,
     DashboardComponent,
     PagesComponent,
+    HeaderComponent,
     RequestViewComponent,
     FistChartPipe,
     FistChartUppercasePipe,
