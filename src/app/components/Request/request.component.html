@@ -248,7 +248,7 @@
                        <span class="vs-field-label">
                          Contraseña
                         </span>
-                        <input formControlName="contrasena" matInput>
+                        <input type="password" formControlName="contrasena" matInput>
                         <span *ngIf="submitted && user.get('correo').errors?.required" class="invalid-feedback">
                           Este campo es requerido.
                         </span>
@@ -261,7 +261,7 @@
                         <span class="vs-field-label">
                           Confirmar contraseña
                         </span>
-                        <input formControlName="contrasenaConfirmada" matInput>
+                        <input type="password" formControlName="contrasenaConfirmada" matInput>
                         <span *ngIf="submitted && user.get('contrasenaConfirmada').errors?.required" class="invalid-feedback">
                           Este campo es requerido.
                         </span>
