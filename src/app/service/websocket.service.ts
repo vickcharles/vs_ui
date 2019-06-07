@@ -8,7 +8,7 @@ export class WebsocketService {
   public socketStatus = false;
 
   constructor(private socket: Socket) {
-    this.checkStatus()
+    this.checkStatus();
   }
 
 
@@ -18,8 +18,7 @@ export class WebsocketService {
       console.log('Conectado al servidor')
       this.socketStatus = true;
 
-      this.socket
-    .on('authenticated', function () {
+      this.socket.on('authenticated', function () {
       console.log('USUARIO AUTENTICADO CON SOCKEY')
     })
     });

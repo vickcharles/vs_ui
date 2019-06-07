@@ -25,7 +25,6 @@ export class UserService {
     return this.http.post(environment.apiBaseUrl + '/register/request', data, this.noAuthHeader);
   }
 
-
   login(authCredentials) {
     return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials, this.noAuthHeader);
   }
