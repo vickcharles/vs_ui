@@ -5,7 +5,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AdminGuard } from './auth/admin.guard';
 
 import { HomepageComponent } from './components/homepage/homepage/homepage.component';
-import {RequestComponent} from './components/request/request.component';
+import { RequestComponent } from './components/request/request.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PagesComponent } from './components/homepage/pages.component';
@@ -35,7 +35,11 @@ const APP_MODULE: Routes = [
         path: 'acceder',
         component: LoginComponent
       },
-      { path: '', redirectTo: 'home' , pathMatch: 'full' },
+      {
+        path: '',
+        redirectTo: 'home' ,
+        pathMatch: 'full'
+      },
     ]
   },
   {

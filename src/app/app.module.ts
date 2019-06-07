@@ -6,7 +6,6 @@ import { APP_ROUTING } from './app.routes';
 
 // Material Module
 import { MaterialModule } from './material.module';
-
 import { AuthInterceptor } from './auth/auth.interceptor';
 
 //HTTTP
@@ -14,7 +13,6 @@ import { UserService } from './service/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-
 import { MomentModule } from 'angular2-moment';
 
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {}};
@@ -31,12 +29,10 @@ import { FistChartPipe } from './pipes/first-chart.pipe';
 import { FistChartUppercasePipe } from './pipes/fisrt-chart-uppercase.pipe';
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
-
 import { FormsModule } from "@angular/forms";
 
 // Componentes
 import { AppComponent } from './app.component';
-
 import { HeaderComponent }  from './components/homepage/header/header.component';
 import { HomepageComponent } from './components/homepage/homepage/homepage.component';
 import { BannerComponent } from './components/homepage/banner/banner.component';
@@ -119,4 +115,5 @@ import { NotificationsComponent } from './components/notifications/notifications
   UserService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
