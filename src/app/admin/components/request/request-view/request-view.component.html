@@ -1,6 +1,23 @@
 <div class="row vs-display-flex vs-margin-top-xsmall">
     <div class="col col-xs-10 col-md-5 col-lg-5 vs-margin-center vs-margin-top-small">
       <div class="vs-section vs-text-align-center col-md-12 vs-background-color-white request-view animated fadeIn">
+        <div class="vs-text-align-right">
+            <button mat-button class="vs-color-default" [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button (click)="solicitudCompletada(requestDetails.usuario._id, requestDetails._id, 'completada')" *ngIf="requestDetails?.estado === 'en proceso'"class="vs-color-grey" mat-menu-item>
+                <mat-icon class="vs-margin-remove">
+                  check_circle
+                </mat-icon>
+                Solicitud completada
+              </button>
+              <button (click)="cancelarSolicitud(requestDetails.usuario._id, requestDetails._id, 'cancelar')" class="vs-color-grey" mat-menu-item>
+                <mat-icon class="vs-margin-remove">cancel</mat-icon>
+                  Cancelar solicitud
+                </button>
+            </mat-menu>
+        </div>
         <img src="../../../../assets/img/servicios/{{requestDetails?.tipoDeServicio.nombre}}.png" alt="">
         <h1 class="vs-color-vs vs-font-large">
           {{requestDetails?.tipoDeServicio?.nombre | firstChartUppercase }}

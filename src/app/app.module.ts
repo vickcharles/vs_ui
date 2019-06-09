@@ -16,12 +16,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { MomentModule } from 'angular2-moment';
+import { environment } from '../environments/environment';
 
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {}};
 
 //FIREBASE SETTINGS
 import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';

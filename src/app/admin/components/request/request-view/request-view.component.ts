@@ -54,7 +54,46 @@ export class AdminRequestViewComponent implements OnInit {
   public updateRequest(id: any, status) {
     this.requestService.updateStatus(id, status).subscribe(
       res => {
-        console.log('REQUEST ACTUALIZADO ' + res['request']);
+        this.router.navigate(['/dashboard/admin']);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+
+  public cancelarSolicitud(idUsuario, id: any, status) {
+    this.requestService.updateStatus(id, status).subscribe(
+      res => {
+
+        let payload = {
+          userId: this.UserId,
+          receiver: idUsuario,
+          message: 'ha cancelado tu solicitud',
+        }
+
+        this.wsService.emit('notifications', payload)
+        this.router.navigate(['/dashboard/admin']);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  public solicitudCompletada(idUsuario: any, id: any, status: any) {
+    this.requestService.updateStatus(id, status).subscribe(
+      res => {
+        let payload = {
+          userId: this.UserId,
+          receiver: idUsuario,
+          message: 'ha puesto tu solicitud como completada',
+        }
+
+        this.wsService.emit('notifications', payload)
+
+        this.router.navigate(['/dashboard/admin']);
       },
       err => {
         console.log(err);

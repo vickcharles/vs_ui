@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../service/request.service';
+import { WebsocketService } from '../../../service/websocket.service'
 
 @Component({
   selector: 'app-request-list',
@@ -8,11 +9,17 @@ import { RequestService } from '../../../service/request.service';
 export class RequestListComponent implements OnInit {
   requests: any;
   requestsOnProgress: any;
-  constructor(private requestService: RequestService) { }
+  constructor(private requestService: RequestService, 
+    private wsService: WebsocketService) { }
 
   ngOnInit() {
     this.getAllRequest();
     this.getAllRequestOnProgress();
+
+    this.wsService.listen('new-notifications')
+      .subscribe((res: any) => {
+          this.getAllRequest();
+      });
   }
 
 
