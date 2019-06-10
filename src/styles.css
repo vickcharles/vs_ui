@@ -744,7 +744,6 @@ body {
 }
 
 /*Card Request*/
-
 .card-request img {
   max-width: 80px;
 }
@@ -791,8 +790,8 @@ body {
 .vs-remove-shadow {
     box-shadow: none !important;
 }
-/*REQUEST VIEW*/
 
+/*REQUEST VIEW*/
 .request-view img{
    width: 100px;
 }
@@ -813,6 +812,10 @@ body {
 /*PROFILE */
 .webkit-inline-box {
     display: -webkit-inline-box !important;
+}
+
+.vs-como-funciona img{
+  width: 150px !important;
 }
 
 /* iPhones(landscape) ----------- */
