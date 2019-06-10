@@ -8,25 +8,25 @@
       <th mat-header-cell *matHeaderCellDef> Operador </th>
       <td mat-cell *matCellDef="let element"> {{element.operador}} </td>
     </ng-container>
-  
+
     <!-- Name Column -->
     <ng-container matColumnDef="tipoDeServicio">
       <th mat-header-cell *matHeaderCellDef> Servicio </th>
-      <td mat-cell *matCellDef="let element"> {{element.tipoDeServicio}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.tipoDeServicio  | firstChartUppercase }} </td>
     </ng-container>
-  
+
     <!-- Weight Column -->
     <ng-container matColumnDef="fecha">
       <th mat-header-cell *matHeaderCellDef> Fecha </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fecha | amLocale:'es' | amDateFormat:'MMMM Do YYYY, h:mm:ss a'}} </td>
     </ng-container>
-  
+
     <!-- Symbol Column -->
     <ng-container matColumnDef="estado">
       <th mat-header-cell *matHeaderCellDef> Estado </th>
-      <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+      <td *matCellDef="let element" [ngClass]="{'vs-color-green': element.estado == 'completada'}" at-cell > {{element.estado}} </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

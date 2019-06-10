@@ -66,11 +66,11 @@
           </ng-template>
 
         </mat-tab>
-        <mat-tab label="Historial (0)">
+        <mat-tab label="Historial ({{numeroDeHistorials}})">
           <!-- <h1 class="vs-color-grey vs-font-small vs-text-align-center">
             No hay nada todavia :(
           </h1> -->
-          <app-request-historial>
+          <app-request-historial (sendNumber)="showPueblo($event)">
           </app-request-historial>
         </mat-tab>
       </mat-tab-group>
@@ -91,7 +91,7 @@
      </div>
      <div class="vs-background-color-white vs-section-widest vs-margin-top-small">
         <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
-          MIS SOLICITUDES
+          MIS MENSAJES
         </h1>
         <hr>
         <div class="vs-margin-top-xsmall">
