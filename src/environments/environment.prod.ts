@@ -9,5 +9,5 @@ export const environment = {
     messagingSenderId: "683959836650",
     appId: "1:683959836650:web:2111ab93acca43d8"
   },
-  apiBaseUrl: 'http://localhost:8000/api'
+  apiBaseUrl: 'https://vs-rest-api.herokuapp.com/api'
 };

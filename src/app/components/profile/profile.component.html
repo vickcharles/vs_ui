@@ -1,8 +1,8 @@
 <div class="vs-container">
-  <div class="row vs-margin-top-xsmall">
+  <div class="row">
 
     <!-- Profile header -->
-    <div class="col col-md-4">
+    <div class="col col-md-4 vs-margin-top-xsmall">
       <div class="vs-background-color-white vs-section-wide vs-text-align-center">
         <div class="vs-text-align-center">
           <ngx-avatar *ngIf="userDetails?.role == 'User'" bgColor="#3e3e3e" fgColor="#f5f5f5" class="webkit-inline-box" size="90" name="Vickler Charles"></ngx-avatar>
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Profile content-->
-    <div class="col col-md-8">
+    <div class="col col-md-8 vs-margin-top-xsmall">
       <div class="vs-background-color-white vs-section-wide">
         <form [formGroup]="user" class="row" *ngIf="isEditingPerfil; else editProfile">
            <h1 class="vs-font-xsmall vs-color-vs  vs-margin-remove col-md-12 vs-margin-bottom-small">
