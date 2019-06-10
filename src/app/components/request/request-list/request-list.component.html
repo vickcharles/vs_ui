@@ -57,7 +57,7 @@
         </mat-tab>
         <mat-tab label="En proceso ({{requestsOnProgress?.length}})">
           <h1 *ngIf="requestsOnProgress?.length == 0; else request" class="vs-color-grey vs-font-small vs-text-align-center">
-            No hay nada todavia :(
+            No hay nada todavia
           </h1>
           <ng-template #request>
             <div *ngFor="let request of requestsOnProgress">
@@ -67,9 +67,9 @@
 
         </mat-tab>
         <mat-tab label="Historial ({{numeroDeHistorials}})">
-          <!-- <h1 class="vs-color-grey vs-font-small vs-text-align-center">
-            No hay nada todavia :(
-          </h1> -->
+          <h1 *ngIf="numeroDeHistorials == 0" class="vs-color-grey vs-font-small vs-text-align-center">
+            No tienes historial
+          </h1>
           <app-request-historial (sendNumber)="showPueblo($event)">
           </app-request-historial>
         </mat-tab>

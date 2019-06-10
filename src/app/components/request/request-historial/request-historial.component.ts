@@ -44,7 +44,6 @@ export class RequestHistorialComponent implements OnInit {
         this.requests = this.requests.filter((e) => e.estado == 'completada' ||  e.estado == 'cancelada')
 
         for(let i = 0; i < this.requests.length; i++) {
-
           const data = {
             operador: this.requests[i].operadorId.name + ' ' +  this.requests[i].operadorId.lastName,
             tipoDeServicio: this.requests[i].tipoDeServicio.nombre ? this.requests[i].tipoDeServicio.nombre : '',
@@ -53,7 +52,8 @@ export class RequestHistorialComponent implements OnInit {
           }
 
           this.ELEMENT_DATA.push(data);
-      }
+        }
+
        this.dataSource = this.ELEMENT_DATA;
        this.numeroDeHistorial = this.ELEMENT_DATA.length;
 
