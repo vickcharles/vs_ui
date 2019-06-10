@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RequestService } from '../../service/request.service';
 
 import { MatSnackBar } from '@angular/material';
 
@@ -15,8 +16,18 @@ export class ProfileComponent implements OnInit {
   userDetails: any;
   user: FormGroup;
   submitted = false;
+  requestCompleted: any[] = [];
+  requestRecividos: any[] = [];
+  AdminrequestOnProgress: any[] = [];
 
-  constructor(private snackBar: MatSnackBar, private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private snackBar: MatSnackBar, 
+    private userService: UserService, 
+    private formBuilder: FormBuilder,
+    private requestService: RequestService
+  ) {
+    this.getAllRequestPending();
+    this.getAllRequestOnProgress();
+  }
 
   ngOnInit() {
     this.getUser();
@@ -28,6 +39,45 @@ export class ProfileComponent implements OnInit {
       correo: ['', [ Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
       contrasena: [{value: 'NancyFake', disabled: true}, [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+
+  public getAllRequestOnProgress() {
+    this.requestService.getRequests().subscribe(
+      res => {
+        this.requestCompleted = res['requests'];
+        console.log(res['requests'])
+        this.requestCompleted = this.requestCompleted.filter((e) => e.estado === 'completada');
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+
+  public getAllRequestPending() {
+    this.requestService.getRequests().subscribe(
+      res => {
+        this.requestRecividos = res['requests'];
+        this.requestRecividos = this.requestRecividos.filter((e) => e.estado === 'en proceso');
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  public getAllAdminRequestOnProgress() {
+    this.requestService.getAdminRequests().subscribe(
+      res => {
+        this.AdminrequestOnProgress = res['requests'];
+        this.AdminrequestOnProgress = this.AdminrequestOnProgress.filter((e) => e.estado === 'en proceso');
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   public getUser() {

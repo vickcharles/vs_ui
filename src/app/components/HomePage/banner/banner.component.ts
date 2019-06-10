@@ -11,7 +11,7 @@ export class BannerComponent implements OnInit {
 
   ngOnInit() {
     let options = {
-      strings: ["Carga de Transporte", "Alquiler de Gruas", "Maquinaria amarilla.", "operadores de cargue"],
+      strings: ["Carga de Transporte", "Alquiler de Grúas", "Maquinaria amarilla.", "operadores de cargue"],
       typeSpeed: 50,
       backSpeed: 20,
       showCursor: true,

@@ -252,6 +252,23 @@ body {
     align-items: center;
 }
 
+.vs-box-shadow-light {
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10) !important;    
+}
+
+.notifications-menu {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
  .header-menu {
     display: flex;
     justify-content: space-around;

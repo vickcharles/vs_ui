@@ -1,5 +1,5 @@
 
-<div class="vs-background-color-default">
+<div class="vs-background-color-default hide-on-mobile">
   <div class="vs-container header vs-color-white">
 
     <div *ngIf="userDetails?.role == 'ADMIN'" [routerLink]="['/dashboard/admin']" class="remove-focus vs-cursor-pointer">
@@ -30,6 +30,51 @@
       <ngx-avatar *ngIf="userDetails?.role == 'ADMIN'" src="assets/img/admin/{{userDetails.name}}.png" fgColor="#3e3e3e" [matMenuTriggerFor]="menu"   bgColor="#FFF" name={{displayName}} [round]="true">
       </ngx-avatar>
     </div>
+  </div>
+</div>
+<div class="vs-container hide-on-desktop">
+  <div class="vs-full-width vs-text-align-center vs-margin-bottom-xsmall">
+      <div *ngIf="userDetails?.role == 'ADMIN'" [routerLink]="['/dashboard/admin']" class="remove-focus vs-cursor-pointer">
+        <img class="main-logo-mobile" src="../../../../assets/img/logo-mobile.png" alt="">
+      </div>
+
+      <div *ngIf="userDetails?.role == 'User'" [routerLink]="['/dashboard']" class="remove-focus vs-cursor-pointer">
+        <img class="main-logo-mobile" src="../../../../assets/img/logo-mobile.png" alt="">
+      </div>
+  </div>
+  <div class="vs-background-color-default vs-section-widest vs-margin-bottom-small">
+   <div class="mobile-header">
+     <div>
+          <h1 [matMenuTriggerFor]="notification" class="vs-display-inline vs-color-white vs-cursor-pointer vs-font-xsmall vs-margin-right-small">
+            <mat-icon>notifications_active</mat-icon>
+          </h1>
+          <mat-menu class="vs-margin-top-xsmall vs-full-width notifications-menu" #notification="matMenu" xPosition="before">
+              <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
+                  <i class="far fa-bell fa-lg vs-margin-right-xsmall"></i>
+                  NOTIFICACIONES
+                </h1>
+              <hr>
+              <app-notifications>
+              </app-notifications>
+          </mat-menu>
+     </div>
+     <div>
+        <h1 [matMenuTriggerFor]="menu" class="vs-display-inline vs-color-white vs-cursor-pointer vs-font-xsmall vs-margin-right-small">
+          Hola {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChart | uppercase }}
+          <i class="fas fa-caret-down vs-color-white"></i>
+        </h1>
+        <mat-menu class="vs-margin-top-xsmall menu" #menu="matMenu" xPosition="before">
+          <button *ngIf="userDetails?.role == 'ADMIN'" class="vs-color-vs" routerLink="/dashboard/admin/profile"  mat-menu-item> Ver/Editar Cuenta</button>
+          <button *ngIf="userDetails?.role == 'User'" class="vs-color-vs" routerLink="/dashboard/profile"  mat-menu-item> Ver/Editar Perfil</button>
+          <button class="vs-color-vs" mat-menu-item> Mensajes </button>
+          <button class="vs-color-vs" mat-menu-item>Ayuda</button>
+          <button (click)="onLogout()" class="vs-color-vs" mat-menu-item>
+            <i class="fas fa-sign-out-alt vs-color-default"></i>
+            Cerrar Sesion
+          </button>
+        </mat-menu>
+     </div>
+   </div>
   </div>
 </div>
 <router-outlet></router-outlet>

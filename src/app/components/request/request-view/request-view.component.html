@@ -6,6 +6,9 @@
       <h1 class="vs-color-vs vs-font-large">
         {{requestDetails?.tipoDeServicio.nombre | firstChartUppercase }}
       </h1>
+      <h1 *ngIf="requestDetails?.tipoDeServicio?.especificamente" class="vs-color-grey vs-font-small vs-margin-remove">
+        ( {{requestDetails?.tipoDeServicio?.especificamente | firstChartUppercase }} )
+      </h1>
       <div class="vs-margin-bottom-xsmall">
         <ngx-avatar size="80" src="assets/img/admin/{{requestDetails?.operadorId?.name}}.png"></ngx-avatar>
       </div>

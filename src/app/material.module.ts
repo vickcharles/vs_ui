@@ -17,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import {
   MatFormFieldModule,
@@ -40,6 +41,7 @@ import {
 		MatToolbarModule,
 		MatCardModule,
 		MatIconModule,
+		MatSidenavModule,
 		MatTableModule,
 		MatListModule,
 		MatCheckboxModule,
@@ -57,6 +59,7 @@ import {
 		MatRippleModule,
 		MatTableModule,
 		ReactiveFormsModule,
+		MatSidenavModule,
 		CdkStepperModule,
 		MatRadioModule,
 		MatCheckboxModule,
