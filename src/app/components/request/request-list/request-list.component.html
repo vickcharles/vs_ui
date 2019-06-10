@@ -67,10 +67,12 @@
 
         </mat-tab>
         <mat-tab label="Historial (0)">
-          <h1 class="vs-color-grey vs-font-small vs-text-align-center">
+          <!-- <h1 class="vs-color-grey vs-font-small vs-text-align-center">
             No hay nada todavia :(
-          </h1>
-         </mat-tab>
+          </h1> -->
+          <app-request-historial>
+          </app-request-historial>
+        </mat-tab>
       </mat-tab-group>
     </div>
 
@@ -82,7 +84,7 @@
           NOTIFICACIONES
         </h1>
         <hr>
-        <div class="vs-margin-top-xsmall">
+        <div class="vs-full-width">
           <app-notifications>
           </app-notifications>
         </div>

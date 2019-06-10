@@ -6,13 +6,13 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button (click)="solicitudCompletada(requestDetails.usuario._id, requestDetails._id, 'completada')" *ngIf="requestDetails?.estado === 'en proceso'"class="vs-color-grey" mat-menu-item>
+              <button (click)="solicitudCompletada(requestDetails.usuario._id)" *ngIf="requestDetails?.estado === 'en proceso'"class="vs-color-grey" mat-menu-item>
                 <mat-icon class="vs-margin-remove">
                   check_circle
                 </mat-icon>
                 Solicitud completada
               </button>
-              <button (click)="cancelarSolicitud(requestDetails.usuario._id, requestDetails._id, 'cancelar')" class="vs-color-grey" mat-menu-item>
+              <button (click)="cancelarSolicitud(requestDetails.usuario._id)" class="vs-color-grey" mat-menu-item>
                 <mat-icon class="vs-margin-remove">cancel</mat-icon>
                   Cancelar solicitud
                 </button>

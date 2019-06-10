@@ -63,15 +63,15 @@ export class AdminRequestViewComponent implements OnInit {
   }
 
 
-  public cancelarSolicitud(idUsuario, id: any, status) {
-    this.requestService.updateStatus(id, status).subscribe(
+  public cancelarSolicitud(idUsuario) {
+    const RID = this.actRoute.snapshot.paramMap.get('id');
+    this.requestService.updateStatus(RID, { status: "cancelada"}).subscribe(
       res => {
-
         let payload = {
           userId: this.UserId,
           receiver: idUsuario,
           message: 'ha cancelado tu solicitud',
-        }
+        };
 
         this.wsService.emit('notifications', payload)
         this.router.navigate(['/dashboard/admin']);
@@ -82,8 +82,9 @@ export class AdminRequestViewComponent implements OnInit {
     );
   }
 
-  public solicitudCompletada(idUsuario: any, id: any, status: any) {
-    this.requestService.updateStatus(id, status).subscribe(
+  public solicitudCompletada(idUsuario) {
+    const RID = this.actRoute.snapshot.paramMap.get('id');
+    this.requestService.updateStatus(RID, { status: "completada"}).subscribe(
       res => {
         let payload = {
           userId: this.UserId,

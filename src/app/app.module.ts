@@ -47,7 +47,6 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { PagesComponent } from './components/homepage/pages.component';
 
-
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 // Import your AvatarModule
@@ -67,6 +66,7 @@ import { AdminRequestCardComponent } from './admin/components/request/request-ca
 
 import { AdminRequestViewComponent } from './admin/components/request/request-view/request-view.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { RequestHistorialComponent } from './components/request/request-historial/request-historial.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +92,8 @@ import { NotificationsComponent } from './components/notifications/notifications
     AdminRequestListComponent,
     AdminRequestCardComponent,
     AdminRequestViewComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    RequestHistorialComponent
   ],
   imports: [
     BrowserModule,

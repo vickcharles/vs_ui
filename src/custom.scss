@@ -22,6 +22,10 @@ $candy-app-warn: mat-palette($mat-red);
         background-color: #ffca28 !important;
     }
 
+    table.mat-table {
+        width: 100% !important;
+    }
+
     .mat-menu-item .mat-icon {
         margin-right: 10px !important;
     }

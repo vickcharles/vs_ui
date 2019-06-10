@@ -20,6 +20,10 @@ export class RequestService {
     return this.http.get(environment.apiBaseUrl + '/request/getAll');
   }
 
+  getHistorial() {
+    return this.http.get(environment.apiBaseUrl + '/request/historial');
+  }
+
   getAdminRequests() {
     return this.http.get(environment.apiBaseUrl + '/request/getAllAdmin');
   }
