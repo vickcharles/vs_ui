@@ -18,7 +18,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { MomentModule } from 'angular2-moment';
 import { environment } from '../environments/environment';
 
-const config: SocketIoConfig = { url: 'https://vs-rest-api.herokuapp.com/api', options: {}};
+const config: SocketIoConfig = { url: 'http://localhost:8000', options: {}};
 
 //FIREBASE SETTINGS
 import { AngularFireModule } from '@angular/fire';
@@ -81,7 +81,6 @@ import { RequestHistorialComponent } from './components/request/request-historia
     DashboardComponent,
     PagesComponent,
     RequestViewComponent,
-    //Pipes
     FistChartPipe,
     FistChartUppercasePipe,
     RequestCardComponent,
@@ -120,4 +119,5 @@ import { RequestHistorialComponent } from './components/request/request-historia
   UserService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
