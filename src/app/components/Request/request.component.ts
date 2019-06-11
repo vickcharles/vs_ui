@@ -47,6 +47,7 @@ export class RequestComponent implements OnInit {
   }
 
   ngOnInit() {
+    const regexNoNumber = /^[A-Z\sñÑáéíóúÁÉÍÓÚ@~`!@#$%^&*()_=+\\\\';:\"\\/?>.<,-]*$/i;
     this.credentials = this.formBuilder.group({
       email: [''.toLowerCase(), Validators.required],
       password: ['', Validators.required],
@@ -63,16 +64,16 @@ export class RequestComponent implements OnInit {
         documento: ['', [Validators.required, Validators.maxLength(11) ,Validators.pattern('^[0-9]*$')]],
         nombreEmpresa: ['']
       }),
-      origen: ['', [ Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      destino: ['', Validators.pattern('^[a-zA-Z ]*$')],
-      mensaje: ['', [Validators.required, Validators.maxLength(160), Validators.pattern('^[a-zA-Z ]*$')]]
+      origen: ['', [ Validators.required, Validators.pattern(regexNoNumber)]],
+      destino: ['', Validators.pattern(regexNoNumber)],
+      mensaje: ['', [Validators.required, Validators.maxLength(160), Validators.pattern(regexNoNumber)]]
     });
 
     this.user = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       telefono: ['', [Validators.required, Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
-      ciudad: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      ciudad: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
       correo: ['', [ Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
       contrasenaConfirmada: ['', Validators.required]
@@ -147,7 +148,7 @@ export class RequestComponent implements OnInit {
         res => {
           this.isLoading = false;
           this.userService.setToken(res['token']);
-    
+  
 
          //EMITIR NOTIFICACION AL CLIENTE
           let payload = {

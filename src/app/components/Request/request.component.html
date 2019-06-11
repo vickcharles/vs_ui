@@ -32,7 +32,7 @@
                   <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de montacarga">
                     <img src="../../../assets/img/servicios/alquiler de montacarga.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
-                      Alquiler montacargas
+                      Alquiler de montacarga
                     </h1>
                   </mat-radio-button>
                   <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de grua">
@@ -95,7 +95,7 @@
               <!-- Origen -->
               <div class="vs-input-field col-md-3">
                   <span class="vs-field-label">Origen</span>
-                  <input placeholder="Ej: Bogotá" formControlName="origen">
+                  <input matInput placeholder="Ej: Bogotá" formControlName="origen">
                   <span *ngIf="submitted && request.get('origen').errors?.required" class="invalid-feedback">
                     Este campo es requerido.
                   </span>
