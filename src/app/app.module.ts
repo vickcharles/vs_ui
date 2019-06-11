@@ -18,7 +18,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { MomentModule } from 'angular2-moment';
 import { environment } from '../environments/environment';
 
-const config: SocketIoConfig = { url: 'http://localhost:8000', options: {}};
+const config: SocketIoConfig = { url: 'https://vs-rest-api.herokuapp.com/api', options: {}};
 
 //FIREBASE SETTINGS
 import { AngularFireModule } from '@angular/fire';
