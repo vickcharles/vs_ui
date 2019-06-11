@@ -6,12 +6,16 @@ import Typed from 'typed.js';
   templateUrl: './banner.component.html'
 })
 export class BannerComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
     let options = {
-      strings: ["Carga de Transporte", "Alquiler de Grúas", "Maquinaria amarilla.", "operadores de cargue"],
+      strings: [
+      "Carga de Transporte", 
+      "Alquiler de Grúas", 
+      "Maquinaria amarilla.", 
+      "Operadores de cargue",
+      "Operadores de descargue",],
       typeSpeed: 50,
       backSpeed: 20,
       showCursor: true,
