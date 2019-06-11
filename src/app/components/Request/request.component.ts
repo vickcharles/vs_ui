@@ -85,6 +85,11 @@ export class RequestComponent implements OnInit {
 
 
   login(credentials: any) {
+
+    let valueE = credentials.get('email').value
+
+    credentials.get('email').setValue(valueE.toLowerCase());
+
     this.userService.login(credentials).subscribe(
       res => {
         this.userService.setToken(res['token']);
@@ -136,6 +141,10 @@ export class RequestComponent implements OnInit {
   register() {
     this.submitted = true;
 
+    //Email to lowercase before save
+    let valueEmail = this.user.get('correo').value
+    this.user.get('correo').setValue(valueEmail.toLowerCase());
+
     if(this.user.valid && !this.isRegistered) {
       this.isLoading = true;
 
@@ -174,6 +183,11 @@ export class RequestComponent implements OnInit {
       );
       //loggin if user is registered
     } else if (this.credentials.valid && this.isRegistered) {
+
+      // let valueE = this.credentials.get('email').value
+
+      // this.credentials.get('email').setValue(valueE.toLowerCase());
+
       this.userService.login(this.credentials.value).subscribe(
         res => {
           this.isLoading = false;

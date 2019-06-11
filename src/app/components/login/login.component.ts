@@ -19,12 +19,21 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.credentials = this.formBuilder.group({
-      email: [''.toLowerCase(), Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
     });
+
   }
 
+
   public login() {
+
+    let value = this.credentials.get('email').value
+
+    this.credentials.get('email').setValue(value.toLowerCase())
+
+
+
     this.isLoading = true;
     this.userService.login(this.credentials.value).subscribe(
       res => {
