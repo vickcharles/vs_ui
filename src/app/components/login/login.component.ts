@@ -22,9 +22,7 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-
   }
-
 
   public login() {
 
@@ -52,5 +50,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
 }
