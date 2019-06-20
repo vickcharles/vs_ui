@@ -17,6 +17,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AdminRequestViewComponent } from './admin/components/request/request-view/request-view.component';
 import { AdminRequestListComponent } from './admin/components/request/request-list/request-list.component'
 import { ChatComponent } from './components/chat/chat.component';
+import { TrabajaConNosotrosComponent } from './components/trabaja-con-nosotros/trabaja-con-nosotros.component';
 
 const APP_MODULE: Routes = [
   {
@@ -30,6 +31,10 @@ const APP_MODULE: Routes = [
       {
         path: 'solicitar-servicio',
         component: RequestComponent
+      },
+      {
+        path: 'trabaja-con-nosotros',
+        component: TrabajaConNosotrosComponent
       },
       {
         path: 'acceder',

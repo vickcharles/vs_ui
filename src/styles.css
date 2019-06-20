@@ -289,9 +289,9 @@ body {
 }
 
 .main-banner h2 {
-    color: white;
-    text-align: center;
-    font-family: 'Open Sans Condensed', sans-serif;
+   color: white;
+   text-align: center;
+   font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .banner-img {
@@ -650,6 +650,10 @@ body {
     background-color: #3e3e3e !important;
 }
 
+.vs-color-black {
+    color: #3e3e3e !important;
+}
+
 .vs-background-color-light {
   background-color: #f5f5f5 !important;
 }
@@ -754,7 +758,8 @@ body {
 .vs-content-img {
     background-image: url("./assets/img/camion.png");
     background-size: cover;
-    height: 450px;
+    height: 330px;
+    background-repeat: round !important;
 }
 
 /*Section*/
@@ -855,6 +860,10 @@ body {
 
     .vs-section {
 	   padding: 50px 80px;
+    }
+
+    .vs-content-img {
+       height: 420px !important;
     }
 
     .login-signup {

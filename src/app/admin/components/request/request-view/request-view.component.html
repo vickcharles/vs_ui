@@ -49,6 +49,32 @@
             {{requestDetails?.usuario.name | firstChartUppercase }}
             {{requestDetails?.usuario.lastName | firstChartUppercase }}
           </p>
+            <h1 class="vs-font-small">
+              {{requestDetails?.cliente.nombreEmpresa ? 'Empresa' : 'Natural' }}
+            </h1>
+            <p *ngIf="requestDetails?.cliente.nombreEmpresa; else natural" class="vs-color-grey vs-font-small vs-margin-remove">
+              {{requestDetails?.cliente.nombreEmpresa | firstChartUppercase }}
+              <span class="vs-color-grey vs-font-small vs-margin-remove">NIT:</span>
+              ({{requestDetails?.cliente.documento}})
+            </p>
+            <ng-template #natural>
+              <p class="vs-color-grey vs-font-small vs-margin-remove">
+                 Documento:
+                ({{requestDetails?.cliente.documento}})
+              </p>
+            </ng-template>
+          <h1 class="vs-font-small">
+            Telefono:
+          </h1>
+          <p class="vs-color-grey vs-font-small vs-margin-remove">
+            {{requestDetails?.usuario.cellPhone }}
+          </p>
+          <h1 class="vs-font-small">
+            Correo:
+            </h1>
+            <p class="vs-color-grey vs-font-small vs-margin-remove">
+              {{requestDetails?.usuario.email }}
+            </p>
         </div>
         <div class="vs-margin-top-medium">
           <h1 class="vs-font-small">
