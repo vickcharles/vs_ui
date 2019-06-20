@@ -1,8 +1,8 @@
 <div [ngClass]="{'vs-background-color-vs' : router.url === '/home', 'vs-background-color-light' : router.url != '/home'}">
   <div class="vs-container header">
 		<div class="vs-cursor-pointer remove-focus" [routerLink]="['/home']">
+			<img  class="main-logo-mobile hide-on-desktop" src="../../../../assets/img/logo-mobile-blanco.png" alt="">
 			<img class="main-logo hide-on-mobile" src="../../../../assets/img/main-logo.png" alt="">
-			<img class="main-logo-mobile hide-on-desktop" src="../../../../assets/img/logo-mobile.png" alt="">
 		</div>
 		<div *ngIf="router.url === '/home'" class="vs-color-default header-menu">
 			<a [routerLink]="['/acceder']" class="vs-margin-right-small acceder-btn vs-font-xsmall  vs-cursor-pointer vs-color-default vs-text-semibold">
