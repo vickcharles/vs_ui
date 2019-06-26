@@ -11,7 +11,7 @@ export class BannerComponent implements OnInit {
   ngOnInit() {
     let options = {
       strings: [
-      "Carga de Transporte.",
+      "Transporte de carga",
       "Alquiler de Grúas.",
       "Maquinaria amarilla.",
       "Operadores de cargue.",

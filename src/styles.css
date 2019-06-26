@@ -803,7 +803,6 @@ body {
 
 .vs-services-banner .card:hover {
     transform: scale(1.05) !important;
-    cursor: pointer !important;
     box-shadow: 0 2px 0 rgb(255, 209, 92);
 }
 
