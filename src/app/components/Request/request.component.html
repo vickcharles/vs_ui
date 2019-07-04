@@ -69,8 +69,8 @@
             <form [formGroup]="request" class="row">
               <!-- Tipo de Servico-->
               <div formGroupName="tipoDeServicio" class="vs-input-field col-md-5">
-                <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de Servicio</span>
-                <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grua'" class="vs-field-label">Tipo de Servicio</span>
+                <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de Servicio (Especificamente)</span>
+                <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grua'" class="vs-field-label">Tipo de Servicio (Especificamente)</span>
                 <select *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
                   <option selected="true" disabled="disabled">Tipo de Servicio</option>
                   <option value="transporte de carga seca">Transporte de carga seca</option>
