@@ -6,10 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./requests.component.css']
 })
 export class RequestsComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
   }
-
 }

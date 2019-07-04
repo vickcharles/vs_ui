@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { UserService } from '../../service/user.service';
 import { RequestService } from '../../service/request.service';
+import { ScrollTopService } from '../../service/scrollToTop.service';
 import { Router } from "@angular/router";
 import { MustMatch } from '../../validators/password-match';
 import { MatSnackBar } from '@angular/material';
