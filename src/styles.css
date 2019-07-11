@@ -721,7 +721,6 @@ body {
 }
 
 /*FONT WEIGHT*/
-
 .vs-text-300 {
 	font-weight: 300 !important;
 }
@@ -739,11 +738,11 @@ body {
 }
 
 .vs-text-extrabold {
-	 font-weight: 800 !important;
+	font-weight: 800 !important;
 }
 
 /*CURSOR*/
-.vs-cursor-pointer{
+.vs-cursor-pointer {
     cursor: pointer !important;
 }
 
@@ -772,7 +771,7 @@ body {
 
 /*Card Request*/
 .card-request img {
-  max-width: 80px;
+    max-width: 80px;
 }
 
 .card-request a:hover {
@@ -846,17 +845,14 @@ body {
 
 /* iPhones(landscape) ----------- */
 @media only screen and (min-width: 375px) {
-
     .main-banner img{
         max-width: 330px !important;
         margin-top: 20px !important;
     }
-
 }
 
 /* iPads (landscape) ----------- */
 @media only screen and (min-width: 768px) {
-
     .vs-section {
 	   padding: 50px 80px;
     }

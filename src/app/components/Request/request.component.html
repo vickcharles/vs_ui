@@ -4,15 +4,12 @@
     <div
       class="col col-sm-12 vs-margin-top-small vs-margin-center"
     >
-
       <h1 *ngIf="isCreatingRequest" [routerLink]="['/dashboard']" class="vs-font-xsmall vs-color-dark-grey remove-focus vs-cursor-pointer vs-color-vs">
         <i class="fas fa-arrow-left vs-color-vs fa-sm vs-margin-right-xsmall"></i>
           REGRESAR AL DASHBOARD
       </h1>
-
       <div class="vs-section vs-background-color-white">
-        <mat-horizontal-stepper labelPosition="bottom" #stepper>
-
+          <mat-horizontal-stepper labelPosition="bottom" #stepper>
           <!-- first stepper -->
           <mat-step>
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
@@ -75,7 +72,7 @@
                   <option selected="true" disabled="disabled">Tipo de Servicio</option>
                   <option value="transporte de carga seca">Transporte de carga seca</option>
                   <option value="transporte de contenedores">Transporte de contenedores</option>
-                  <option value="transporte de refrigerados">Transporte de refrigerados</option>
+                  <option value="transporte de refrigerados">Transporte refrigerados</option>
                   <option value="transporte de carga extradimensionada">Transporte de carga extradimensionada</option>
                 </select>
                 <select *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grua'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
@@ -94,8 +91,10 @@
               <div class="col-sm-12"></div>
 
               <!-- Origen -->
-              <div class="vs-input-field col-md-3">
-                  <span class="vs-field-label">Origen</span>
+              <div class="vs-input-field col-md-4">
+                  <span class="vs-field-label">
+                    {{request.value.tipoDeServicio.nombre == 'transporte de carga' ? 'Origen' : 'Ciudad donde requiere su servicio'}}
+                  </span>
                   <input matInput placeholder="Ej: Bogotá" formControlName="origen">
                   <span *ngIf="submitted && request.get('origen').errors?.required" class="invalid-feedback">
                     Este campo es requerido.
@@ -117,7 +116,7 @@
               <div class="col-sm-12"></div>
                 <!-- Tipo de Persona-->
                 <div formGroupName="cliente" class="vs-input-field col-md-5">
-                  <span class="vs-field-label">Tipo de persona</span>
+                  <span class="vs-field-label">Tipo de cliente</span>
                   <select formControlName="tipo" class="form-control" aria-placeholder="tipo de persona">
                     <option selected="true" disabled="disabled">Tipo de persona</option>
                     <option value="empresa">Empresa</option>
