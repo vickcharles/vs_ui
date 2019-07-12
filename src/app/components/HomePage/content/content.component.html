@@ -21,7 +21,7 @@
   <div class="vs-container">
   <div class="row vs-text-align-center vs-services-banner justify-content-between">
     <div class="col col-md-3 vs-margin-top-small">
-      <div class="card puntero" [routerLink]="['/solicitar-servicio']">
+      <div class="card puntero" (click)="setTipoDeServicio('Transporte de carga')">
         <img src="../../../../assets/img/camion-banner.png" alt="">
         <h1 class="vs-font-small vs-color-vs vs-font-roboto">Transporte de carga</h1>
         <p class="vs-font-xsmall vs-color-grey">
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="col col-md-3 vs-margin-top-small">
-      <div class="card puntero" [routerLink]="['/solicitar-servicio']">
+      <div class="card puntero" (click)="setTipoDeServicio('Alquiler de gruas')">
         <img src="../../../../assets/img/grua-banner.png" alt="">
         <h1 class="vs-font-small vs-color-vs vs-font-roboto">
           Alquiler de Grúas y otras maquinarias amarilla.
@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="col col-md-3 vs-margin-top-small">
-      <div class="card puntero" [routerLink]="['/solicitar-servicio']">
+      <div class="card puntero" (click)="setTipoDeServicio('Alquiler de montacarga')">
         <img src="../../../../assets/img/montacarga-banner.png" alt="">
         <h1 class="vs-font-small vs-color-vs vs-font-roboto">Alquiler de montacarga</h1>
         <p class="vs-font-xsmall vs-color-grey">
@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="col col-md-3 vs-margin-top-small">
-      <div class="card puntero" [routerLink]="['/solicitar-servicio']">
+      <div class="card puntero" (click)="setTipoDeServicio('Operario de cargue y descargue')">
         <img src="../../../../assets/img/constructor.png" alt="">
         <h1 class="vs-font-small vs-color-vs vs-font-roboto">Operario de cargue y descargue</h1>
         <p class="vs-font-xsmall vs-color-grey">

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { UserService } from '../../service/user.service';
@@ -17,7 +17,7 @@ import { CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/route
   styleUrls: ['./request.component.css']
 })
 export class RequestComponent implements OnInit {
-
+  selectedIndex = 0;
   credentials: FormGroup;
   isLinear = false;
   isRegistered = false;
@@ -34,6 +34,9 @@ export class RequestComponent implements OnInit {
   submitted = false;
   isCreatingRequest = false;
 
+  getIndex() {
+    localStorage.getItem('tipoDeServicio') !== '' ? this.selectedIndex === 1 : this.selectedIndex === 0;
+  }
 
   constructor(
     private next: ActivatedRoute,
@@ -41,7 +44,8 @@ export class RequestComponent implements OnInit {
     private wsService: WebsocketService,
     private userService: UserService,
     private requestService: RequestService,
-    private router: Router, private formBuilder: FormBuilder) {
+    private router: Router,
+    private formBuilder: FormBuilder) {
     this.next.data.subscribe(v =>
       this.isCreatingRequest = v.isRequesting
     );
@@ -49,6 +53,7 @@ export class RequestComponent implements OnInit {
 
   ngOnInit() {
     const regexNoNumber = /^[A-Z\sñÑáéíóúÁÉÍÓÚ@~`!@#$%^&*()_=+\\\\';:\"\\/?>.<,-]*$/i;
+
     this.credentials = this.formBuilder.group({
       email: [''.toLowerCase(), Validators.required],
       password: ['', Validators.required],
@@ -56,7 +61,7 @@ export class RequestComponent implements OnInit {
 
     this.request = this.formBuilder.group({
       tipoDeServicio: this.formBuilder.group({
-        nombre: ['', Validators.required],
+        nombre: [localStorage.getItem('tipoDeServicio'), Validators.required],
         especificamente: ['']
       }),
       cliente: this.formBuilder.group({
@@ -82,6 +87,26 @@ export class RequestComponent implements OnInit {
     {
       validator: MustMatch('contrasena', 'contrasenaConfirmada')
     });
+  }
+
+  // Event fired after view is initialized
+  @ViewChild('stepper') stepper: MatStepper;
+  ngAfterViewInit() {
+    //this.stepper.selectedIndex = 1; 
+
+    // To avoid "ExpressionChangedAfterItHasBeenCheckedError" error, 
+    // set the index in setTimeout
+    if(localStorage.getItem('tipoDeServicio')) {
+      setTimeout(() => {
+        this.stepper.selectedIndex = 1
+      },0);
+    } else {
+      setTimeout(() => {
+        this.stepper.selectedIndex = 0
+      },0);
+
+    }
+
   }
 
 
