@@ -19,6 +19,8 @@ import { AdminRequestListComponent } from './admin/components/request/request-li
 import { ChatComponent } from './components/chat/chat.component';
 import { TrabajaConNosotrosComponent } from './components/trabaja-con-nosotros/trabaja-con-nosotros.component';
 
+import { AutorizacionComponent } from './components/homepage/autorizacion/autorizacion.component';
+
 const APP_MODULE: Routes = [
   {
     path: '',
@@ -35,6 +37,10 @@ const APP_MODULE: Routes = [
       {
         path: 'trabaja-con-nosotros',
         component: TrabajaConNosotrosComponent
+      },
+      {
+        path: 'autorizacion',
+        component:  AutorizacionComponent
       },
       {
         path: 'acceder',

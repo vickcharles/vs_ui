@@ -68,6 +68,7 @@ import { AdminRequestViewComponent } from './admin/components/request/request-vi
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { RequestHistorialComponent } from './components/request/request-historial/request-historial.component';
 import { TrabajaConNosotrosComponent } from './components/trabaja-con-nosotros/trabaja-con-nosotros.component';
+import { AutorizacionComponent } from './components/homepage/autorizacion/autorizacion.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { TrabajaConNosotrosComponent } from './components/trabaja-con-nosotros/t
     AdminRequestViewComponent,
     NotificationsComponent,
     RequestHistorialComponent,
-    TrabajaConNosotrosComponent
+    TrabajaConNosotrosComponent,
+    AutorizacionComponent
   ],
   imports: [
     BrowserModule,

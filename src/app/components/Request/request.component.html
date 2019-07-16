@@ -60,10 +60,13 @@
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
               {{ request.value.tipoDeServicio.nombre | uppercase }}? LISTO!!
             </h1>
-            <p class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
+            <p class="vs-text-align-center vs-color-grey">
               LLena los siguientes campos y te contactaremos un {{request.value.tipoDeServicio.nombre}} en minutos!!
             </p>
-            <form [formGroup]="request" class="row">
+            <p *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'"  class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
+              (peso minimo de carga 2 toneladas )
+            </p>
+            <form [formGroup]="request" class="row vs-margin-top-medium">
               <!-- Tipo de Servico-->
               <div formGroupName="tipoDeServicio" class="vs-input-field col-md-5">
                 <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de Servicio (Especificamente)</span>
@@ -269,7 +272,11 @@
                           Las contraseñas deben coincidir.
                         </span>
                       </div>
-                      <div class="col-sm-12"></div>
+                      <div class="col-sm-12">
+                        <mat-checkbox>
+                          Aviso de autorización: <a class="link">Autorizo el tratamiento de mis datos personales</a>
+                        </mat-checkbox>
+                      </div>
                       <div class="col-sm-6">
                         <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
                           {{serverErrorMessages}}

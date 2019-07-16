@@ -318,10 +318,6 @@ body {
     float: right !important;
 }
 
-.img-content img {
-    max-width: 130px !important;
-}
-
 /*FONT-SIZE*/
 .vs-font-small {
     font-size: 16px !important;
@@ -754,12 +750,7 @@ body {
 }
 
 /*CONTENT HOMEPAGE*/
-.vs-content-img {
-    background-image: url("./assets/img/camion.png");
-    background-size: cover;
-    height: 330px;
-    background-repeat: round !important;
-}
+
 
 /*Section*/
 .vs-section,
@@ -857,8 +848,8 @@ body {
 	   padding: 50px 80px;
     }
 
-    .vs-content-img {
-       height: 420px !important;
+    .vs-content-img img {
+       height: 350px !important;
     }
 
     .login-signup {
