@@ -33,7 +33,7 @@
                       Alquiler de montacarga
                     </h1>
                   </mat-radio-button>
-                  <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de grua">
+                  <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de grúa">
                     <img src="../../../assets/img/servicios/alquiler de grua.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Alquiler de grúa
@@ -70,7 +70,7 @@
               <!-- Tipo de Servico-->
               <div formGroupName="tipoDeServicio" class="vs-input-field col-md-5">
                 <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de Servicio (Especificamente)</span>
-                <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grua'" class="vs-field-label">Tipo de Servicio (Especificamente)</span>
+                <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" class="vs-field-label">Tipo de Servicio (Especificamente)</span>
                 <select *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
                   <option selected="true" disabled="disabled">Tipo de Servicio</option>
                   <option value="transporte de carga seca">Transporte de carga seca</option>
@@ -78,7 +78,7 @@
                   <option value="transporte de refrigerados">Transporte refrigerados</option>
                   <option value="transporte de carga extradimensionada">Transporte de carga extradimensionada</option>
                 </select>
-                <select *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grua'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
+                <select *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
                   <option selected="true" disabled="disabled">Tipo de servicio</option>
                   <option value="gruá ph">Gruá PH</option>
                   <option value="gruá telescopica">Gruá Telescopica</option>
