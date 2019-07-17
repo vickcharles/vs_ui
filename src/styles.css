@@ -903,8 +903,6 @@ body {
         padding-top: 80px;
         padding-bottom: 80px;
     }
-
-
 }
 
 /* Tablets small laptops ----------- */
@@ -920,10 +918,6 @@ body {
 
     .vs-services-banner .card {
         height: 300px;
-    }
-
-    .card-c {
-        height: 250px !important;
     }
 
     .main-banner img{
