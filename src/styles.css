@@ -904,9 +904,7 @@ body {
         padding-bottom: 80px;
     }
 
-    .vs-services-banner .card {
-        margin-right: 10px;
-    }
+
 }
 
 /* Tablets small laptops ----------- */
@@ -918,6 +916,14 @@ body {
 
     .vs-message-right {
         margin-top: 35px;
+    }
+
+    .vs-services-banner .card {
+        height: 300px;
+    }
+
+    .card-c {
+        height: 250px !important;
     }
 
     .main-banner img{
@@ -946,9 +952,13 @@ body {
 }
 
 /* Laptops ----------- */
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1220px) {
     /***** HOME *****/
 	.vs-container {
 		width: 1150px;
-	}
+    }
+    
+    .vs-services-banner .card {
+        height: 250px;
+    }
 }
