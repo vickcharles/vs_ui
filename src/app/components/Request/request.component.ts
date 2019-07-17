@@ -26,6 +26,8 @@ export class RequestComponent implements OnInit {
   user: FormGroup;
   isOptional= false;
 
+  checkbox = false;
+
   isLoading: Boolean = false;
   errors: any = {
     tipoDeServicio: String
@@ -82,11 +84,20 @@ export class RequestComponent implements OnInit {
       ciudad: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
       correo: ['', [ Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
+      autorizo: [, Validators.required],
       contrasenaConfirmada: ['', Validators.required]
     },
     {
       validator: MustMatch('contrasena', 'contrasenaConfirmada')
     });
+  }
+
+  onCheckboxChange() {
+    if (this.checkbox) {
+      setTimeout(()=>{
+        this.checkbox = !this.checkbox;
+      })
+    }
   }
 
   // Event fired after view is initialized

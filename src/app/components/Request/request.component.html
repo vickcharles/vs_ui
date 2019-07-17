@@ -273,11 +273,18 @@
                         </span>
                       </div>
                       <div class="col-sm-12">
-                        <mat-checkbox>
-                          Aviso de autorización: <a class="link">Autorizo el tratamiento de mis datos personales</a>
-                        </mat-checkbox>
+                        <input type="checkbox" formControlName="autorizo" />
+                        <label class="link vs-margin-left-xsmall">
+                          Aviso de autorización: <a class="link" href="https://vs-ui.charlesvikler.now.sh/autorizacion" target="_blank">Autorizo el tratamiento de mis datos personales</a>
+                        </label>
+                        <br />
                       </div>
-                      <div class="col-sm-6">
+                      <div class="col-sm-12">
+                        <span *ngIf="submitted && user.get('autorizo').errors?.required" class="invalid-feedback color">
+                          Debe autorizar el tratamiento de los datos personales
+                        </span>
+                      </div>
+                      <div class="col-sm-12">
                         <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
                           {{serverErrorMessages}}
                         </div>
