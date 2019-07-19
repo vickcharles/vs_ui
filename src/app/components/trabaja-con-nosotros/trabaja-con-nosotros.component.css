@@ -1,3 +1,48 @@
 .coins {
-    max-width: 400px !important;
+    max-width: 300px !important;
+}
+
+.title {
+    font-size: 35px !important;
+}
+
+.section {
+    height: 500px !important;
+}
+
+/* iPhones(landscape) ----------- */
+@media only screen and (min-width: 375px) {
+    .title {
+       font-size: 35px !important;
+    }
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-width: 768px) {
+    .coins {
+        max-width: 500px !important;
+    }
+}
+
+/* Tablets small laptops ----------- */
+@media (min-width: 965px) {
+    .title {
+       font-size: 40px !important;
+    }
+
+    .section {
+        height: 700px !important;
+    }
+
+    .coins {
+        max-width: 700px !important;
+        margin-top: 70px !important;
+    }
+}
+
+/* Laptops ----------- */
+@media only screen and (min-width: 1220px) {
+    .coins {
+        max-width: 600px !important;
+    }
 }

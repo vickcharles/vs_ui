@@ -20,7 +20,7 @@
           Status:
         </h1>
         <h1 class="vs-color-status vs-font-small vs-margin-remove">
-          {{requestDetails?.estado}}
+          {{requestDetails?.estado | firstChartUppercase}}
         </h1>
       </div>
       <div class="vs-margin-top-medium">
@@ -33,10 +33,10 @@
       </div>
       <div class="vs-margin-top-medium">
         <h1 class="vs-font-small">
-          Ultima actualizacion:
+          Última actualización:
         </h1>
         <p class="vs-margin-remove vs-color-grey">
-          {{requestDetails?.created_at | amLocale: 'es'  | amTimeAgo}}
+          {{requestDetails?.created_at | amLocale: 'es' | amTimeAgo}}
         </p>
       </div>
       <hr class="vs-margin-top-medium">

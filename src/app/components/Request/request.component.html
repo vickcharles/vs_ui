@@ -16,7 +16,7 @@
               SELECCIONA TU TIPO DE SERVICIO
             </h1>
             <p class="vs-text-align-center vs-color-grey vs-margin-bottom-medium">
-              Tenemos disponibilidad las 24 horas
+              Recibimos tu solicitud las 24h
             </p>
             <form [formGroup]="request">
               <div formGroupName="tipoDeServicio" class="vs-input-field row vs-text-align-center">
@@ -58,21 +58,20 @@
            <!-- second step -->
           <mat-step>
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
-              ¿{{ request.value.tipoDeServicio.nombre | uppercase }}? LISTO!!
+              ¿{{ request.value.tipoDeServicio.nombre | uppercase }}? ¡LISTO!
             </h1>
             <p class="vs-text-align-center vs-color-grey">
-              LLena los siguientes campos y te contactaremos un {{request.value.tipoDeServicio.nombre}} en minutos!!
+              ¡LLena los siguientes formulario y te proveeremos un {{request.value.tipoDeServicio.nombre}} en minutos!.
             </p>
             <p *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'"  class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
-              (peso minimo de carga 2 toneladas )
+              (Peso mínimo de carga 2 toneladas)
             </p>
             <form [formGroup]="request" class="row vs-margin-top-medium">
               <!-- Tipo de Servico-->
               <div formGroupName="tipoDeServicio" class="vs-input-field col-md-5">
-                <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de Servicio (Especificamente)</span>
-                <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" class="vs-field-label">Tipo de Servicio (Especificamente)</span>
+                <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de {{request.value.tipoDeServicio.nombre}}</span>
+                <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" class="vs-field-label">Tipo de grúa</span>
                 <select *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
-                  <option selected="true" disabled="disabled">Tipo de Servicio</option>
                   <option value="transporte de carga seca">Transporte de carga seca</option>
                   <option value="transporte de contenedores">Transporte de contenedores</option>
                   <option value="transporte de refrigerados">Transporte refrigerados</option>
@@ -139,10 +138,10 @@
                     Este campo es requerido.
                   </span>
                   <span *ngIf="submitted && request.get('cliente').get('documento').errors?.pattern" class="invalid-feedback">
-                    Introduce un {{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cedula'}} valido.
+                    Introduce un {{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cédula'}} valido.
                   </span>
                   <span *ngIf="submitted && request.get('cliente').get('documento').errors?.maxlength" class="invalid-feedback">
-                    Minimo limite de caracteres 10.
+                    Mínimo limite de caracteres 10.
                   </span>
                 </div>
                 <div class="col-sm-12"></div>
@@ -181,7 +180,7 @@
           <!-- third step -->
           <mat-step *ngIf="!isCreatingRequest">
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
-              BIEN, YA ESTAMOS CASI LISTOS!!!
+              BIEN, YA ESTAMOS CASI LISTOS
             </h1>
             <p *ngIf="!isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
               Registrate o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Accede Aqui </a> para darle seguimiento a tu solicitud
@@ -213,7 +212,7 @@
                   </div>
                   <div class="col-sm-12"></div>
                   <div class="vs-input-field col-md-5">
-                    <span class="vs-field-label">Telefono</span>
+                    <span class="vs-field-label">Teléfono</span>
                     <input formControlName="telefono" matInput>
                     <span *ngIf="submitted && user.get('telefono').errors?.required" class="invalid-feedback">
                       Este campo es requerido.
@@ -256,7 +255,7 @@
                           Este campo es requerido.
                         </span>
                         <span *ngIf="submitted && user.get('contrasena').errors?.minlength" class="invalid-feedback">
-                          Minimo limite de caracteres 6.
+                          Mínimo limite de caracteres 6.
                         </span>
                      </div>
                      <div class="col-sm-12"></div>
