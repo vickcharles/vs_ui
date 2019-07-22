@@ -18,7 +18,7 @@
             <p class="vs-text-align-center vs-color-grey vs-margin-bottom-medium">
               Recibimos tu solicitud las 24h
             </p>
-            <form [formGroup]="request">
+            <form [formGroup]="request" autocomplete="off">
               <div formGroupName="tipoDeServicio" class="vs-input-field row vs-text-align-center">
                 <mat-radio-group formControlName="nombre" class="radio-group">
                   <mat-radio-button class="col-sm-12 col-md-4 radio-button vs-margin-bottom-small" value="transporte de carga">
@@ -61,12 +61,12 @@
               ¿{{ request.value.tipoDeServicio.nombre | uppercase }}? ¡LISTO!
             </h1>
             <p class="vs-text-align-center vs-color-grey">
-              ¡LLena los siguientes formulario y te proveeremos un {{request.value.tipoDeServicio.nombre}} en minutos!.
+              ¡LLena el siguiente formulario y te proveeremos un {{request.value.tipoDeServicio.nombre}} en minutos!
             </p>
             <p *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'"  class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
               (Peso mínimo de carga 2 toneladas)
             </p>
-            <form [formGroup]="request" class="row vs-margin-top-medium">
+            <form [formGroup]="request" autocomplete="off" class="row vs-margin-top-medium">
               <!-- Tipo de Servico-->
               <div formGroupName="tipoDeServicio" class="vs-input-field col-md-5">
                 <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de {{request.value.tipoDeServicio.nombre}}</span>
@@ -78,11 +78,10 @@
                   <option value="transporte de carga extradimensionada">Transporte de carga extradimensionada</option>
                 </select>
                 <select *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
-                  <option selected="true" disabled="disabled">Tipo de servicio</option>
-                  <option value="gruá ph">Gruá PH</option>
+                  <option value="gruá ph">Grúa PH</option>
                   <option value="gruá telescopica">Gruá Telescopica</option>
-                  <option value="gruá de gancho">Gruá de Gancho</option>
-                  <option value="gruá autodescargable">Gruá auto-descargable</option>
+                  <option value="gruá de gancho">Grúa de Gancho</option>
+                  <option value="gruá autodescargable">Grúa auto-descargable</option>
                   <option value="telehandler">Telehandler</option>
                   <option value="ManLift">ManLift</option>
                 </select>
@@ -131,7 +130,7 @@
 
                 <!-- Cedula or Nit-->
                 <div *ngIf="request.value.cliente.tipo != ''" formGroupName="cliente" class="vs-input-field col-md-5">
-                  <span class="vs-field-label">{{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cedula'}}</span>
+                  <span class="vs-field-label">{{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cédula'}}</span>
                   <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'empresa'"  matInput>
                   <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'natural'" matInput>
                   <span *ngIf="submitted && request.get('cliente').get('documento').errors?.required" class="invalid-feedback">
@@ -183,12 +182,12 @@
               BIEN, YA ESTAMOS CASI LISTOS
             </h1>
             <p *ngIf="!isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
-              Registrate o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Accede Aqui </a> para darle seguimiento a tu solicitud
+              Regístrate o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Accede Aquí </a> para darle seguimiento a tu solicitud
             </p>
             <p *ngIf="isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
-              Accede o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Registrate Aqui </a> para darle seguimiento a tu solicitud
+              Accede o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Registrate Aquí </a> para darle seguimiento a tu solicitud
             </p>
-            <form [formGroup]="user" class="row" *ngIf="!isRegistered ; else login">
+            <form autocomplete="off" [formGroup]="user" class="row" *ngIf="!isRegistered ; else login">
               <div class="vs-margin-center">
                   <div class="vs-input-field col-md-5">
                     <span class="vs-field-label">Nombre</span>
@@ -274,7 +273,7 @@
                       <div class="col-sm-12">
                         <input type="checkbox" formControlName="autorizo" />
                         <label class="link vs-margin-left-xsmall">
-                          Aviso de autorización: <a class="link" href="https://vs-ui.charlesvikler.now.sh/autorizacion" target="_blank">Autorizo el tratamiento de mis datos personales</a>
+                          <a class="link" href="https://vs-ui.charlesvikler.now.sh/autorizacion" target="_blank">Autorizo el tratamiento de mis datos personales</a>
                         </label>
                         <br />
                       </div>
@@ -292,7 +291,7 @@
             </form>
 
             <ng-template #login class="row">
-              <form [formGroup]="credentials" class="vs-input-field" >
+              <form autocomplete="off" [formGroup]="credentials" class="vs-input-field" >
                 <div class="col-md-6">
                   <span class="vs-field-label">Correo</span>
                   <input formControlName="email" matInput>

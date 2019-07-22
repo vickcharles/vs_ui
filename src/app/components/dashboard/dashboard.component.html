@@ -6,8 +6,10 @@
       <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
     </div>
 
-    <div *ngIf="userDetails?.role == 'User'" [routerLink]="['/dashboard']" class="remove-focus vs-cursor-pointer">
-      <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
+    <div *ngIf="userDetails?.role == 'User'" >
+      <a class="remove-focus vs-cursor-pointer" href="https://www.24-7ls.com" target="_blank">
+       <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
+     </a>
     </div>
     <div class="header-menu">
       <h1 [matMenuTriggerFor]="menu" class="vs-display-inline vs-cursor-pointer vs-font-xsmall vs-margin-right-small">

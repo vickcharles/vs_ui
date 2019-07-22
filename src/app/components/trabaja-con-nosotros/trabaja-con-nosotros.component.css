@@ -1,13 +1,33 @@
 .coins {
     max-width: 300px !important;
+    margin-top: 20px !important;
+}
+
+.banner {
+    padding-top: 20px !important;
 }
 
 .title {
     font-size: 35px !important;
 }
 
+.fuera {
+    background-color: #FFD15C !important;
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+    padding-left: 40px !important;
+    padding-right: 20px !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 20px 20px 0px;
+}
+
+.imagen {
+    margin-top: 20px !important;
+}
+
 .section {
     height: 500px !important;
+    margin-top: 20px !important;
 }
 
 /* iPhones(landscape) ----------- */
@@ -15,12 +35,19 @@
     .title {
        font-size: 35px !important;
     }
+
+    .coins {
+        margin-top: 20px !important;
+    }
 }
 
 /* iPads (landscape) ----------- */
 @media only screen and (min-width: 768px) {
     .coins {
         max-width: 500px !important;
+    }
+    .banner {
+        padding-top: 40px !important;
     }
 }
 
@@ -34,6 +61,10 @@
         height: 700px !important;
     }
 
+    .imagen {
+        margin-top: 0px !important;
+    }
+
     .coins {
         max-width: 700px !important;
         margin-top: 70px !important;
@@ -43,6 +74,6 @@
 /* Laptops ----------- */
 @media only screen and (min-width: 1220px) {
     .coins {
-        max-width: 600px !important;
+        max-width: 700px !important;
     }
 }
