@@ -14,8 +14,6 @@ export const environment = {
     appId: "1:683959836650:web:2111ab93acca43d8"
   },
   apiBaseUrl: 'https://vs-rest-api.herokuapp.com/api',
-  // apiBaseUrl: 'https://vs-rest-api.herokuapp.com/api'
-  // apiBaseUrl: 'http://localhost:8000/api'
 };
 
 

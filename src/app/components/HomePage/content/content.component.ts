@@ -12,7 +12,6 @@ export class ContentComponent implements OnInit {
 
   ngOnInit() {}
 
-
   setTipoDeServicio(tipoDeServicio: any) {
     localStorage.setItem('tipoDeServicio', tipoDeServicio)
     this.router.navigate(['/solicitar-servicio'])

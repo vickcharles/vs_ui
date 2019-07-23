@@ -2,18 +2,30 @@
 <div class="row vs-display-flex vs-margin-top-xsmall">
   <div class="col col-xs-10 col-sm-10 col-md-5 col-lg-5 vs-margin-center vs-margin-top-small">
     <div class="vs-section vs-text-align-center col-md-12 vs-background-color-white request-view animated fadeIn">
+        <h1 class="vs-font-medium vs-margin-remove vs-text-mediumbold vs-color-black">
+           ¡Hola! soy {{requestDetails?.operadorId?.name}} {{requestDetails?.operadorId?.lastName}}
+        </h1>
+        <h1 class="vs-font-medium vs-margin-remove vs-text-mediumbold vs-color-black">
+            tu ejectutivo comercial asignado.
+        </h1>
+      <div class="vs-margin-bottom-small">
+      <div class="vs-margin-bottom-xsmall vs-margin-top-small">
+        <ngx-avatar size="100" src="assets/img/admin/{{requestDetails?.operadorId?.name}}.png"></ngx-avatar>
+      </div>
+      <h1 class="vs-font-xsmall vs-margin-remove vs-text-mediumbold vs-color-grey">
+        {{requestDetails?.operadorId?.name}} {{requestDetails?.operadorId?.lastName}}
+      </h1>
+      </div>
+      <h1 class="vs-font-xsmall vs-margin-remove vs-text-bold vs-color-VS">
+         DETALLES DE TU SOLICITUD
+       </h1>
+      <hr class="vs-margin-top-xsmall vs-margin-bottom-small">
       <img src="../../../../assets/img/servicios/{{requestDetails?.tipoDeServicio.nombre}}.png" alt="">
       <h1 class="vs-color-vs vs-font-large">
         {{requestDetails?.tipoDeServicio.nombre | firstChartUppercase }}
       </h1>
       <h1 *ngIf="requestDetails?.tipoDeServicio?.especificamente" class="vs-color-grey vs-font-small vs-margin-remove">
         ( {{requestDetails?.tipoDeServicio?.especificamente | firstChartUppercase }} )
-      </h1>
-      <div class="vs-margin-bottom-xsmall vs-margin-top-small">
-        <ngx-avatar size="80" src="assets/img/admin/{{requestDetails?.operadorId?.name}}.png"></ngx-avatar>
-      </div>
-      <h1 class="vs-font-xsmall vs-margin-remove vs-text-mediumbold vs-color-grey">
-        {{requestDetails?.operadorId?.name}} {{requestDetails?.operadorId?.lastName}}
       </h1>
       <div>
         <h1 class="vs-font-small">

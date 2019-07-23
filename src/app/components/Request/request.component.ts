@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { UserService } from '../../service/user.service';
@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { MustMatch } from '../../validators/password-match';
 import { MatSnackBar } from '@angular/material';
 import { WebsocketService } from '../../service/websocket.service'
+import { MatRadioChange } from '@angular/material';
 
 import { CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 
@@ -53,6 +54,13 @@ export class RequestComponent implements OnInit {
     );
   }
 
+
+  radioChange(event: MatRadioChange) {
+    setTimeout(() => {
+      this.stepper.selectedIndex = 1
+    },0);
+  };
+
   ngOnInit() {
     const regexNoNumber = /^[A-Z\sñÑáéíóúÁÉÍÓÚ@~`!@#$%^&*()_=+\\\\';:\"\\/?>.<,-]*$/i;
 
@@ -94,7 +102,7 @@ export class RequestComponent implements OnInit {
 
   onCheckboxChange() {
     if (this.checkbox) {
-      setTimeout(()=>{
+      setTimeout(()=> {
         this.checkbox = !this.checkbox;
       })
     }
@@ -102,11 +110,8 @@ export class RequestComponent implements OnInit {
 
   // Event fired after view is initialized
   @ViewChild('stepper') stepper: MatStepper;
-  ngAfterViewInit() {
-    //this.stepper.selectedIndex = 1; 
 
-    // To avoid "ExpressionChangedAfterItHasBeenCheckedError" error, 
-    // set the index in setTimeout
+  ngAfterViewInit() {
     if(localStorage.getItem('tipoDeServicio')) {
       setTimeout(() => {
         this.stepper.selectedIndex = 1
@@ -115,14 +120,11 @@ export class RequestComponent implements OnInit {
       setTimeout(() => {
         this.stepper.selectedIndex = 0
       },0);
-
     }
-
   }
 
 
   login(credentials: any) {
-
     let valueE = credentials.get('email').value
 
     credentials.get('email').setValue(valueE.toLowerCase());
@@ -194,7 +196,6 @@ export class RequestComponent implements OnInit {
         res => {
           this.isLoading = false;
           this.userService.setToken(res['token']);
-  
 
          //EMITIR NOTIFICACION AL CLIENTE
           let payload = {

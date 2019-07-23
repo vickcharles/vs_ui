@@ -6,10 +6,10 @@
     >
       <h1 *ngIf="isCreatingRequest" [routerLink]="['/dashboard']" class="vs-font-xsmall vs-color-dark-grey remove-focus vs-cursor-pointer vs-color-vs">
         <i class="fas fa-arrow-left vs-color-vs fa-sm vs-margin-right-xsmall"></i>
-          REGRESAR AL DASHBOARD
+        REGRESAR AL DASHBOARD
       </h1>
       <div class="vs-section vs-background-color-white">
-          <mat-horizontal-stepper labelPosition="bottom" #stepper>
+        <mat-horizontal-stepper labelPosition="bottom" #stepper>
           <!-- first stepper -->
           <mat-step>
             <h1 class="vs-section-title vs-color-vs vs-text-align-center">
@@ -21,25 +21,25 @@
             <form [formGroup]="request" autocomplete="off">
               <div formGroupName="tipoDeServicio" class="vs-input-field row vs-text-align-center">
                 <mat-radio-group formControlName="nombre" class="radio-group">
-                  <mat-radio-button class="col-sm-12 col-md-4 radio-button vs-margin-bottom-small" value="transporte de carga">
+                  <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 radio-button vs-margin-bottom-small" value="transporte de carga">
                     <img src="../../../assets/img/servicios/transporte de carga.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Transporte de carga
                     </h1>
                   </mat-radio-button>
-                  <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de montacarga">
+                  <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de montacarga">
                     <img src="../../../assets/img/servicios/alquiler de montacarga.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Alquiler de montacarga
                     </h1>
                   </mat-radio-button>
-                  <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de grúa">
+                  <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de grúa">
                     <img src="../../../assets/img/servicios/alquiler de grua.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Alquiler de grúa
                     </h1>
                   </mat-radio-button>
-                  <mat-radio-button class="col-sm-12 col-md-4 vs-margin-bottom-small" value="operario de cargue y descargue">
+                  <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="operario de cargue y descargue">
                     <img src="../../../assets/img/servicios/operario de cargue y descargue.png" alt="">
                     <h1 class="vs-font-small vs-color-default vs-text-align-center">
                       Operario de cargue y descargue
@@ -71,10 +71,13 @@
               <div formGroupName="tipoDeServicio" class="vs-input-field col-md-5">
                 <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de {{request.value.tipoDeServicio.nombre}}</span>
                 <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" class="vs-field-label">Tipo de grúa</span>
+                <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de montacarga'" class="vs-field-label">
+                  Seleccione el peso aproximado de su carga
+                </span>
                 <select *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
                   <option value="transporte de carga seca">Transporte de carga seca</option>
                   <option value="transporte de contenedores">Transporte de contenedores</option>
-                  <option value="transporte de refrigerados">Transporte refrigerados</option>
+                  <option value="transporte refrigerado">Transporte refrigerado</option>
                   <option value="transporte de carga extradimensionada">Transporte de carga extradimensionada</option>
                 </select>
                 <select *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
@@ -84,6 +87,24 @@
                   <option value="gruá autodescargable">Grúa auto-descargable</option>
                   <option value="telehandler">Telehandler</option>
                   <option value="ManLift">ManLift</option>
+                </select>
+                <select *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de montacarga'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
+                  <option value="1 tonelada">1 tonelada</option>
+                  <option value="2 toneladas">2 toneladas</option>
+                  <option value="3 toneladas">3 toneladas</option>
+                  <option value="4 toneladas">4 toneladas</option>
+                  <option value="5 toneladas">5 toneladas</option>
+                  <option value="6 toneladas">6 toneladas</option>
+                  <option value="7 toneladas">7 toneladas</option>
+                  <option value="8 toneladas">8 toneladas</option>
+                  <option value="9 toneladas">9 toneladas</option>
+                  <option value="10 toneladas">10 toneladas</option>
+                  <option value="11 toneladas">11 toneladas</option>
+                  <option value="12 toneladas">12 toneladas</option>
+                  <option value="13 toneladas">13 toneladas</option>
+                  <option value="14 toneladas">14 toneladas</option>
+                  <option value="15 toneladas">15 toneladas</option>
+                  <option value="16 toneladas">16 toneladas</option>
                 </select>
                 <span *ngIf="submitted && errors.tipoDeServicio == 'Este campo es requerido'" class="invalid-feedback">
                   Este campo es requerido.
@@ -119,9 +140,8 @@
                 <div formGroupName="cliente" class="vs-input-field col-md-5">
                   <span class="vs-field-label">Tipo de cliente</span>
                   <select formControlName="tipo" class="form-control" aria-placeholder="tipo de persona">
-                    <option selected="true" disabled="disabled">Tipo de persona</option>
                     <option value="empresa">Empresa</option>
-                    <option value="natural">Natural</option>
+                    <option value="natural">Persona natural</option>
                   </select>
                   <span *ngIf="submitted && request.get('cliente').get('tipo').errors?.required" class="invalid-feedback">
                     Este campo es requerido.
@@ -150,7 +170,7 @@
                   </div>
                   <div class="col-sm-12"></div>
 
-                    <div class="col-sm-12"></div>
+                  <div class="col-sm-12"></div>
                 <!-- Mensaje-->
                 <div class="vs-input-field multiline col-md-6">
                   <span class="vs-field-label"> Mensaje acerca tu solicitud</span>
