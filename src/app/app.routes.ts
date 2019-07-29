@@ -21,6 +21,9 @@ import { TrabajaConNosotrosComponent } from './components/trabaja-con-nosotros/t
 
 import { AutorizacionComponent } from './components/homepage/autorizacion/autorizacion.component';
 
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+
 const APP_MODULE: Routes = [
   {
     path: '',
@@ -37,6 +40,14 @@ const APP_MODULE: Routes = [
       {
         path: 'trabaja-con-nosotros',
         component: TrabajaConNosotrosComponent
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent
+      },
+      {
+        path: 'reset-password',
+        component: ResetPasswordComponent
       },
       {
         path: 'autorizacion',

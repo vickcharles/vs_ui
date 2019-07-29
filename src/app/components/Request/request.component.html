@@ -307,7 +307,10 @@
                       </div>
                       <div class="col-sm-12">
                         <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
-                          {{serverErrorMessages}}
+                          {{serverErrorMessages}}.
+                          <span *ngIf="serverErrorMessages === 'ya existe un usuario registrado'">
+                           <a (click)="toggleForm()" class="vs-cursor-pointer accede-aqui-link"> Accede Aquí </a> 
+                          </span>
                         </div>
                       </div>
                   </div>

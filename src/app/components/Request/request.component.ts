@@ -140,6 +140,8 @@ export class RequestComponent implements OnInit {
   }
 
   toggleForm() {
+    this.submitted = false;
+    this.serverErrorMessages = "";
     this.isRegistered = !this.isRegistered;
     console.log(this.isRegistered);
   }
@@ -212,11 +214,11 @@ export class RequestComponent implements OnInit {
         err => {
           if (err.status === 422) {
             this.isLoading = false;
-            this.serverErrorMessages = err.error.join('<br/>');
+            this.serverErrorMessages = 'ya existe un usuario registrado';
           }
           else
             this.isLoading = false;
-            this.serverErrorMessages = 'Something went wrong. Please contact admin.' + err;
+            this.serverErrorMessages = 'ya existe un usuario registrado';
         }
       );
       //loggin if user is registered

@@ -69,6 +69,8 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { RequestHistorialComponent } from './components/request/request-historial/request-historial.component';
 import { TrabajaConNosotrosComponent } from './components/trabaja-con-nosotros/trabaja-con-nosotros.component';
 import { AutorizacionComponent } from './components/homepage/autorizacion/autorizacion.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +98,9 @@ import { AutorizacionComponent } from './components/homepage/autorizacion/autori
     NotificationsComponent,
     RequestHistorialComponent,
     TrabajaConNosotrosComponent,
-    AutorizacionComponent
+    AutorizacionComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

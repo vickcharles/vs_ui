@@ -9,10 +9,15 @@
           <span class="vs-field-label">Correo</span>
           <input formControlName="email" matInput>
           <span class="vs-field-label">Contraseña</span>
-          <input type="password" formControlName="password" matInput>
+          <input type="password" formControlName="password" class="vs-margin-remove" matInput>
+          <div class="vs-margin-top-xsmall">
+              <a [routerLink]="['/forgot-password']" class="vs-color-grey vs-cursor-pointer">
+                ¿Olvidaste tu contraseña?
+              </a>
+          </div>
         </form>
 
-        <button *ngIf="!isLoading; else spinner" class="vs-margin-top-xsmall" (click)="login()" mat-flat-button color="primary">
+        <button *ngIf="!isLoading; else spinner" class="vs-margin-top-xsmall vs-margin-top-small" (click)="login()" mat-flat-button color="primary">
           CONTINUAR
         </button>
 

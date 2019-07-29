@@ -6,21 +6,20 @@
       <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
     </div>
 
-    <div *ngIf="userDetails?.role == 'User'" >
+    <div *ngIf="userDetails?.role == 'User'">
       <a class="remove-focus vs-cursor-pointer" href="https://www.24-7ls.com" target="_blank">
        <img class="vs-dashboard-logo" src="../../../assets/img/logo-dashboard.png" alt="logo">
      </a>
     </div>
+
     <div class="header-menu">
       <h1 [matMenuTriggerFor]="menu" class="vs-display-inline vs-cursor-pointer vs-font-xsmall vs-margin-right-small">
-          Hola {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChart | uppercase }}
-          <i class="fas fa-caret-down vs-color-white"></i>
+        Hola {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChart | uppercase }}
+        <i class="fas fa-caret-down vs-color-white"></i>
       </h1>
       <mat-menu class="vs-margin-top-xsmall menu" #menu="matMenu" xPosition="before">
         <button *ngIf="userDetails?.role == 'ADMIN'" class="vs-color-vs" routerLink="/dashboard/admin/profile"  mat-menu-item> Ver/Editar Perfil</button>
         <button *ngIf="userDetails?.role == 'User'" class="vs-color-vs" routerLink="/dashboard/profile"  mat-menu-item> Ver/Editar Perfil</button>
-        <button class="vs-color-vs" mat-menu-item> Mensajes </button>
-        <button class="vs-color-vs" mat-menu-item>Ayuda</button>
         <button (click)="onLogout()" class="vs-color-vs" mat-menu-item>
           <i class="fas fa-sign-out-alt vs-color-default"></i>
           Cerrar Sesion
@@ -46,7 +45,7 @@
   </div>
   <div class="vs-background-color-default vs-section-widest vs-margin-bottom-small">
    <div class="mobile-header">
-     <div>
+      <div>
           <h1 [matMenuTriggerFor]="notification" class="vs-display-inline vs-color-white vs-cursor-pointer vs-font-xsmall vs-margin-right-small">
             <mat-icon>notifications_active</mat-icon>
           </h1>
@@ -59,7 +58,7 @@
               <app-notifications>
               </app-notifications>
           </mat-menu>
-     </div>
+      </div>
      <div>
         <h1 [matMenuTriggerFor]="menu" class="vs-display-inline vs-color-white vs-cursor-pointer vs-font-xsmall vs-margin-right-small">
           Hola {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChart | uppercase }}
@@ -68,8 +67,6 @@
         <mat-menu class="vs-margin-top-xsmall menu" #menu="matMenu" xPosition="before">
           <button *ngIf="userDetails?.role == 'ADMIN'" class="vs-color-vs" routerLink="/dashboard/admin/profile"  mat-menu-item> Ver/Editar Cuenta</button>
           <button *ngIf="userDetails?.role == 'User'" class="vs-color-vs" routerLink="/dashboard/profile"  mat-menu-item> Ver/Editar Perfil</button>
-          <button class="vs-color-vs" mat-menu-item> Mensajes </button>
-          <button class="vs-color-vs" mat-menu-item>Ayuda</button>
           <button (click)="onLogout()" class="vs-color-vs" mat-menu-item>
             <i class="fas fa-sign-out-alt vs-color-default"></i>
             Cerrar Sesion
