@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 
@@ -36,6 +36,13 @@ export class UserService {
 
   forgotPassword(email) {
     return this.http.post(environment.apiBaseUrl + '/forgotPassword', { email: email.email});
+  }
+
+ /*Verificar token para reseter contraseña*/
+  verifyToken(token) {
+    const params = new HttpParams()
+    .set('resetPasswordToken', token)
+    return this.http.get(environment.apiBaseUrl + '/reset', { params});
   }
 
   updateUser(user) {
