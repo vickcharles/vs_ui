@@ -45,6 +45,11 @@ export class UserService {
     return this.http.get(environment.apiBaseUrl + '/reset', { params});
   }
 
+
+  resetPassword(data) {
+    return this.http.post(environment.apiBaseUrl + '/updatePassword', data);
+  }
+
   updateUser(user) {
     return this.http.post(environment.apiBaseUrl + '/user/update', user);
   }

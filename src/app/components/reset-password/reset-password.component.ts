@@ -15,6 +15,8 @@ export class ResetPasswordComponent implements OnInit {
   submitted = false;
   token = "";
   isUserToken = false;
+  isLoading = false;
+  isPasswordReset = false;
 
   userId = "";
   serverMessageError = "";
@@ -30,9 +32,10 @@ export class ResetPasswordComponent implements OnInit {
       res => {
         if(res['isError']) {
           this.serverMessageError = res['message'];
+          this.isUserToken = false;
         } else {
           this.isUserToken =  true;
-          this.userId = "";
+          this.userId = res['id']
         }
       },
       err => {
@@ -50,6 +53,27 @@ export class ResetPasswordComponent implements OnInit {
 
   resetPassword() {
     this.submitted = true;
+    this.isLoading = true;
+    if(this.password.valid) {
+      const data = {
+         userID: this.userId,
+         password: this.password.get('contraseña').value
+      }
+      this.userService.resetPassword(data).subscribe(
+        res => {
+          if(res['isError']) {
+            this.serverMessageError = res['message'];
+            this.isLoading = false;
+          } else {
+            this.isPasswordReset = true;
+            this.isLoading = false;
+          }
+        },
+        err => {
+          this.serverMessageError = "Oppps, Algo estuvo mal";
+        }
+      );
+    }
   }
 
 }
