@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather|Roboto+Condensed: 400,500,600,800');
 
 @import url('https://fonts.googleapis.com/css?family=Heebo|Nunito+Sans|Open+Sans+Condensed:400,500,600,700,800');
+
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 
@@ -252,7 +253,7 @@ body {
 }
 
 .vs-box-shadow-light {
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10) !important;    
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10) !important;
 }
 
 .notifications-menu {
@@ -263,7 +264,7 @@ body {
 }
 
 .main-banner {
-    padding-top: 20px !important;
+   padding-top: 20px !important;
 }
 
 .mobile-header {
@@ -348,20 +349,20 @@ body {
 
 /*FONT SIZE*/
 .vs-font-medium {
-	font-size: 22px !important;
+  font-size: 22px !important;
 }
 
 .vs-font-large {
-	font-size: 20px !important;
+  font-size: 20px !important;
 }
 
 .vs-font-super-large {
-	font-size: 45px !important;
+  font-size: 45px !important;
 }
 
 /*TEXT TRANSFORM*/
 .vs-text-uppercase {
-	text-transform: uppercase !important;
+  text-transform: uppercase !important;
 }
 
 /*Text ALIGMENT*/
@@ -372,7 +373,6 @@ body {
 .vs-text-align-right {
     text-align: right !important;
 }
-
 
 .vs-text-align-left {
     text-align: left;
