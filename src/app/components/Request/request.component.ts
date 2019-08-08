@@ -61,7 +61,33 @@ export class RequestComponent implements OnInit {
     },0);
   };
 
+
+  getForm(id) {
+    switch (id) {
+      case 'todos':
+        localStorage.setItem('tipoDeServicio', '')
+        break;
+      case 'transporte-de-carga':
+        localStorage.setItem('tipoDeServicio', 'transporte de carga')
+        break;
+      case 'alquiler-de-grúa':
+        localStorage.setItem('tipoDeServicio', 'alquiler de grúa')
+        break;
+      case 'alquiler-de-montacarga':
+        localStorage.setItem('tipoDeServicio', 'alquiler de montacarga')
+        break;
+      case 'operario-de-cargue-y-descargue':
+        localStorage.setItem('tipoDeServicio', 'operario de cargue y descargue')
+        break;
+      default:
+      localStorage.setItem('tipoDeServicio', '');
+    }
+  }
+
   ngOnInit() {
+    const id = this.next.snapshot.paramMap.get('id');
+    this.getForm(id);
+
     const regexNoNumber = /^[A-Z\sñÑáéíóúÁÉÍÓÚ@~`!@#$%^&*()_=+\\\\';:\"\\/?>.<,-]*$/i;
 
     this.credentials = this.formBuilder.group({
