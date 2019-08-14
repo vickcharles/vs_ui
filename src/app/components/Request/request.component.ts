@@ -107,7 +107,7 @@ export class RequestComponent implements OnInit {
         nombreEmpresa: ['']
       }),
       origen: ['', [ Validators.required, Validators.pattern(regexNoNumber)]],
-      destino: ['', [Validators.pattern(regexNoNumber), Validators.required]],
+      destino: ['', [Validators.pattern(regexNoNumber)]],
       mensaje: ['', [Validators.required, Validators.maxLength(160), Validators.pattern(regexNoNumber)]]
     });
 
