@@ -612,9 +612,10 @@ body {
 
 /*Main Logo*/
 .main-logo {
-  max-width: 320px;
+  max-width: 290px;
   margin: 0px !important;
 }
+
 /*DASBOARD STYLES*/
 .vs-dashboard-logo {
     max-width: 90px;
@@ -836,6 +837,22 @@ body {
 .webkit-inline-box {
     display: -webkit-inline-box !important;
 }
+
+/*AVALADOR*/
+
+.avalados img {
+    max-width: 200px;
+    margin-right: 20px !important;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+.avalados {
+    text-align: center !important;
+    padding-bottom: 35px;
+}
+
+
 
 .vs-como-funciona img{
   width: 150px !important;
