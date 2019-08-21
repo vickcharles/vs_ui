@@ -46,7 +46,7 @@ export class RequestService {
       "eventName": "nueva_solicitud",
       "attributes": {
         "nombre": saverequest.usuario.name,
-        "celular": saverequest.usuario.cellPhone,
+        "celular": `+57${saverequest.usuario.cellPhone}`,
         "nombreComercial":  saverequest.operadorId.name,
         "apellidoComercial": saverequest.operadorId.lastName,
         "correoComercial": saverequest.operadorId.email,
