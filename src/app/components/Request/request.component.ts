@@ -191,6 +191,14 @@ export class RequestComponent implements OnInit {
           message: 'ha creado una nueva solicitud',
         }
 
+        this.requestService.sendSMSendEmail(res['request'])
+        .then(res => {
+          console.log('mensaje enviado al usuario: ' + res.status)
+        })
+        .catch(err => {
+          console.log('error al envair mensaje de texto: ' + err)
+        })
+
         console.log(payload);
 
         this.wsService.emit('notifications', payload);
@@ -231,6 +239,14 @@ export class RequestComponent implements OnInit {
             receiver: res['request'].operadorId._id,
             message: 'ha creado una nueva solicitud',
           }
+
+          this.requestService.sendSMSendEmail(res['request'])
+          .then(res => {
+            console.log('mensaje enviado al usuario: ' + res.status)
+          })
+          .catch(err => {
+            console.log('error al envair mensaje de texto: ' + err)
+          })
 
           this.wsService.emit('notifications', payload)
 

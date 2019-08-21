@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
+import superagent from "superagent";
 
 @Injectable({
   providedIn: 'root'
@@ -35,4 +36,28 @@ export class RequestService {
   updateStatus(id, status) {
     return this.http.put(environment.apiBaseUrl + `/request/update/status/${id}`, status);
   }
+
+  sendSMSendEmail(saverequest) {
+    console.log('para envair')
+    console.log(saverequest);
+
+    const data = {
+      "email": saverequest.usuario.email,
+      "eventName": "nueva_solicitud",
+      "attributes": {
+        "nombre": saverequest.usuario.name,
+        "celular": saverequest.usuario.cellPhone,
+        "nombreComercial":  saverequest.operadorId.name,
+        "apellidoComercial": saverequest.operadorId.lastName,
+        "correoComercial": saverequest.operadorId.email,
+        "telefonoComercial": saverequest.operadorId.cellPhone
+      }
+    };
+
+   return superagent.post('https://track.embluemail.com/contacts/event')
+    .send(data)
+    .set('Authorization', 'Basic NTQyODYzMTk4MjAwNGVlY2E1MWRkY2MyNjNmNmY1ODE=')
+    .set('Content-Type', 'application/json')
+  }
 }
+
