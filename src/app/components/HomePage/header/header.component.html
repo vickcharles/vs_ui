@@ -1,27 +1,60 @@
-<div [ngClass]="{'vs-background-color-vs' : router.url === '/home', 'vs-background-color-white' : router.url === '/trabaja-con-nosotros'}">
+<div
+  [ngClass]="{
+    'vs-background-color-vs': router.url === '/home',
+    'vs-background-color-white': router.url === '/trabaja-con-nosotros'
+  }"
+>
   <div class="vs-container header">
-		<div class="vs-cursor-pointer remove-focus" [routerLink]="['/home']">
+    <div class="vs-cursor-pointer remove-focus" [routerLink]="['/home']">
+      <div [ngClass]="{ 'vs-background-color-vs': router.url === '/home' }">
+        <div *ngIf="router.url === '/home'">
+          <img
+            class="main-logo hide-on-mobile"
+            src="../../../../assets/img/Logo-negro.png"
+            alt=""
+          />
+          <img
+            class="main-logo-mobile hide-on-desktop"
+            src="../../../../assets/img/logo-negro-mobile.png"
+            alt=""
+          />
+        </div>
+      </div>
 
-			<div [ngClass]="{'vs-background-color-vs' : router.url === '/home'}">
-				<div *ngIf="router.url === '/home'">
-				  <img class="main-logo hide-on-mobile" src="../../../../assets/img/Logo-negro.png" alt="">
-				  <img  class="main-logo-mobile hide-on-desktop" src="../../../../assets/img/logo-negro-mobile.png" alt="">
-		    </div>
-			</div>
-
-			<div *ngIf="router.url !== '/home'">
-				<img class="main-logo hide-on-mobile" src="../../../../assets/img/main-logo.png" alt="">
-				<img  class="main-logo-mobile hide-on-desktop" src="../../../../assets/img/logo-amarillo-mobile.png" alt="">
-			</div>
-
-		</div>
-		<div *ngIf="router.url === '/home'" class="vs-color-default header-menu">
-			<a [routerLink]="['/acceder']" class="vs-margin-right-small acceder-btn vs-cursor-pointer vs-color-default vs-text-semibold">
-				ACCEDER
-			</a>
-			<a [routerLink]="['/trabaja-con-nosotros']" class="vs-color-default vs-cursor-pointer vs-text-semibold">
-				TRABAJA CON NOSOTROS
-		  </a>
-		</div>
+      <div *ngIf="router.url !== '/home'">
+        <img
+          class="main-logo hide-on-mobile"
+          src="../../../../assets/img/main-logo.png"
+          alt=""
+        />
+        <img
+          class="main-logo-mobile hide-on-desktop"
+          src="../../../../assets/img/logo-amarillo-mobile.png"
+          alt=""
+        />
+      </div>
+    </div>
+    <div *ngIf="router.url === '/home'" class="vs-color-default header-menu">
+      <a
+        [routerLink]="['/acceder']"
+        class="vs-margin-right-small acceder-btn vs-cursor-pointer vs-color-default vs-text-semibold"
+      >
+        ACCEDER
+      </a>
+      <a
+        [routerLink]="['/trabaja-con-nosotros']"
+        class="vs-color-default vs-cursor-pointer vs-text-semibold vs-margin-right-small"
+      >
+        TRABAJA CON NOSOTROS
+      </a>
+      <a
+        href="https://venticuatrosiete.typeform.com/to/heqL1C"
+        target="_blank"
+        class="vs-margin-right-small ubicar acceder-btn vs-cursor-pointer vs-color-default vs-text-semibold"
+      >
+        <i class="fas fa-map-marker-alt"></i>
+        UBICAR MI CARGA
+      </a>
+    </div>
   </div>
 </div>

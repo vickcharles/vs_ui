@@ -9,7 +9,7 @@
           <ngx-avatar *ngIf="userDetails?.role == 'ADMIN'" src="assets/img/admin/{{userDetails.name}}.png"  bgColor="#3e3e3e" fgColor="#f5f5f5" class="webkit-inline-box" size="90"></ngx-avatar>
         </div>
         <h1 class="vs-font-medium vs-color-vs vs-margin-bottom-medium">
-            {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChartUppercase }}
+          {{userDetails?.name | firstChartUppercase }} {{userDetails?.lastName | firstChartUppercase }}
         </h1>
         <h1 class="vs-font-xsmall vs-color-dark-grey vs-margin-remove">
           Servicios en proceso
@@ -39,7 +39,6 @@
             {{userDetails?.created_at | amLocale:'es'  | amDateFormat: 'YYYY-MM-DD'}}
           </h1>
         </div>
-
       </div>
     </div>
 
@@ -180,5 +179,6 @@
         </ng-template>
       </div>
     </div>
+
   </div>
 </div>

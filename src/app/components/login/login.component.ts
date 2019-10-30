@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
     this.credentials.get('email').setValue(value.toLowerCase())
 
 
-
     this.isLoading = true;
     this.userService.login(this.credentials.value).subscribe(
       res => {
