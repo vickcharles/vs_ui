@@ -71,6 +71,7 @@ import { TrabajaConNosotrosComponent } from './components/trabaja-con-nosotros/t
 import { AutorizacionComponent } from './components/homepage/autorizacion/autorizacion.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     APP_ROUTING,
     FormsModule,
+    MyDatePickerModule,
     MomentModule
   ],
   providers: [{

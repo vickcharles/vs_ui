@@ -93,6 +93,17 @@ $candy-app-warn: mat-palette($mat-red);
         background-color: white;
     }
 
+    button {
+        color: white;
+        background: #227a4a;
+    }
+      li {list-style:none;}
+    
+    .div-button{
+        padding-top: 5%;
+        padding-left: 10%;
+    }
+
     /* Using plain CSS */
    @media (min-width: 768px) {
 
@@ -103,7 +114,7 @@ $candy-app-warn: mat-palette($mat-red);
    }
 
     button {
-        color: white !important;
+        color: white;
         padding: 4px 28px !important;
     }    // This will apply to ALL buttons!
   }

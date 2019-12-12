@@ -1,0 +1,37 @@
+
+  
+  td, th {
+    width: 25%;
+  }
+
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: #f5f5f5;
+    cursor: pointer;
+  }
+
+
+
+h1,h2,h3,h4,h6,p,span,label,a,button,td,th,small {
+    font-family: 'Oswald'!important;
+}
+
+
+
+.color-azul {
+    background-color: #398bf7!important;
+    color: #ffffff!important;
+    margin: 10px;
+}
+
+#button {
+  color: black !important;
+}
+
+.boton-consulta {
+    margin-top: 20px;
+}
+
+.div-button{
+    padding: 5%;
+}
+

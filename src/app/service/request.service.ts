@@ -4,11 +4,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import superagent from "superagent";
 
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+
 @Injectable({
   providedIn: 'root'
 })
 
+
+
 export class RequestService {
+
+  
 
   constructor(private http: HttpClient) { }
 
@@ -59,5 +66,66 @@ export class RequestService {
     .set('Authorization', 'Basic NTQyODYzMTk4MjAwNGVlY2E1MWRkY2MyNjNmNmY1ODE=')
     .set('Content-Type', 'application/json')
   }
+
+  public exportAsExcelFileRequest(json: any[], excelFileName: string): void {
+
+    let externalData = [];
+                for (let i = 0; i < json.length; i++) {
+                    externalData.push({
+                        Estado: json[i].estado,
+                        Nombre: json[i].usuario.name,
+                        Apellido: json[i].usuario.lastName,
+                        Correo: json[i].usuario.email,
+                        Celular: json[i].usuario.cellPhone,
+                        Ciudad: json[i].usuario.city,
+                        Fecha_solicitud: json[i].created_at,
+                        Tipo_de_servicio: json[i].tipoDeServicio.nombre,
+                        Especificamente: json[i].tipoDeServicio.especificamente,
+                        Mensaje: json[i].mensaje,
+                    });
+                }
+    this.exportAsExcelFile(externalData,excelFileName);
+    
+  }
+
+  public exportAsExcelFileRequestUser(json: any[], excelFileName: string): void {
+
+    let externalData = [];
+                for (let i = 0; i < json.length; i++) {
+                    externalData.push({
+                        Estado: json[i].estado,
+                        Nombre_operador: json[i].operadorId.name,
+                        Apellido_operador: json[i].operadorId.lastName,
+                        Correo_operador: json[i].operadorId.email,
+                        Celular_operador: json[i].operadorId.cellPhone,
+                        Ciudad_operador: json[i].operadorId.city,
+                        Fecha_solicitud: json[i].created_at,
+                        Origen: json[i].origen,
+                        Tipo_de_servicio: json[i].tipoDeServicio.nombre,
+                        Especificamente: json[i].tipoDeServicio.especificamente,
+                        Mensaje: json[i].mensaje,
+                    });
+                }
+    this.exportAsExcelFile(externalData,excelFileName);
+    
+  }
+
+  public exportAsExcelFile(externalData: any[], excelFileName: string): void {
+    
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(externalData);
+    console.log('worksheet',worksheet);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data']};
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array'});
+    //const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + '.xlsx');
+  }
+
 }
 

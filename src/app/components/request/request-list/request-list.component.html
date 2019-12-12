@@ -48,6 +48,18 @@
           </app-notifications>
         </div>
      </div>
+
+     <div class="div-button">
+        <li class="box-label mt-2">
+           <button (click)="cargarLeads()" class="btn  text-white"><div *ngIf="!cargaReporte2" class="text-center ">
+               <span>Generando reporte Excel </span>
+               <br>
+               <i class="fa fa-sync fa-spin fa-lg "></i>
+               <br>
+           </div><span  *ngIf="cargaReporte2">Generar Reporte Excel  <i *ngIf="cargaReporte2" class="fa fa-file-excel"></i> </span></button>
+       </li>
+     </div>
+
      <div class="vs-background-color-white vs-section-widest vs-margin-top-small hide-on-mobile">
         <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
           MIS MENSAJES

@@ -2,6 +2,47 @@
     <div class="row">
 
       <div class="col col-md-8">
+          <mat-form-field>
+              <input matInput (keyup)="getSearch($event.target.value)" placeholder="Busqueda">
+          </mat-form-field>
+
+          <div class="div-button hide-on-desktop">
+              <li class="box-label mt-2">
+                 <button (click)="cargarLeads()" class="btn  text-white"><div *ngIf="!cargaReporte2" class="text-center ">
+                     <span>Generando reporte Excel </span>
+                     <br>
+                     <i class="fa fa-sync fa-spin fa-lg "></i>
+                     <br>
+                 </div><span  *ngIf="cargaReporte2">Generar Reporte Excel <i *ngIf="cargaReporte2" class="fa fa-file-excel"></i> </span></button>
+             </li>
+           </div>
+
+          <div class="vs-background-color-white vs-section-widest">
+          <form ngNativeValidate #myForm="ngForm" (ngSubmit)="getLeads( myForm )" class="">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Fecha inicial</label>
+                            <my-date-picker ngModel [placeholder]="placeholder" [locale]="locale" name="start" [options]="startDate" (dateChanged)="onStartDateChanged($event)"
+                                required></my-date-picker>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Fecha final</label>
+                            <my-date-picker ngModel name="end" [locale]="locale" [placeholder]="placeholder" [options]="endDate" (dateChanged)="onEndDateChanged($event)"
+                                required></my-date-picker>
+                        </div>
+                        <div class="col-md-4 boton-consulta">
+                            <button type="submit" class="btn color-azul ">Consultar</button>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <button class="mr-3 btn color-azul" (click)="getRequestToday()">Fecha de hoy ({{date | date}})</button>
+                    <button class="btn color-azul" (click)="getRequestMonth()">Ultimo mes ({{mesInicio | date}} - {{mesFin | date}})</button>
+                </div>
+              </div>
+              <br>
+
+
         <div class="row vs-margin-bottom-medium">
           <div class="col col-md-6">
             <div (click)="toggleMenuPending()" class="vs-section-widest vs-cursor-pointer vs-background-color-vs">
@@ -47,6 +88,8 @@
               <admin-app-request-card [request]="request"> </admin-app-request-card>
             </div>
           </div>
+
+          
         </div>
 
 
@@ -62,6 +105,16 @@
             </app-notifications>
           </div>
          </div>
+         <div class="div-button">
+         <li class="box-label mt-2">
+            <button (click)="cargarLeads()" class="btn  text-white"><div *ngIf="!cargaReporte2" class="text-center ">
+                <span>Generando reporte Excel </span>
+                <br>
+                <i class="fa fa-sync fa-spin fa-lg "></i>
+                <br>
+            </div><span  *ngIf="cargaReporte2">Generar Reporte Excel  <i class="fa fa-file-excel"></i> </span></button>
+        </li>
+      </div>
       </div>
     </div>
   </div>
