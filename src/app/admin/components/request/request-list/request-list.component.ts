@@ -1,48 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Pipe, PipeTransform, Output, EventEmitter } from '@angular/core';
 import { RequestService } from '../../../../service/request.service';
 import { WebsocketService } from '../../../../service/websocket.service'
 import { UserService } from '../../../../service/user.service';
-import {saveAs} from 'file-saver';
-import {MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
-import { observable } from 'rxjs';
 import * as moment from 'moment';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 
-export interface UserData {
-  cliente: {
-    documento: string,
-    nombreEmpresa: string,
-    tipo: string,
-    tipoDocumento: string,
-  },
-  created_at: string,
-  destino: string,
-  estado: string,
-  mensaje: string,
-  operadorId: string,
-  origen: string,
-  tipoDeServicio: {
-    especificamente: string,
-    nombre: string,
-  },
-  updated_at: string,
-  usuario: {
-    cellPhone: string,
-    city: string,
-    createdAt: string,
-    email: string,
-    lastName: string,
-    name: string,
-    password: string,
-    role: string,
-    saltSecret: string,
-    updatedAt: string,
-    _id: string,
-  },
-  _id: string,
-  }
+
 
 
 @Component({
@@ -52,9 +18,11 @@ export interface UserData {
 })
 export class AdminRequestListComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'celular', 'correo', 'modalidad', 'ciudad'];
-  requests: any;
   requestOnProgress: any;
-  onProgress = true;
+  requestNew: any;
+  requestRejected: any;
+  requestCompleted: any;
+  requestAll: any;
   UserId: any;
   filter: string;
   fechaInicio: any;
@@ -63,6 +31,8 @@ export class AdminRequestListComponent implements OnInit {
   excel = 'false';
   cargaReporte1 = true;
   cargaReporte2 = true;
+  selectionStatusLead: any[] = ['recibido', 'en proceso', 'cancelado', ''];
+  selectionStatus: any[] = [ true, false , false, false];
 
 
   inicio: any = null;
@@ -126,17 +96,29 @@ export class AdminRequestListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllAdminRequest(this.filter, this.fechaInicio, this.fechaFinal)
-    this.getAllAdminRequestOnProgress(this.filter, this.fechaInicio, this.fechaFinal)
+    this.getAdminRequestNew(this.filter, this.fechaInicio, this.fechaFinal);
+    this.getAdminRequestOnProgress(this.filter, this.fechaInicio, this.fechaFinal);
+    this.getAdminRequestRejected(this.filter, this.fechaInicio, this.fechaFinal);
+    this.getAdminRequestCompleted(this.filter, this.fechaInicio, this.fechaFinal);
+    this.getAdminRequestAll(this.filter, this.fechaInicio, this.fechaFinal);
 
 
     this.wsService.listen('new-notifications')
       .subscribe((res: any) => {
         if(res.receiver == this.UserId) {
-          this.getAllAdminRequest(this.filter, this.fechaInicio, this.fechaFinal);
+          this.getAdminRequestNew(this.filter, this.fechaInicio, this.fechaFinal);
         }
       });
+
+    this.search.valueChanges.pipe(debounceTime(600)).subscribe(value => {this.searchEmitter.emit(value);
+      this.getSearch(value);
+    
+    })
+    
   }
+
+  search = new FormControl('');
+  @Output('search') searchEmitter =  new EventEmitter<string>();
 
   getUserDetails() {
     this.us.getUserProfile().subscribe(
@@ -149,47 +131,56 @@ export class AdminRequestListComponent implements OnInit {
     )
   }
 
-  public getAllAdminRequest(filterValue, fechaInicio, fechaFinal, fechaPersonalizada?) {
-    this.requestService.getAdminRequests().subscribe(
-      res => {
-        this.requests = res['requests'];
-        this.requests = this.requests.filter((e) => e.estado === 'recibido');
-        if (filterValue){
-          this.requests = this.requests.filter((e) => e.usuario.name.toLowerCase().indexOf(filterValue.toLowerCase())!==-1);
-        }
-        if (fechaInicio){
-          fechaInicio = moment().format('YYYY-MM-DDT00:00:00.000Z');
-          this.requests = this.requests.filter((e) => e.created_at >= fechaInicio);
-        }
-        if (fechaFinal){
-          this.fin = moment().format('YYYY-MM-DDT23:59:59.999Z');
-          this.inicio = moment().startOf('month').format('YYYY-MM-DDT00:00:00.000Z');
-          //console.log('fecha fin: '+this.fin);
-          //console.log('fecha inicio: '+this.inicio);
-          this.requests = this.requests.filter((e) => e.created_at >= this.inicio);
-          this.requests = this.requests.filter((e) => e.created_at <= this.fin);
-        }
-        if (fechaPersonalizada){
-          this.requests = this.requests.filter((e) => e.created_at >= this.inicioPersonalizada);
-          this.requests = this.requests.filter((e) => e.created_at <= this.finPersonalizada);
-        }
-        console.log(res['requests']);
-      },
-      err => {
-        console.log(err);
-      }
-    );
+
+  public toggleMenuRequestNew() {
+    this.selectionStatus = [ true, false , false, false];
   }
 
-  public toggleMenuPending() {
-    this.onProgress = false;
+  public toggleMenuRequestOnProgress() {
+    this.selectionStatus = [ false, true , false, false];
   }
 
-  public toggleMenuOnProgress() {
-    this.onProgress = true;
+  public toggleMenuRequestRejected() {
+    this.selectionStatus = [ false, false , true, false];
   }
 
-  public getAllAdminRequestOnProgress(filterValue, fechaInicio, fechaFinal, fechaPersonalizada?) {
+  public toggleMenuRequestCompleted() {
+    this.selectionStatus = [ false, false , false, true];
+  }
+
+  /* ============================================================
+  Generar excel según estado de lead
+  =============================================================== */
+
+  cargarLeads(){
+    this.cargaReporte2 = false;
+
+    if(this.selectionStatus[0] === true && this.requestNew.length!=0)
+    this.requestService.exportAsExcelFileRequest(this.requestNew, '24/7_pendientes');
+    if(this.selectionStatus[1] === true && this.requestOnProgress.length!=0)
+    this.requestService.exportAsExcelFileRequest(this.requestOnProgress, '24/7_recibidos');
+    if(this.selectionStatus[2] === true && this.requestRejected.length!=0)
+    this.requestService.exportAsExcelFileRequest(this.requestRejected, '24/7_cancelados');
+    if(this.selectionStatus[3] === true && this.requestCompleted.length!=0)
+    this.requestService.exportAsExcelFileRequest(this.requestCompleted, '24/7_completados');
+
+    this.cargaReporte2 = true;
+  }
+
+  cargarLeadsTodos(){
+    this.cargaReporte1 = false;
+
+    if(this.requestAll.length!=0)
+    this.requestService.exportAsExcelFileRequest(this.requestAll, '24/7_todos_los_requerimientos');
+
+    this.cargaReporte1 = true;
+  }
+
+  /* ============================================================
+  Funciones para cada estado de los leads
+  =============================================================== */
+
+  getAdminRequestOnProgress(filterValue, fechaInicio, fechaFinal, fechaPersonalizada?) {
     this.requestService.getAdminRequests().subscribe(
       res => {
         this.requestOnProgress = res['requests'];
@@ -200,7 +191,7 @@ export class AdminRequestListComponent implements OnInit {
         if (fechaInicio){
           fechaInicio = moment().format('YYYY-MM-DDT00:00:00.000Z');
           this.requestOnProgress = this.requestOnProgress.filter((e) => e.created_at >= fechaInicio);
-          console.log('FECHA CANCELADOS: '+fechaInicio);
+          //console.log('FECHA CANCELADOS: '+fechaInicio);
         }
         if (fechaFinal){
           this.fin = moment().format('YYYY-MM-DDT23:59:59.999Z');
@@ -214,7 +205,7 @@ export class AdminRequestListComponent implements OnInit {
           this.requestOnProgress = this.requestOnProgress.filter((e) => e.created_at >= this.inicioPersonalizada);
           this.requestOnProgress = this.requestOnProgress.filter((e) => e.created_at <= this.finPersonalizada);
         }
-        console.log(res['requests']);
+        //console.log(res['requests']);
       },
       err => {
         console.log(err);
@@ -222,51 +213,180 @@ export class AdminRequestListComponent implements OnInit {
     );
   }
 
-
-  
-  cargarLeads(){
-    this.cargaReporte2 = false;
-
-    if(!this.onProgress && this.requests.length!=0)
-    this.requestService.exportAsExcelFileRequest(this.requests, '24/7_recibidos');
-    if(this.onProgress && this.requestOnProgress.length!=0)
-    this.requestService.exportAsExcelFileRequest(this.requestOnProgress, '24/7_pendientes');
-
-    this.cargaReporte2 = true;
+  getAdminRequestRejected(filterValue, fechaInicio, fechaFinal, fechaPersonalizada?) {
+    this.requestService.getAdminRequests().subscribe(
+      res => {
+        this.requestRejected = res['requests'];
+        this.requestRejected = this.requestRejected.filter((e) => e.estado === 'cancelada');
+        if (filterValue){
+          this.requestRejected = this.requestRejected.filter((e) => e.usuario.name.toLowerCase().indexOf(filterValue.toLowerCase())!==-1);
+        }
+        if (fechaInicio){
+          fechaInicio = moment().format('YYYY-MM-DDT00:00:00.000Z');
+          this.requestRejected = this.requestRejected.filter((e) => e.created_at >= fechaInicio);
+          //console.log('FECHA CANCELADOS: '+fechaInicio);
+        }
+        if (fechaFinal){
+          this.fin = moment().format('YYYY-MM-DDT23:59:59.999Z');
+          this.inicio = moment().startOf('month').format('YYYY-MM-DDT00:00:00.000Z');
+          //console.log('fecha fin: '+this.fin);
+          //console.log('fecha inicio: '+this.inicio);
+          this.requestRejected = this.requestRejected.filter((e) => e.created_at >= this.inicio);
+          this.requestRejected = this.requestRejected.filter((e) => e.created_at <= this.fin);
+        }
+        if (fechaPersonalizada){
+          this.requestRejected = this.requestRejected.filter((e) => e.created_at >= this.inicioPersonalizada);
+          this.requestRejected = this.requestRejected.filter((e) => e.created_at <= this.finPersonalizada);
+        }
+        //console.log(res['requests']);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
+  getAdminRequestNew(filterValue, fechaInicio, fechaFinal, fechaPersonalizada?) {
+    this.requestService.getAdminRequests().subscribe(
+      res => {
+        this.requestNew = res['requests'];
+        this.requestNew = this.requestNew.filter((e) => e.estado === 'recibido');
+        if (filterValue){
+          this.requestNew = this.requestNew.filter((e) => e.usuario.name.toLowerCase().indexOf(filterValue.toLowerCase())!==-1);
+        }
+        if (fechaInicio){
+          fechaInicio = moment().format('YYYY-MM-DDT00:00:00.000Z');
+          this.requestNew = this.requestNew.filter((e) => e.created_at >= fechaInicio);
+          //console.log('FECHA CANCELADOS: '+fechaInicio);
+        }
+        if (fechaFinal){
+          this.fin = moment().format('YYYY-MM-DDT23:59:59.999Z');
+          this.inicio = moment().startOf('month').format('YYYY-MM-DDT00:00:00.000Z');
+          //console.log('fecha fin: '+this.fin);
+          //console.log('fecha inicio: '+this.inicio);
+          this.requestNew = this.requestNew.filter((e) => e.created_at >= this.inicio);
+          this.requestNew = this.requestNew.filter((e) => e.created_at <= this.fin);
+        }
+        if (fechaPersonalizada){
+          this.requestNew = this.requestNew.filter((e) => e.created_at >= this.inicioPersonalizada);
+          this.requestNew = this.requestNew.filter((e) => e.created_at <= this.finPersonalizada);
+        }
+        //console.log(res['requests']);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 
-  getLeads(fechas: NgForm) {
+  getAdminRequestCompleted(filterValue, fechaInicio, fechaFinal, fechaPersonalizada?) {
+    this.requestService.getAdminRequests().subscribe(
+      res => {
+        this.requestCompleted = res['requests'];
+        this.requestCompleted = this.requestCompleted.filter((e) => e.estado === 'completada');
+        if (filterValue){
+          this.requestCompleted = this.requestCompleted.filter((e) => e.usuario.name.toLowerCase().indexOf(filterValue.toLowerCase())!==-1);
+        }
+        if (fechaInicio){
+          fechaInicio = moment().format('YYYY-MM-DDT00:00:00.000Z');
+          this.requestCompleted = this.requestCompleted.filter((e) => e.created_at >= fechaInicio);
+          //console.log('FECHA CANCELADOS: '+fechaInicio);
+        }
+        if (fechaFinal){
+          this.fin = moment().format('YYYY-MM-DDT23:59:59.999Z');
+          this.inicio = moment().startOf('month').format('YYYY-MM-DDT00:00:00.000Z');
+          //console.log('fecha fin: '+this.fin);
+          //console.log('fecha inicio: '+this.inicio);
+          this.requestCompleted = this.requestCompleted.filter((e) => e.created_at >= this.inicio);
+          this.requestCompleted = this.requestCompleted.filter((e) => e.created_at <= this.fin);
+        }
+        if (fechaPersonalizada){
+          this.requestCompleted = this.requestCompleted.filter((e) => e.created_at >= this.inicioPersonalizada);
+          this.requestCompleted = this.requestCompleted.filter((e) => e.created_at <= this.finPersonalizada);
+        }
+        //console.log(res['requests']);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getAdminRequestAll(filterValue, fechaInicio, fechaFinal, fechaPersonalizada?) {
+    this.requestService.getAdminRequests().subscribe(
+      res => {
+        this.requestAll = res['requests'];
+        if (filterValue){
+          this.requestAll = this.requestAll.filter((e) => e.usuario.name.toLowerCase().indexOf(filterValue.toLowerCase())!==-1);
+        }
+        if (fechaInicio){
+          fechaInicio = moment().format('YYYY-MM-DDT00:00:00.000Z');
+          this.requestAll = this.requestAll.filter((e) => e.created_at >= fechaInicio);
+          //console.log('FECHA CANCELADOS: '+fechaInicio);
+        }
+        if (fechaFinal){
+          this.fin = moment().format('YYYY-MM-DDT23:59:59.999Z');
+          this.inicio = moment().startOf('month').format('YYYY-MM-DDT00:00:00.000Z');
+          //console.log('fecha fin: '+this.fin);
+          //console.log('fecha inicio: '+this.inicio);
+          this.requestAll = this.requestAll.filter((e) => e.created_at >= this.inicio);
+          this.requestAll = this.requestAll.filter((e) => e.created_at <= this.fin);
+        }
+        if (fechaPersonalizada){
+          this.requestAll = this.requestAll.filter((e) => e.created_at >= this.inicioPersonalizada);
+          this.requestAll = this.requestAll.filter((e) => e.created_at <= this.finPersonalizada);
+        }
+        //console.log(res['requests']);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  /* ============================================================
+  Validacion de campos de filtro
+  =============================================================== */
+
+  getSearch(search){
+    this.getAdminRequestOnProgress(search,'','');
+    this.getAdminRequestRejected(search,'','');
+    this.getAdminRequestNew(search,'','');
+    this.getAdminRequestCompleted(search,'','');
+    this.getAdminRequestAll(search,'','');
+    search='';
+  }
+
+  getRequestToday(){
+    this.getAdminRequestOnProgress('',1,'');
+    this.getAdminRequestRejected('',1,'');
+    this.getAdminRequestNew('',1,'');
+    this.getAdminRequestCompleted('',1,'');
+    this.getAdminRequestAll('',1,'');
+  };
+
+  getRequestMonth(){
+    this.getAdminRequestOnProgress('','',1);
+    this.getAdminRequestRejected('','',1);
+    this.getAdminRequestNew('','',1);
+    this.getAdminRequestCompleted('','',1);
+    this.getAdminRequestAll('','',1);
+  };
+
+  getCustomDate(fechas: NgForm) {
     this.inicioPersonalizada = fechas.value.start.formatted || '';
     this.finPersonalizada = fechas.value.end.formatted || '';
 
     if(this.inicioPersonalizada!=='' && this.finPersonalizada!==''){
       this.inicioPersonalizada = moment(this.inicioPersonalizada).format('YYYY-MM-DDT00:00:00.000Z');
       this.finPersonalizada = moment(this.finPersonalizada).format('YYYY-MM-DDT23:59:59.999Z');
-      console.log(this.inicioPersonalizada+' : '+this.finPersonalizada);
-      this.getAllAdminRequest('','','',1);
-      this.getAllAdminRequestOnProgress('','','',1);
+      //console.log(this.inicioPersonalizada+' : '+this.finPersonalizada);
+      this.getAdminRequestOnProgress('','','',1);
+      this.getAdminRequestRejected('','','',1);
+      this.getAdminRequestNew('','','',1);
+      this.getAdminRequestCompleted('','','',1);
+      this.getAdminRequestAll('','','',1);
     }
-    
-
-    }
-
-  getSearch(search){
-    
-    this.getAllAdminRequestOnProgress(search,'','');
-    this.getAllAdminRequest(search,'','');
-    search='';
   }
-
-  getRequestToday(){
-    this.getAllAdminRequest('',1,'');
-    this.getAllAdminRequestOnProgress('',1,'');
-  };
-  getRequestMonth(){
-    this.getAllAdminRequest('','',1);
-    this.getAllAdminRequestOnProgress('','',1);
-  };
-
-  
 
 }

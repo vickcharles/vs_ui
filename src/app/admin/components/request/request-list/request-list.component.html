@@ -1,112 +1,162 @@
 <div class="vs-container">
-    <div class="row">
+  <div class="row">
 
-      <div class="col col-md-8">
-          <mat-form-field>
-              <input matInput (keyup)="getSearch($event.target.value)" placeholder="Busqueda">
-          </mat-form-field>
+    <div class="col col-md-8">
+        <mat-form-field>
+            <input matInput [formControl]="search" placeholder="Búsqueda (nombre cliente)">
+        </mat-form-field>
 
-          <div class="div-button hide-on-desktop">
-              <li class="box-label mt-2">
-                 <button (click)="cargarLeads()" class="btn  text-white"><div *ngIf="!cargaReporte2" class="text-center ">
-                     <span>Generando reporte Excel </span>
-                     <br>
-                     <i class="fa fa-sync fa-spin fa-lg "></i>
-                     <br>
-                 </div><span  *ngIf="cargaReporte2">Generar Reporte Excel <i *ngIf="cargaReporte2" class="fa fa-file-excel"></i> </span></button>
-             </li>
-           </div>
+        <div class="hide-on-desktop">
+            <li class="col-md-6 box-label mt-2 div-button2">
+               <button (click)="cargarLeads()" class="btn  text-white"><div *ngIf="!cargaReporte2" class="text-center ">
+                   <span>Generando reporte Excel </span>
+                   <br>
+                   <i class="fa fa-sync fa-spin fa-lg "></i>
+                   <br>
+               </div><span  *ngIf="cargaReporte2">Generar Reporte Excel <i *ngIf="cargaReporte2" class="fa fa-file-excel"></i> </span></button>
+            </li>
 
-          <div class="vs-background-color-white vs-section-widest">
-          <form ngNativeValidate #myForm="ngForm" (ngSubmit)="getLeads( myForm )" class="">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Fecha inicial</label>
-                            <my-date-picker ngModel [placeholder]="placeholder" [locale]="locale" name="start" [options]="startDate" (dateChanged)="onStartDateChanged($event)"
-                                required></my-date-picker>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Fecha final</label>
-                            <my-date-picker ngModel name="end" [locale]="locale" [placeholder]="placeholder" [options]="endDate" (dateChanged)="onEndDateChanged($event)"
-                                required></my-date-picker>
-                        </div>
-                        <div class="col-md-4 boton-consulta">
-                            <button type="submit" class="btn color-azul ">Consultar</button>
-                        </div>
-                    </div>
-                </form>
-                <div>
-                    <button class="mr-3 btn color-azul" (click)="getRequestToday()">Fecha de hoy ({{date | date}})</button>
-                    <button class="btn color-azul" (click)="getRequestMonth()">Ultimo mes ({{mesInicio | date}} - {{mesFin | date}})</button>
-                </div>
+            <li class="box-label mt-2 div-button2">
+              <button (click)="cargarLeadsTodos()" class="btn  text-white"><div *ngIf="!cargaReporte2" class="text-center ">
+                  <span>Generando reporte Excel (Todos los estados) </span>
+                  <br>
+                  <i class="fa fa-sync fa-spin fa-lg "></i>
+                  <br>
+              </div><span  *ngIf="cargaReporte2">Generar Reporte Excel (Todos los estados) <i *ngIf="cargaReporte2" class="fa fa-file-excel"></i> </span></button>
+            </li>
+        </div>
+
+        <div class="vs-background-color-white vs-section-widest">
+        <form ngNativeValidate #myForm="ngForm" (ngSubmit)="getCustomDate( myForm )" class="">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <label>Fecha inicial</label>
+                          <my-date-picker ngModel [placeholder]="placeholder" [locale]="locale" name="start" [options]="startDate" (dateChanged)="onStartDateChanged($event)"
+                              required></my-date-picker>
+                      </div>
+                      <div class="col-md-4">
+                          <label>Fecha final</label>
+                          <my-date-picker ngModel name="end" [locale]="locale" [placeholder]="placeholder" [options]="endDate" (dateChanged)="onEndDateChanged($event)"
+                              required></my-date-picker>
+                      </div>
+                      <div class="col-md-4 boton-consulta">
+                          <button type="submit" class="btn color-azul ">Consultar</button>
+                      </div>
+                  </div>
+              </form>
+              <div>
+                  <button class="mr-3 btn color-azul" (click)="getRequestToday()">Fecha de hoy ({{date | date}})</button>
+                  <button class="btn color-azul" (click)="getRequestMonth()">Ultimo mes ({{mesInicio | date}} - {{mesFin | date}})</button>
               </div>
-              <br>
+            </div>
+            <br>
 
 
-        <div class="row vs-margin-bottom-medium">
-          <div class="col col-md-6">
-            <div (click)="toggleMenuPending()" class="vs-section-widest vs-cursor-pointer vs-background-color-vs">
+      <div class="row">
+        <div class="col col-sm-6 col-md-3 vs-margin-bottom-medium">
+          <div (click)="toggleMenuRequestNew()" class="vs-section-widest vs-cursor-pointer vs-background-color-vs">
+            <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
+              Nuevas solicitudes
+            </h1>
+            <h1 class="vs-font-super-large vs-text-align-center">
+              {{requestNew?.length}}
+            </h1>
+          </div>
+        </div>
+
+        <div class="col col-sm-6 col-md-3 vs-margin-bottom-medium">
+          <div (click)="toggleMenuRequestOnProgress()" class="vs-section-widest vs-cursor-pointer vs-background-color-grey-light">
+            <div>
               <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
-                Nuevas solicitudes
+                 Solicitudes en proceso
+                </h1>
+                <h1 class="vs-font-super-large vs-text-align-center">
+                  {{requestOnProgress?.length}}
+                </h1>
+              </div>
+          </div>
+        </div>
+     
+      <div class="col col-sm-6 col-md-3 vs-margin-bottom-medium">
+        <div (click)="toggleMenuRequestRejected()" class="vs-section-widest vs-cursor-pointer vs-background-color-vs">
+          <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
+            Solicitudes canceladas
+          </h1>
+          <h1 class="vs-font-super-large vs-text-align-center">
+            {{requestRejected?.length}}
+          </h1>
+        </div>
+      </div>
+
+      <div class="col col-sm-6 col-md-3 vs-margin-bottom-medium">
+        <div (click)="toggleMenuRequestCompleted()" class="vs-section-widest vs-cursor-pointer vs-background-color-grey-light">
+          <div>
+            <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
+               Solicitudes completadas
               </h1>
               <h1 class="vs-font-super-large vs-text-align-center">
-                {{requests?.length}}
+                {{requestCompleted?.length}}
               </h1>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="col col-md-6">
-            <div (click)="toggleMenuOnProgress()" class="vs-section-widest vs-cursor-pointer vs-background-color-grey-light">
-              <div>
-                <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
-                   Solicitudes en proceso
-                  </h1>
-                  <h1 class="vs-font-super-large vs-text-align-center">
-                    {{requestOnProgress?.length}}
-                  </h1>
-                </div>
-            </div>
+
+        <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
+          {{selectionStatus[0] ? "NUEVAS SOLICITUDES" : selectionStatus[1] ? "SOLICITUDES EN PROCESO" : selectionStatus[2] ? "SOLICITUDES CANCELADAS" : "SOLICITUDES COMPLETADAS" }}
+        </h1>
+        <hr class="vs-background-color-grey-light vs-margin-bottom-small">
+        <h1 *ngIf="selectionStatus[0] && requestNew?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
+            No tienes nuevas solicitudes
+        </h1>
+        <h1 *ngIf="selectionStatus[1] && requestOnProgress?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
+            No tienes solicitudes en proceso
+        </h1>
+        <h1 *ngIf="selectionStatus[2] && requestRejected?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
+          No tienes solicitudes canceladas
+        </h1>
+        <h1 *ngIf="selectionStatus[3] && requestCompleted?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
+          No tienes solicitudes completadas
+        </h1>
+        <div *ngIf="selectionStatus[0]">
+          <div *ngFor="let request of requestNew">
+            <admin-app-request-card [request]="request"> </admin-app-request-card>
           </div>
         </div>
-          <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
-            {{!onProgress ? "NUEVAS SOLICITUDES" : "SOLICITUDES EN PROCESO" }}
-          </h1>
-          <hr class="vs-background-color-grey-light vs-margin-bottom-small">
-          <h1 *ngIf="!onProgress && requests?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
-              No tienes nuevas solicitudes
-          </h1>
-          <h1 *ngIf="onProgress && requestOnProgress?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
-              No tienes solicitudes en proceso
-          </h1>
-          <div *ngIf="!onProgress">
-            <div *ngFor="let request of requests">
-              <admin-app-request-card [request]="request"> </admin-app-request-card>
-            </div>
+        <div *ngIf="selectionStatus[1]">
+          <div *ngFor="let request of requestOnProgress">
+            <admin-app-request-card [request]="request"> </admin-app-request-card>
           </div>
-          <div *ngIf="onProgress">
-            <div *ngFor="let request of requestOnProgress">
-              <admin-app-request-card [request]="request"> </admin-app-request-card>
-            </div>
+        </div>
+        <div *ngIf="selectionStatus[2]">
+          <div *ngFor="let request of requestRejected; let i=index">
+            <admin-app-request-card [request]="request" *ngIf="i<150"> </admin-app-request-card>
           </div>
-
-          
+        </div>
+        <div *ngIf="selectionStatus[3]">
+          <div *ngFor="let request of requestCompleted; let i=index">
+            <admin-app-request-card [request]="request" *ngIf="i<150"> </admin-app-request-card>
+          </div>
         </div>
 
+        
+      </div>
 
-      <div class="col col-md-4 hide-on-mobile">
-        <div class="vs-background-color-white vs-section-widest">
-          <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
-            <i class="far fa-bell fa-lg vs-margin-right-xsmall"></i>
-            NOTIFICACIONES
-          </h1>
-          <hr>
-          <div class="vs-margin-top-xsmall">
-            <app-notifications>
-            </app-notifications>
-          </div>
-         </div>
-         <div class="div-button">
-         <li class="box-label mt-2">
+
+    <div class="col col-md-4 hide-on-mobile">
+      <div class="vs-background-color-white vs-section-widest">
+        <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
+          <i class="far fa-bell fa-lg vs-margin-right-xsmall"></i>
+          NOTIFICACIONES
+        </h1>
+        <hr>
+        <div class="vs-margin-top-xsmall">
+          <app-notifications>
+          </app-notifications>
+        </div>
+       </div>
+        <li class="box-label mt-2 div-button">
             <button (click)="cargarLeads()" class="btn  text-white"><div *ngIf="!cargaReporte2" class="text-center ">
                 <span>Generando reporte Excel </span>
                 <br>
@@ -114,7 +164,15 @@
                 <br>
             </div><span  *ngIf="cargaReporte2">Generar Reporte Excel  <i class="fa fa-file-excel"></i> </span></button>
         </li>
-      </div>
-      </div>
+
+        <li class="box-label mt-2 div-button">
+            <button (click)="cargarLeadsTodos()" class="btn  text-white"><div *ngIf="!cargaReporte1" class="text-center ">
+                <span>Generando reporte Excel (Todos los estados) </span>
+                <br>
+                <i class="fa fa-sync fa-spin fa-lg "></i>
+                <br>
+            </div><span  *ngIf="cargaReporte1">Generar Reporte Excel (Todos los estados) <i *ngIf="cargaReporte1" class="fa fa-file-excel"></i> </span></button>
+        </li>
     </div>
   </div>
+</div>

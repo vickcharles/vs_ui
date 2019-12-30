@@ -32,6 +32,13 @@ h1,h2,h3,h4,h6,p,span,label,a,button,td,th,small {
 }
 
 .div-button{
-    padding: 5%;
+    padding-top: 4%;
+    padding-left: 5%;
 }
+
+.div-button2{
+  padding-bottom: 3%;
+  padding-left: 5%;
+}
+
 
