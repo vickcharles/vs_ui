@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { WebsocketService } from '../../service/websocket.service'
 import { UserService } from '../../service/user.service';
 import { NotificationService } from '../../service/notification.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notifications',
@@ -12,19 +14,13 @@ export class NotificationsComponent implements OnInit {
   notifications: any[] = [];
   UserId: any;
   Role: any;
+  search_word;
 
   constructor(private wsService: WebsocketService,
     private _notificationService: NotificationService,
     private us: UserService ) {
-      this._notificationService.getAll().subscribe(
-        res => {
-          this.notifications = res['notifications']
-        },
-        err => {
-          console.log(err);
-        }
-      );
-      this.getUserDetails()
+      this.getNotificactions();
+      this.getUserDetails();
     }
 
     getUserDetails() {
@@ -50,6 +46,30 @@ export class NotificationsComponent implements OnInit {
         }
 
       });
+
+      this.search.valueChanges.pipe(debounceTime(600)).subscribe(value => {this.searchEmitter.emit(value);
+        this.getNotificactions(value);
+      
+      })
   }
+
+  getNotificactions(value?){
+    this._notificationService.getAll().subscribe(
+      res => {
+        this.notifications = res['notifications'];
+        if (value) {
+          console.log('search ', value);
+          this.notifications = this.notifications.filter((e) => e.sender.name.toLowerCase() == value.toLowerCase())
+        }
+        
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  search = new FormControl('');
+  @Output('search') searchEmitter =  new EventEmitter<string>();
 
 }

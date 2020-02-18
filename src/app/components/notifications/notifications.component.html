@@ -1,9 +1,12 @@
 
 <div class="vs-full-width">
     <div class="vs-notification-list">
+        <mat-form-field>
+            <input matInput [formControl]="search" placeholder="Búsqueda (nombre cliente)">
+        </mat-form-field>
       <div *ngFor="let notification of notifications"  class="vs-notification vs-cursor-pointer  vs-margin-top-small">
         <div class="vs-display-flex">
-            <ngx-avatar *ngIf="Role == 'User'; else hole" class="vs-margin-right-xsmall" size="35" src="assets/img/admin/Maris.png" fgColor="#3e3e3e"  bgColor="#FFF"  [round]="true"></ngx-avatar>
+            <ngx-avatar *ngIf="Role == 'User'; else hole" class="vs-margin-right-xsmall" size="35" src="assets/img/admin/{{notification.sender?.name}}.png" fgColor="#3e3e3e"  bgColor="#FFF"  [round]="true"></ngx-avatar>
 
             <ng-template #hole>
               <ngx-avatar  class="vs-margin-right-xsmall" size="35" name="{{notification.sender?.name + ' ' + notification.sender?.lastName}}" [round]="true"></ngx-avatar>

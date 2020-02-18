@@ -1,193 +1,193 @@
 <div class="vs-background-color-light">
-  <div class="vs-container">
-  <div class="row vs-display-flex">
-    <div
-      class="col col-sm-12 vs-margin-top-small vs-margin-center"
-    >
-      <h1 *ngIf="isCreatingRequest" [routerLink]="['/dashboard']" class="vs-font-xsmall vs-color-dark-grey remove-focus vs-cursor-pointer vs-color-vs">
-        <i class="fas fa-arrow-left vs-color-vs fa-sm vs-margin-right-xsmall"></i>
-        REGRESAR AL DASHBOARD
-      </h1>
-      <div class="vs-section vs-background-color-white">
-        <mat-horizontal-stepper labelPosition="bottom" #stepper>
-          <!-- first stepper -->
-          <mat-step>
-            <h1 class="vs-section-title vs-color-vs vs-text-align-center">
-              SELECCIONA TU TIPO DE SERVICIO
-            </h1>
-            <p class="vs-text-align-center vs-color-grey vs-margin-bottom-medium">
-              Recibimos tu solicitud las 24h
-            </p>
-            <form [formGroup]="request" autocomplete="off">
-              <div formGroupName="tipoDeServicio" class="vs-input-field row vs-text-align-center">
-                <mat-radio-group formControlName="nombre" class="radio-group">
-                  <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 radio-button vs-margin-bottom-small" value="transporte de carga">
-                    <img src="../../../assets/img/servicios/transporte de carga.png" alt="">
-                    <h1 class="vs-font-small vs-color-default vs-text-align-center">
-                      Transporte de carga
-                    </h1>
-                  </mat-radio-button>
-                  <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de montacarga">
-                    <img src="../../../assets/img/servicios/alquiler de montacarga.png" alt="">
-                    <h1 class="vs-font-small vs-color-default vs-text-align-center">
-                      Alquiler de montacarga
-                    </h1>
-                  </mat-radio-button>
-                  <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de grúa">
-                    <img src="../../../assets/img/servicios/alquiler de grua.png" alt="">
-                    <h1 class="vs-font-small vs-color-default vs-text-align-center">
-                      Alquiler de grúa
-                    </h1>
-                  </mat-radio-button>
-                  <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="operario de cargue y descargue">
-                    <img src="../../../assets/img/servicios/operario de cargue y descargue.png" alt="">
-                    <h1 class="vs-font-small vs-color-default vs-text-align-center">
-                      Operario de cargue y descargue
-                    </h1>
-                  </mat-radio-button>
-                </mat-radio-group>
-              </div>
-              <div class="vs-input-field vs-margin-top-medium col-sm-12 vs-text-align-right">
-                <button mat-flat-button [disabled]="!request?.get('tipoDeServicio').valid" color="primary" matStepperNext>
-                  CONTINUAR
-                </button>
-              </div>
-            </form>
-          </mat-step>
-
-           <!-- second step -->
-          <mat-step>
-            <h1 class="vs-section-title vs-color-vs vs-text-align-center">
-              ¿{{ request.value.tipoDeServicio.nombre | uppercase }}? ¡LISTO!
-            </h1>
-            <p class="vs-text-align-center vs-color-grey">
-              ¡LLena el siguiente formulario y te proveeremos un {{request.value.tipoDeServicio.nombre}} en minutos!
-            </p>
-            <p *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'"  class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
-              (Peso mínimo de carga 2 toneladas)
-            </p>
-            <form [formGroup]="request" autocomplete="off" class="row vs-margin-top-medium">
-              <!-- Tipo de Servico-->
-              <div formGroupName="tipoDeServicio" class="vs-input-field col-md-5">
-                <span *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-field-label">Tipo de {{request.value.tipoDeServicio.nombre}}</span>
-                <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" class="vs-field-label">Tipo de grúa</span>
-                <span *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de montacarga'" class="vs-field-label">
-                  Seleccione el peso aproximado de su carga
-                </span>
-                <select *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
-                  <option value="transporte de carga seca">Transporte de carga seca</option>
-                  <option value="transporte de contenedores">Transporte de contenedores</option>
-                  <option value="transporte refrigerado">Transporte refrigerado</option>
-                  <option value="transporte de carga extradimensionada">Transporte de carga extradimensionada</option>
-                </select>
-                <select *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
-                  <option value="gruá ph">Grúa PH</option>
-                  <option value="gruá telescopica">Gruá telescopica</option>
-                  <option value="gruá de gancho">Grúa de gancho</option>
-                  <option value="gruá autodescargable">Grúa auto-descargable</option>
-                  <option value="telehandler">Telehandler</option>
-                  <option value="ManLift">ManLift</option>
-                </select>
-                <select *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de montacarga'" formControlName="especificamente" class="form-control" aria-placeholder="tipo de persona">
-                  <option value="1 tonelada">1 tonelada</option>
-                  <option value="2 toneladas">2 toneladas</option>
-                  <option value="3 toneladas">3 toneladas</option>
-                  <option value="4 toneladas">4 toneladas</option>
-                  <option value="5 toneladas">5 toneladas</option>
-                  <option value="6 toneladas">6 toneladas</option>
-                  <option value="7 toneladas">7 toneladas</option>
-                  <option value="8 toneladas">8 toneladas</option>
-                  <option value="9 toneladas">9 toneladas</option>
-                  <option value="10 toneladas">10 toneladas</option>
-                  <option value="11 toneladas">11 toneladas</option>
-                  <option value="12 toneladas">12 toneladas</option>
-                  <option value="13 toneladas">13 toneladas</option>
-                  <option value="14 toneladas">14 toneladas</option>
-                  <option value="15 toneladas">15 toneladas</option>
-                  <option value="16 toneladas">16 toneladas</option>
-                </select>
-                <span *ngIf="submitted && errors.tipoDeServicio == 'Este campo es requerido'" class="invalid-feedback">
-                  Este campo es requerido.
-                </span>
-              </div>
-              <div class="col-sm-12"></div>
-
-              <!-- Origen -->
-              <div class="vs-input-field col-md-4">
-                  <span class="vs-field-label">
-                    {{request.value.tipoDeServicio.nombre == 'transporte de carga' ? 'Origen' : 'Ciudad donde requiere su servicio'}}
-                  </span>
-                  <input matInput placeholder="Ej: Bogotá" formControlName="origen">
-                  <span *ngIf="submitted && request.get('origen').errors?.required" class="invalid-feedback">
-                    Este campo es requerido.
-                  </span>
-                  <span *ngIf="submitted && request.get('origen').errors?.pattern" class="invalid-feedback">
-                    Introduce un origen valido.
-                  </span>
-              </div>
-
-              <!-- Destino -->
-              <div *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-input-field col-md-3">
-                <span class="vs-field-label">Destino</span>
-                <input matInput placeholder="Ej: Manizales" formControlName="destino">
-                <span *ngIf="submitted && request.get('destino').errors?.pattern" class="invalid-feedback">
-                  Introduce un destino valido.
-                </span>
-                <span *ngIf="submitted && request.get('destino').errors?.required" class="invalid-feedback">
-                  Este campo es requerido.
-                </span>
-              </div>
-
-              <div class="col-sm-12"></div>
+    <div class="vs-container">
+    <div class="row vs-display-flex">
+      <div
+        class="col col-sm-12 vs-margin-top-small vs-margin-center"
+      >
+        <h1 *ngIf="isCreatingRequest" [routerLink]="['/dashboard']" class="vs-font-xsmall vs-color-dark-grey remove-focus vs-cursor-pointer vs-color-vs">
+          <i class="fas fa-arrow-left vs-color-vs fa-sm vs-margin-right-xsmall"></i>
+          REGRESAR AL DASHBOARD
+        </h1>
+        <div class="vs-section vs-background-color-white">
+          <mat-horizontal-stepper labelPosition="bottom" #stepper>
+            <!-- first stepper -->
+            <mat-step>
+              <h1 class="vs-section-title vs-color-vs vs-text-align-center">
+                SELECCIONA TU TIPO DE SERVICIO
+              </h1>
+              <p class="vs-text-align-center vs-color-grey vs-margin-bottom-medium">
+                Recibimos tu solicitud las 24h
+              </p>
+              <form [formGroup]="request" autocomplete="off">
+                <div formGroupName="tipoDeServicio" class="vs-input-field row vs-text-align-center">
+                  <mat-radio-group formControlName="nombre" class="radio-group">
+                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 radio-button vs-margin-bottom-small" value="transporte de carga">
+                      <img src="../../../assets/img/servicios/transporte de carga.png" alt="">
+                      <h1 class="vs-font-small vs-color-default vs-text-align-center">
+                        Transporte de carga
+                      </h1>
+                    </mat-radio-button>
+                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de montacarga">
+                      <img src="../../../assets/img/servicios/alquiler de montacarga.png" alt="">
+                      <h1 class="vs-font-small vs-color-default vs-text-align-center">
+                        Alquiler de montacarga
+                      </h1>
+                    </mat-radio-button>
+                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de grúa">
+                      <img src="../../../assets/img/servicios/alquiler de grua.png" alt="">
+                      <h1 class="vs-font-small vs-color-default vs-text-align-center">
+                        Alquiler de grúa
+                      </h1>
+                    </mat-radio-button>
+                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="operario de cargue y descargue">
+                      <img src="../../../assets/img/servicios/operario de cargue y descargue.png" alt="">
+                      <h1 class="vs-font-small vs-color-default vs-text-align-center">
+                        Operario de cargue y descargue
+                      </h1>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="vs-input-field vs-margin-top-medium col-sm-12 vs-text-align-right">
+                  <button mat-flat-button [disabled]="!request?.get('tipoDeServicio').valid" color="primary" matStepperNext>
+                    CONTINUAR
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+  
+             <!-- second step -->
+            <mat-step>
+              <h1 class="vs-section-title vs-color-vs vs-text-align-center">
+                ¿{{ request.value.tipoDeServicio.nombre | uppercase }}? ¡LISTO!
+              </h1>
+              <p class="vs-text-align-center vs-color-grey">
+                ¡LLena el siguiente formulario y te proveeremos un {{request.value.tipoDeServicio.nombre}} en minutos!
+              </p>
+              <p *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'"  class="vs-text-align-center vs-color-grey vs-margin-bottom-large import-load-message">
+                (Peso mínimo de carga 2 toneladas)
+              </p>
+              <form [formGroup]="request" autocomplete="off" class="row">
+                <!-- Tipo de Servico-->
+                <ng-container formGroupName="tipoDeServicio">
+                  <ng-container *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'">
+                    <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                      <mat-label>Tipo de {{request.value.tipoDeServicio.nombre}}</mat-label>
+                      <mat-select formControlName="especificamente" name="especificamente">
+                        <mat-option *ngFor="let transport of freightForwarding" [value]="transport.id">
+                          {{transport.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="request.get('tipoDeServicio').get('especificamente').invalid">{{getErrorMessage1("especificamente")}}</mat-error>
+                    </mat-form-field>
+                  </ng-container>
+  
+                  <ng-container *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'">
+                    <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                      <mat-label>Tipo de grúa</mat-label>
+                      <mat-select formControlName="especificamente" name="especificamente">
+                        <mat-option *ngFor="let transport of craneRental" [value]="transport.id">
+                          {{transport.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="request.get('tipoDeServicio').get('especificamente').invalid">{{getErrorMessage1("especificamente")}}</mat-error>
+                    </mat-form-field>
+                  </ng-container>
+  
+                  <ng-container *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de montacarga'">
+                    <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                      <mat-label>Seleccione el peso aproximado de su carga</mat-label>
+                      <mat-select formControlName="especificamente" name="especificamente">
+                        <mat-option *ngFor="let transport of forkliftRental" [value]="transport.id">
+                          {{transport.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="request.get('tipoDeServicio').get('especificamente').invalid">{{getErrorMessage1("especificamente")}}</mat-error>
+                    </mat-form-field>
+                  </ng-container>
+                </ng-container>
+                <div class="col-md-12"></div>
+  
+                <!-- Origen -->
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>{{request.value.tipoDeServicio.nombre == 'transporte de carga' ? 'Origen' : 'Ciudad donde requiere su servicio'}}</mat-label>
+                      <input matInput placeholder="Ej: Bogotá" formControlName="origen">
+                    <mat-error *ngIf="request.get('origen').invalid">{{getErrorMessage("origen")}}</mat-error>
+                  </mat-form-field>
+                <!-- Destino -->
+                <ng-container *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" >
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Destino</mat-label>
+                      <input matInput placeholder="Ej: Manizales" formControlName="destino">
+                    <mat-error *ngIf="request.get('destino').invalid">{{getErrorMessage("destino")}}</mat-error>
+                  </mat-form-field>
+                </ng-container>
+                <div class="col-md-12"></div>
+  
                 <!-- Tipo de Persona-->
-                <div formGroupName="cliente" class="vs-input-field col-md-5">
-                  <span class="vs-field-label">Tipo de cliente</span>
-                  <select formControlName="tipo" class="form-control" aria-placeholder="tipo de persona">
-                    <option value="empresa">Empresa</option>
-                    <option value="natural">Persona natural</option>
-                  </select>
-                  <span *ngIf="submitted && request.get('cliente').get('tipo').errors?.required" class="invalid-feedback">
-                    Este campo es requerido.
-                  </span>
-                </div>
-
+                <ng-container formGroupName="cliente">
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Tipo de cliente</mat-label>
+                    <mat-select formControlName="tipo">
+                      <mat-option *ngFor="let client of customerType" [value]="client.id">
+                        {{client.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="request.get('cliente').get('tipo').invalid">{{getErrorMessage2("tipo")}}</mat-error>
+                  </mat-form-field>
+                </ng-container>
+  
                 <!-- Cedula or Nit-->
-                <div *ngIf="request.value.cliente.tipo != ''" formGroupName="cliente" class="vs-input-field col-md-5">
-                  <span class="vs-field-label">{{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cédula'}}</span>
-                  <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'empresa'"  matInput>
-                  <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'natural'" matInput>
-                  <span *ngIf="submitted && request.get('cliente').get('documento').errors?.required" class="invalid-feedback">
-                    Este campo es requerido.
-                  </span>
-                  <span *ngIf="submitted && request.get('cliente').get('documento').errors?.pattern" class="invalid-feedback">
-                    Introduce un {{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cédula'}} valido.
-                  </span>
-                  <span *ngIf="submitted && request.get('cliente').get('documento').errors?.maxlength" class="invalid-feedback">
-                    Mínimo limite de caracteres 10.
-                  </span>
+                <ng-container *ngIf="request.value.cliente.tipo != ''" formGroupName="cliente">
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>{{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cédula'}}</mat-label>
+                      <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'empresa'"  matInput [ngModel]="mymodel" (ngModelChange)="calcular($event)">
+                      <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'natural'" matInput (keyup)="calcular2()">
+                    <mat-error *ngIf="request.get('cliente').get('documento').invalid">{{getErrorMessage2("documento")}}</mat-error>
+                  </mat-form-field>
+                </ng-container>
+                <!-- Campos de tipo empresa  (nombre de la empresa)-->
+                <ng-container formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'">
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Nombre Empresa</mat-label>
+                      <input matInput formControlName="nombreEmpresa">
+                    <mat-error *ngIf="request.get('cliente').get('nombreEmpresa').invalid">{{getErrorMessage2("nombreEmpresa")}}</mat-error>
+                  </mat-form-field>
+                </ng-container>
+                <!-- Campos de tipo empresa  (Digito de verificacion, comparacion con el verdadero)-->
+                <div formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'" hidden>
+                  <input matInput  type="number" formControlName="digito2" [(ngModel)]="digito">
                 </div>
-                <div class="col-sm-12"></div>
-                  <div formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'"  class="vs-input-field col-md-5">
-                    <span class="vs-field-label">Nombre Empresa</span>
-                    <input formControlName="nombreEmpresa" matInput>
-                  </div>
-                  <div class="col-sm-12"></div>
-
-                  <div class="col-sm-12"></div>
+                <!-- Campos de tipo natural  (Digito de verificacion, hidden, comparacion con el verdadero)-->
+                <div formGroupName="cliente" *ngIf="request.value.cliente.tipo != 'empresa'" hidden>
+                  <input matInput  type="number" formControlName="digito2">
+                </div>
+                <!-- digito de verificacion, empresa-->
+                <ng-container formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'">
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Dígito de verificación (0 - 9)</mat-label>
+                      <input matInput formControlName="digitoVerificacion">
+                    <mat-error *ngIf="request.get('cliente').get('digitoVerificacion').invalid">{{getErrorMessage2("digitoVerificacion")}}</mat-error>
+                  </mat-form-field>
+                </ng-container>
+                <!-- digito de verificacion, natural, hidden-->
+                <div formGroupName="cliente" *ngIf="request.value.cliente.tipo != 'empresa'"  class="vs-input-field col-md-5" hidden>
+                  <span class="vs-field-label">Dígito de verificación (0 - 9)</span>
+                  <input formControlName="digitoVerificacion" matInput>
+                </div>
                 <!-- Mensaje-->
-                <div class="vs-input-field multiline col-md-6">
-                  <span class="vs-field-label"> Mensaje acerca tu solicitud</span>
-                  <textarea formControlName="mensaje" class="txt-a" matInput> </textarea>
-                  <span *ngIf="submitted && request.get('mensaje').errors?.required" class="invalid-feedback">
-                    Este campo es requerido.
-                  </span>
-                  <span *ngIf="submitted && request.get('mensaje').errors?.pattern" class="invalid-feedback">
-                    Introduce un mensaje valido.
-                  </span>
+                <div>
+                <br>
+                <br>
+                <mat-form-field appearance="outline" class="col-md-12 col-sm-12">
+                    <mat-label>Mensaje acerca tu solicitud</mat-label>
+                      <textarea formControlName="mensaje" matInput></textarea>
+                    <mat-error *ngIf="request.get('mensaje').invalid">{{getErrorMessage("mensaje")}}</mat-error>
+                  </mat-form-field>
                 </div>
+                <!-- Botones -->
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
                   <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
-                  <button mat-flat-button *ngIf="!isCreatingRequest" (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
+                  <button mat-flat-button *ngIf="!isCreatingRequest" [disabled]='!request.valid' (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
                   <div *ngIf="isCreatingRequest" >
                     <button mat-flat-button *ngIf="!isLoading; else spinner" (click)="nextCreateRequest()" color="primary">CREAR SOLICITUD</button>
                     <ng-template #spinner>
@@ -196,166 +196,131 @@
                     </ng-template>
                   </div>
                 </div>
-            </form>
-          </mat-step>
-
-          <!-- third step -->
-          <mat-step *ngIf="!isCreatingRequest">
-            <h1 class="vs-section-title vs-color-vs vs-text-align-center">
-              BIEN, YA ESTAMOS CASI LISTOS
-            </h1>
-            <p *ngIf="!isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
-              Regístrate o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Accede Aquí </a> para darle seguimiento a tu solicitud
-            </p>
-            <p *ngIf="isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
-              Accede o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Regístrate Aquí </a> para darle seguimiento a tu solicitud
-            </p>
-            <form autocomplete="off" [formGroup]="user" class="row" *ngIf="!isRegistered ; else login">
-              <div class="vs-margin-center">
-                  <div class="vs-input-field col-md-5">
-                    <span class="vs-field-label">Nombre</span>
-                    <input formControlName="nombre" matInput>
-                    <span *ngIf="submitted && user.get('nombre').errors?.required" class="invalid-feedback">
-                      Este campo es requerido.
-                    </span>
-                    <span *ngIf="submitted && user.get('nombre').errors?.pattern" class="invalid-feedback">
-                      Introduce un nombre valido.
-                    </span>
-                  </div>
-                  <div class="vs-input-field col-md-5">
-                    <span class="vs-field-label">Apellido</span>
-                    <input formControlName="apellido" matInput>
-                    <span *ngIf="submitted && user.get('apellido').errors?.required" class="invalid-feedback">
-                      Este campo es requerido.
-                    </span>
-                    <span *ngIf="submitted && user.get('apellido').errors?.pattern" class="invalid-feedback">
-                      Introduce un apellido valido.
-                    </span>
-                  </div>
-                  <div class="col-sm-12"></div>
-                  <div class="vs-input-field col-md-5">
-                    <span class="vs-field-label">Teléfono</span>
-                    <input formControlName="telefono" matInput>
-                    <span *ngIf="submitted && user.get('telefono').errors?.required" class="invalid-feedback">
-                      Este campo es requerido.
-                    </span>
-                    <span *ngIf="submitted && user.get('telefono').errors?.pattern" class="invalid-feedback">
-                      Introduce un telefono valido.
-                    </span>
-                    <span *ngIf="submitted && user.get('telefono').errors?.maxlength" class="invalid-feedback">
-                      Maximo limite de carateres 11.
-                    </span>
-                  </div>
-                  <div class="vs-input-field col-md-5">
-                    <span class="vs-field-label">Ciudad</span>
-                    <input formControlName="ciudad" matInput>
-                    <span *ngIf="submitted && user.get('ciudad').errors?.required" class="invalid-feedback">
-                      Este campo es requerido.
-                    </span>
-                    <span *ngIf="submitted && user.get('ciudad').errors?.pattern" class="invalid-feedback">
-                      Introduce una ciudad valida.
-                    </span>
-                  </div>
-                  <div class="col-sm-12"></div>
-                  <div class="vs-input-field col-md-5">
-                    <span class="vs-field-label">Correo</span>
-                    <input formControlName="correo" matInput>
-                    <span *ngIf="submitted && user.get('correo').errors?.required" class="invalid-feedback">
-                      Este campo es requerido.
-                    </span>
-                    <span *ngIf="submitted && user.get('correo').errors?.pattern" class="invalid-feedback">
-                      Introduce un correo valido.
-                    </span>
-                  </div>
-                  <div class="col-sm-12"></div>
-                    <div class="vs-input-field col-md-5">
-                       <span class="vs-field-label">
-                         Contraseña
-                        </span>
-                        <input type="password" formControlName="contrasena" matInput>
-                        <span *ngIf="submitted && user.get('correo').errors?.required" class="invalid-feedback">
-                          Este campo es requerido.
-                        </span>
-                        <span *ngIf="submitted && user.get('contrasena').errors?.minlength" class="invalid-feedback">
-                          Mínimo limite de caracteres 6.
-                        </span>
-                     </div>
-                     <div class="col-sm-12"></div>
-                      <div class="vs-input-field col-md-5">
-                        <span class="vs-field-label">
-                          Confirmar contraseña
-                        </span>
-                        <input type="password" formControlName="contrasenaConfirmada" matInput>
-                        <span *ngIf="submitted && user.get('contrasenaConfirmada').errors?.required" class="invalid-feedback">
-                          Este campo es requerido.
-                        </span>
-                        <span *ngIf="submitted && user.get('contrasenaConfirmada').errors?.mustMatch" class="invalid-feedback">
-                          Las contraseñas deben coincidir.
-                        </span>
-                      </div>
-                      <div class="col-sm-12">
-                        <input type="checkbox" formControlName="autorizo" />
-                        <label class="link vs-margin-left-xsmall">
-                          <a class="link" href="https://vs-ui.charlesvikler.now.sh/autorizacion" target="_blank">Autorizo el tratamiento de mis datos personales</a>
-                        </label>
-                        <br />
-                      </div>
-                      <div class="col-sm-12">
-                        <span *ngIf="submitted && user.get('autorizo').errors?.required" class="invalid-feedback color">
-                          Debe autorizar el tratamiento de los datos personales
-                        </span>
-                      </div>
-                      <div class="col-sm-12">
-                        <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
-                          {{serverErrorMessages}}.
-                          <span *ngIf="serverErrorMessages === 'ya existe un usuario registrado'">
-                           <a (click)="toggleForm()" class="vs-cursor-pointer accede-aqui-link"> Accede Aquí </a> 
-                          </span>
-                        </div>
-                      </div>
-                  </div>
-            </form>
-
-            <ng-template #login class="row">
-              <form autocomplete="off" [formGroup]="credentials" class="vs-input-field" >
-                <div class="col-md-6">
-                  <span class="vs-field-label">Correo</span>
-                  <input formControlName="email" matInput>
-                </div>
-                <div class="col-md-12"></div>
-                <div class="col-md-6">
-                  <span class="vs-field-label">Contraseña</span>
-                  <input type="password" formControlName="password" class="vs-margin-remove" matInput>
-                   <div class="vs-margin-top-xsmall">
-                    <a [routerLink]="['/forgot-password']" class="vs-color-grey vs-cursor-pointer">
-                      ¿Olvidaste tu contraseña?
-                   </a>
-          </div>
-                </div>
-                <div class="col-md-12"></div>
-                <div class="col-md-6">
-                  <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
-                    {{serverErrorMessages}}
-                  </div>
-                </div>
               </form>
-            </ng-template>
-
-            <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
-              <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
-              <button *ngIf="!isLoading; else spinner" mat-flat-button color="primary" (click)="register()" matStepperNext>
-                CONTINUAR
-              </button>
-              <ng-template #spinner>
-                <mat-spinner class="vs-margin-center">
-                </mat-spinner>
-              </ng-template>
+            </mat-step>
+  
+            <!-- third step -->
+            <mat-step *ngIf="!isCreatingRequest">
+              <h1 class="vs-section-title vs-color-vs vs-text-align-center">
+                BIEN, YA ESTAMOS CASI LISTOS
+              </h1>
+              <p *ngIf="!isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
+                Regístrate o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Accede Aquí </a> para darle seguimiento a tu solicitud
+              </p>
+              <p *ngIf="isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
+                Accede o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Regístrate Aquí </a> para darle seguimiento a tu solicitud
+              </p>
+              <form autocomplete="off" [formGroup]="user" class="row" *ngIf="!isRegistered ; else login">
+                <div class="row">
+                  <!-- nombre cliente -->
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Nombre</mat-label>
+                      <input matInput formControlName="nombre">
+                    <mat-error *ngIf="user.get('nombre').invalid">{{getErrorMessage3("nombre")}}</mat-error>
+                  </mat-form-field>
+                  <!-- apellido cliente -->
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Apellido</mat-label>
+                      <input matInput formControlName="apellido">
+                    <mat-error *ngIf="user.get('apellido').invalid">{{getErrorMessage3("apellido")}}</mat-error>
+                  </mat-form-field>
+                  <div class="col-sm-12"></div>
+                  <!-- telefono cliente -->
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Teléfono</mat-label>
+                      <input matInput formControlName="telefono">
+                    <mat-error *ngIf="user.get('telefono').invalid">{{getErrorMessage3("telefono")}}</mat-error>
+                  </mat-form-field>
+                  <!-- telefono cliente -->
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Celular</mat-label>
+                      <input matInput formControlName="celular">
+                    <mat-error *ngIf="user.get('celular').invalid">{{getErrorMessage3("celular")}}</mat-error>
+                  </mat-form-field>
+                  <!-- telefono cliente -->
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Ciudad</mat-label>
+                      <input matInput formControlName="ciudad">
+                    <mat-error *ngIf="user.get('ciudad').invalid">{{getErrorMessage3("ciudad")}}</mat-error>
+                  </mat-form-field>
+                  <!-- telefono cliente -->
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Correo</mat-label>
+                      <input matInput formControlName="correo">
+                    <mat-error *ngIf="user.get('correo').invalid">{{getErrorMessage3("correo")}}</mat-error>
+                  </mat-form-field>
+                  <!-- telefono cliente -->
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                    <mat-label>Contraseña</mat-label>
+                      <input matInput formControlName="contrasena" type="password">
+                    <mat-error *ngIf="user.get('contrasena').invalid">{{getErrorMessage3("contrasena")}}</mat-error>
+                  </mat-form-field>
+                  <!-- telefono cliente -->
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                      <mat-label>Confirmar contraseña</mat-label>
+                        <input matInput formControlName="contrasenaConfirmada" type="password">
+                      <mat-error *ngIf="user.get('contrasenaConfirmada').invalid">{{getErrorMessage3("contrasenaConfirmada")}}</mat-error>
+                    </mat-form-field>
+                  <!-- autorizacion -->
+                  <div class="col-lg-12 form-check">
+                    <input type="checkbox" class="form-check-input" required formControlName="autorizo">
+                    <a href="https://vs-ui.charlesvikler.now.sh/autorizacion" target="_blank"> <label class="form-check-label" for="exampleCheck1">Autorizo el tratamiento de mis datos personales</label></a>
+                    <mat-error *ngIf="user.get('autorizo').invalid">{{getErrorMessage3("autorizo")}}</mat-error>
+                  </div>
+  
+                        <div class="col-sm-12">
+                          <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
+                            {{serverErrorMessages}}.
+                            <span *ngIf="serverErrorMessages === 'ya existe un usuario registrado'">
+                             <a (click)="toggleForm()" class="vs-cursor-pointer accede-aqui-link"> Accede Aquí </a> 
+                            </span>
+                          </div>
+                        </div>
+                    </div>
+              </form>
+  
+              <ng-template #login class="row">
+                <form autocomplete="off" [formGroup]="credentials" class="vs-input-field" >
+                  <div class="col-md-6">
+                    <span class="vs-field-label">Correo</span>
+                    <input formControlName="email" matInput>
+                  </div>
+                  <div class="col-md-12"></div>
+                  <div class="col-md-6">
+                    <span class="vs-field-label">Contraseña</span>
+                    <input type="password" formControlName="password" class="vs-margin-remove" matInput>
+                     <div class="vs-margin-top-xsmall">
+                      <a [routerLink]="['/forgot-password']" class="vs-color-grey vs-cursor-pointer">
+                        ¿Olvidaste tu contraseña?
+                     </a>
             </div>
-
-         </mat-step>
-       </mat-horizontal-stepper>
+                  </div>
+                  <div class="col-md-12"></div>
+                  <div class="col-md-6">
+                    <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
+                      {{serverErrorMessages}}
+                    </div>
+                  </div>
+                </form>
+              </ng-template>
+  
+              <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
+                <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
+                <button *ngIf="!isLoading; else spinner" [disabled]='!user.valid' mat-flat-button color="primary" (click)="register()" matStepperNext>
+                  CONTINUAR
+                </button>
+                <ng-template #spinner>
+                  <mat-spinner class="vs-margin-center">
+                  </mat-spinner>
+                </ng-template>
+              </div>
+  
+           </mat-step>
+         </mat-horizontal-stepper>
+        </div>
       </div>
+      <iframe #zohoIframe width="100%" height="50px" class="hide"></iframe>
     </div>
   </div>
-</div>
-</div>
+  </div>
+  

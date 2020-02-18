@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   id: any;
   userDetails: any;
   requestDetails: any;
+  selectedFeatures: any = [];
 
   constructor(private userService: UserService, public _cs: ChatService, private actRoute: ActivatedRoute, private requestService: RequestService) {
     this.id = this.actRoute.snapshot.paramMap.get('id');
@@ -69,6 +70,22 @@ export class ChatComponent implements OnInit {
     }
      this. _cs.agregarMensaje(this.mensaje)
      .then(() => {
+      let datosContacto = {
+        correoComercial: this.requestDetails.operadorId.email,
+        nombreComercial: this.requestDetails.operadorId.name,
+        apellidoComercial: this.requestDetails.operadorId.lastName,
+        celularComercial: this.requestDetails.operadorId.cellPhone,
+        correoCliente: this.requestDetails.usuario.email,
+        nombreCliente: this.requestDetails.usuario.name,
+        apellidoCliente: this.requestDetails.usuario.lastName,
+        celularCliente: this.requestDetails.usuario.cellPhone,
+        role: this.userDetails.role
+     }
+     this.selectedFeatures.push(datosContacto);
+     console.log('Estos son los datos de los correos');
+     console.log(this.selectedFeatures);
+     
+       this. _cs.enviarMensajeCorreo(this.mensaje, this.selectedFeatures);
        this.mensaje = '';
     })
 

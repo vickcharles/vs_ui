@@ -86,6 +86,10 @@ const APP_MODULE: Routes = [
     ],
   },
   {
+    path: 'zoho-forms',
+    loadChildren: './zoho-forms/zoho-forms.module#ZohoFormsModule'
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],

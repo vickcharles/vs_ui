@@ -33,6 +33,7 @@ export class AdminRequestListComponent implements OnInit {
   cargaReporte2 = true;
   selectionStatusLead: any[] = ['recibido', 'en proceso', 'cancelado', ''];
   selectionStatus: any[] = [ true, false , false, false];
+  selectionStatusName: any[] = ['Nueva solicitud', 'Solicitud atentida' , 'Cotización realizada', 'Negocio efectivo'];
 
 
   inicio: any = null;

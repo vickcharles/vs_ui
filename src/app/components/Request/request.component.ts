@@ -1,16 +1,18 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { UserService } from '../../service/user.service';
 import { RequestService } from '../../service/request.service';
 import { ScrollTopService } from '../../service/scrollToTop.service';
 import { Router } from "@angular/router";
-import { MustMatch } from '../../validators/password-match';
+import { MustMatch, typeOfService } from '../../validators/password-match';
 import { MatSnackBar } from '@angular/material';
 import { WebsocketService } from '../../service/websocket.service'
 import { MatRadioChange } from '@angular/material';
 
 import { CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
+import { HelpersService } from '../../../app/service/helpers.service';
+import { promise } from 'protractor';
 
 @Component({
   selector: 'app-request',
@@ -18,6 +20,11 @@ import { CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/route
   styleUrls: ['./request.component.css']
 })
 export class RequestComponent implements OnInit {
+
+  @ViewChild('zohoIframe', null) zohoIframe: ElementRef;
+
+  public zohoIframeSrc: string = '';
+
   selectedIndex = 0;
   credentials: FormGroup;
   isLinear = false;
@@ -36,6 +43,47 @@ export class RequestComponent implements OnInit {
   data: any;
   submitted = false;
   isCreatingRequest = false;
+  digito: any;
+
+  freightForwarding = [
+    {id: 'transporte de carga seca', name: 'Transporte de carga seca'}, 
+    {id: 'transporte de contenedores', name: 'Transporte de contenedores'}, 
+    {id: 'transporte refrigerado', name: 'Transporte refrigerado'}, 
+    {id: 'transporte de carga extradimensionada', name: 'Transporte de carga extradimensionadas'}
+  ]
+
+  craneRental = [
+    {id: 'gruá', name: 'Grúa' },
+    {id: 'gruá telescopica', name: 'Grúa telescópica' },
+    {id: 'gruá de gancho', name: 'Grúa de gancho' },
+    {id: 'gruá autodescargable', name: 'Grúa auto-descargable' },
+    {id: 'telehandler', name: 'Telehandler' },
+    {id: 'ManLift', name: 'ManLift' },
+  ]
+
+  forkliftRental =[
+    {id: '1', name: '1' },
+    {id: '2', name: '2' },
+    {id: '3', name: '3' },
+    {id: '4', name: '4' },
+    {id: '5', name: '5' },
+    {id: '6', name: '6' },
+    {id: '7', name: '7' },
+    {id: '8', name: '8' },
+    {id: '9', name: '9' },
+    {id: '10', name: '10' },
+    {id: '11', name: '11' },
+    {id: '12', name: '12' },
+    {id: '13', name: '13' },
+    {id: '14', name: '14' },
+    {id: '15', name: '15' },
+    {id: '16', name: '16' },
+  ]
+
+  customerType = [
+    {id: 'empresa', name: 'Empresa'},
+    {id: 'natural', name: 'Persona natural'},
+  ]
 
   getIndex() {
     localStorage.getItem('tipoDeServicio') !== '' ? this.selectedIndex === 1 : this.selectedIndex === 0;
@@ -48,6 +96,7 @@ export class RequestComponent implements OnInit {
     private userService: UserService,
     private requestService: RequestService,
     private router: Router,
+    private helpers: HelpersService,
     private formBuilder: FormBuilder) {
     this.next.data.subscribe(v =>
       this.isCreatingRequest = v.isRequesting
@@ -97,28 +146,37 @@ export class RequestComponent implements OnInit {
 
     this.request = this.formBuilder.group({
       tipoDeServicio: this.formBuilder.group({
-        nombre: [localStorage.getItem('tipoDeServicio'), Validators.required],
+        nombre: ['', localStorage.getItem('tipoDeServicio')],
         especificamente: ['']
+      },
+      {
+        validators: typeOfService('nombre', 'especificamente'),
       }),
       cliente: this.formBuilder.group({
-        tipo: ['', Validators.required],
+        tipo: [''],
         tipoDocumento: [''],
         documento: ['', [Validators.required, Validators.maxLength(11) ,Validators.pattern('^[0-9]*$')]],
-        nombreEmpresa: ['']
+        nombreEmpresa: ['', this.validateEmailNotTaken],
+        digitoVerificacion: ['',[Validators.required]],
+        digito2: ['']
+      },
+      {
+        validator: MustMatch('digito2', 'digitoVerificacion')
       }),
-      origen: ['', [ Validators.required, Validators.pattern(regexNoNumber)]],
+      origen: ['', [ Validators.pattern(regexNoNumber)]],
       destino: ['', [Validators.pattern(regexNoNumber)]],
-      mensaje: ['', [Validators.required, Validators.maxLength(160), Validators.pattern(regexNoNumber)]]
+      mensaje: ['', [Validators.required, Validators.maxLength(260)]]
     });
 
     this.user = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      telefono: ['', [Validators.required, Validators.maxLength(11), Validators.pattern('^[0-9]*$')]],
+      telefono: ['', [Validators.required, Validators.maxLength(7), Validators.pattern('^[0-9]*$')]],
+      celular: ['', [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]*$')]],
       ciudad: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
-      correo: ['', [ Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
+      correo: ['', [ Validators.required, Validators.pattern(/^[a-zA-Z0-9_\-\.~!#$%&'*+/=?^`{|}]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,3}$/)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
-      autorizo: [, Validators.required],
+      autorizo: ['', Validators.required],
       contrasenaConfirmada: ['', Validators.required]
     },
     {
@@ -126,6 +184,19 @@ export class RequestComponent implements OnInit {
     });
   }
 
+  validateEmailNotTaken(datos: AbstractControl) {
+    
+    if (!datos.parent) {
+      return null;
+    }else {
+      //console.log('ME ENTRO : ', datos.parent.controls);
+      console.log('ME ENTRO : ', datos.parent.controls);
+      if (datos.value) {
+        
+      }
+    }
+  }
+  
   onCheckboxChange() {
     if (this.checkbox) {
       setTimeout(()=> {
@@ -182,7 +253,6 @@ export class RequestComponent implements OnInit {
   createRequest(request: any): any {
     this.requestService.postRequest(request).subscribe(
       res => {
-        this.openSnackBar();
 
         //EMITIR NOTIFICACION AL CLIENTE
         let payload = {
@@ -190,7 +260,20 @@ export class RequestComponent implements OnInit {
           receiver: res['request'].operadorId._id,
           message: 'ha creado una nueva solicitud',
         }
-
+        console.log('verificando login crm', res['request']);
+        let payloadParse = {
+          request: res['request'],
+          user: {nombre: res['request'].usuario.name,
+            apellido: res['request'].usuario.lastName,
+            telefono: res['request'].usuario.phone,
+            celular: res['request'].usuario.cellPhone,
+            ciudad: res['request'].usuario.city,
+            correo: res['request'].usuario.email,
+          }
+        }
+        
+          var payloadZoho = this.helpers.parseData(payloadParse);
+            this.launchZohoIframe(payloadZoho.zoho);
         this.requestService.sendSMSendEmail(res['request'])
         .then(res => {
           console.log('mensaje enviado al usuario: ' + res.status)
@@ -203,8 +286,12 @@ export class RequestComponent implements OnInit {
 
         this.wsService.emit('notifications', payload);
 
-        this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
-        this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
+        this.sendAPI();
+
+        setTimeout(() => {
+          this.router.navigate(['/dashboard/request/' + res['request']._id]);
+          this.openSnackBar();
+        }, 5000);
       },
       err => {
         console.log('Error creando request');
@@ -228,41 +315,7 @@ export class RequestComponent implements OnInit {
         request: this.request.value
       }
 
-      this.userService.postUserAndRequest(this.data).subscribe(
-        res => {
-          this.isLoading = false;
-          this.userService.setToken(res['token']);
-
-         //EMITIR NOTIFICACION AL CLIENTE
-          let payload = {
-            userId: res['request'].usuario._id,
-            receiver: res['request'].operadorId._id,
-            message: 'ha creado una nueva solicitud',
-          }
-
-          this.requestService.sendSMSendEmail(res['request'])
-          .then(res => {
-            console.log('mensaje enviado al usuario: ' + res.status)
-          })
-          .catch(err => {
-            console.log('error al envair mensaje de texto: ' + err)
-          })
-
-          this.wsService.emit('notifications', payload)
-
-          this.router.navigateByUrl('/dashboard/request/' + res['request']._id);
-          this.openSnackBar();
-        },
-        err => {
-          if (err.status === 422) {
-            this.isLoading = false;
-            this.serverErrorMessages = 'ya existe un usuario registrado';
-          }
-          else
-            this.isLoading = false;
-            this.serverErrorMessages = 'ya existe un usuario registrado';
-        }
-      );
+        this.sendAPI();
       //loggin if user is registered
     } else if (this.credentials.valid && this.isRegistered) {
 
@@ -274,6 +327,7 @@ export class RequestComponent implements OnInit {
         res => {
           this.isLoading = false;
           this.userService.setToken(res['token']);
+          console.log('datos usuario ya registrado: ', this.request.value);
           this.createRequest(this.request.value);
         },
         err => {
@@ -282,6 +336,55 @@ export class RequestComponent implements OnInit {
         }
       );
     }
+  }
+
+  sendAPI(){
+    this.userService.postUserAndRequest(this.data).subscribe(
+      res => {
+        this.isLoading = false;
+        this.userService.setToken(res['token']);
+
+       //EMITIR NOTIFICACION AL CLIENTE
+        let payload = {
+          userId: res['request'].usuario._id,
+          receiver: res['request'].operadorId._id,
+          message: 'ha creado una nueva solicitud',
+        }
+
+        
+          console.log('datos del payload', this.data);
+          var payloadZoho = this.helpers.parseData(this.data);
+              this.launchZohoIframe(payloadZoho.zoho);
+         
+
+        this.requestService.sendSMSendEmail(res['request'])
+        .then(res => {
+          console.log('mensaje enviado al usuario: ' + res.status)
+          
+        })
+        .catch(err => {
+          console.log('error al enviar mensaje de texto: ' + err)
+        })
+        
+
+        this.wsService.emit('notifications', payload)
+
+
+        setTimeout(() => {
+        this.router.navigate(['/dashboard/request/' + res['request']._id]);
+        this.openSnackBar();
+      }, 5000);
+      },
+      err => {
+        if (err.status === 422) {
+          this.isLoading = false;
+          this.serverErrorMessages = 'ya existe un usuario registrado';
+        }
+        else
+          this.isLoading = false;
+          this.serverErrorMessages = 'ya existe un usuario registrado';
+      }
+    );
   }
 
   //Validaciones
@@ -328,5 +431,113 @@ export class RequestComponent implements OnInit {
     if(!isError && this.request.valid) {
       this.createRequest(this.request.value);
     }
+  }
+
+  launchZohoIframe(data){
+      //debugger;
+      console.log('CRM: ', data);
+    data.submitNow = true;
+    var queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');
+    //console.log(queryString);
+    this.zohoIframeSrc = `/zoho-forms/basic-quote?${queryString}`;
+    //const iframe = this.elementRef.nativeElement.querySelector('iframe');
+    console.log('CRM data url: ', this.zohoIframeSrc);
+    this.zohoIframe.nativeElement.src = this.zohoIframeSrc;
+  }
+
+
+
+  calcularDigitoVerificacion ( myNit )  {
+    let vpri,
+        x,
+        y,
+        z;
+    
+    // Procedimiento
+    vpri = new Array(16) ; 
+    myNit = String(myNit);
+    z = myNit.length;
+  
+    vpri[1]  =  3 ;
+    vpri[2]  =  7 ;
+    vpri[3]  = 13 ; 
+    vpri[4]  = 17 ;
+    vpri[5]  = 19 ;
+    vpri[6]  = 23 ;
+    vpri[7]  = 29 ;
+    vpri[8]  = 37 ;
+    vpri[9]  = 41 ;
+    vpri[10] = 43 ;
+    vpri[11] = 47 ;  
+    vpri[12] = 53 ;  
+    vpri[13] = 59 ; 
+    vpri[14] = 67 ; 
+    vpri[15] = 71 ;
+  
+    x = 0 ;
+    y = 0 ;
+    for  ( let i = 0; i < z; i++ )  { 
+      y = ( myNit.substr (i, 1 ) ) ;
+      x += ( y * vpri [z-i] ) ;  
+    }
+    y = x % 11 ;
+    this.digito=(( y > 1 ) ? 11 - y : y);
+    console.log('este es el numero de verificacion correcto'+this.digito);
+    return this.digito;
+  }
+  
+  // Calcular
+  calcular(dato) {
+    this.request.get('cliente').get('digito2').setValue('');
+    this.request.get('cliente').get('digitoVerificacion').setValue('');
+    console.log('este es el numero que envia: '+dato);
+    this.calcularDigitoVerificacion(dato);
+  }
+
+  calcular2() {
+    this.request.get('cliente').get('digito2').setValue(1);
+    this.request.get('cliente').get('digitoVerificacion').setValue(1);
+  }
+
+  getErrorMessage(campo: string, form: string) {
+    return this.request.get(`${campo}`).hasError('required')
+      ? 'Este campo es requerido'
+      : this.request.get(`${campo}`).hasError('pattern') 
+          ? 'Introduce un dato válido' 
+          : this.request.get(`${campo}`).hasError('mustMatch') 
+              ? 'Error dígito de verificación' 
+              : this.request.get(`${campo}`).hasError('emptyCampTypeOfService') 
+                  ? 'Este campo no puede estar vacio' 
+                  : ''
+  }
+
+  getErrorMessage1(campo: string, form: string) {
+    return this.request.get('tipoDeServicio').get(`${campo}`).hasError('emptyCampTypeOfService') 
+            ? 'Este campo no puede estar vacio' 
+            :  ''
+  }
+
+  getErrorMessage2(campo: string, form: string) {
+    return this.request.get('cliente').get(`${campo}`).hasError('required')
+      ? 'Este campo es requerido'
+      : this.request.get('cliente').get(`${campo}`).hasError('pattern') 
+        ? 'Introduce un dato válido' 
+          : this.request.get('cliente').get(`${campo}`).hasError('mustMatch') 
+            ? 'Las contraseñas deben coincidir' 
+            : '';
+  }
+
+  getErrorMessage3(campo: string, form: string) {
+    return this.user.get(`${campo}`).hasError('required')
+      ? 'Este campo es requerido'
+      : this.user.get(`${campo}`).hasError('pattern') 
+        ? 'Introduce un dato válido' 
+        : this.user.get(`${campo}`).hasError('maxlength') 
+          ? 'Máximo límite de caracteres 10' 
+          : this.user.get(`${campo}`).hasError('mustMatch') 
+            ? 'Las contraseñas deben coincidir' 
+            : this.user.get(`${campo}`).hasError('minlength') 
+              ? 'Mínimo límite de caracteres 6' 
+              : '';
   }
 }

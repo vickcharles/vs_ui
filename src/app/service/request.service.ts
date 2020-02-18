@@ -6,6 +6,7 @@ import superagent from "superagent";
 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ import * as FileSaver from 'file-saver';
 
 
 export class RequestService {
+  push(arg0: import("@angular/forms").FormControl) {
+    throw new Error("Method not implemented.");
+  }
 
   
 
@@ -42,6 +46,16 @@ export class RequestService {
 
   updateStatus(id, status) {
     return this.http.put(environment.apiBaseUrl + `/request/update/status/${id}`, status);
+  }
+
+  sendMailMessage(mailMessage){
+    //console.log('estos son los datos entra aqui' + mailMessage);
+    return this.http.post(environment.apiBaseUrl + `/request/mail`, mailMessage);
+  }
+
+  sendMailMessageClient(mailMessage){
+    //console.log('estos son los datos entra aqui' + mailMessage);
+    return this.http.post(environment.apiBaseUrl + `/request/mail/client`, mailMessage);
   }
 
   sendSMSendEmail(saverequest) {
@@ -73,6 +87,7 @@ export class RequestService {
                 for (let i = 0; i < json.length; i++) {
                     externalData.push({
                         Estado: json[i].estado,
+                        Tipo_cliente: json[i].cliente.tipo,
                         Nombre: json[i].usuario.name,
                         Apellido: json[i].usuario.lastName,
                         Correo: json[i].usuario.email,
