@@ -21,17 +21,24 @@ export class ZohoFormBasicQuoteFormComponent implements OnInit {
   ngOnInit() {
 
     this.qParams = this.route.snapshot.queryParams;
-
+    console.log('datos del params', this.qParams);
     var form = {
-      firstName: null,
-      lastName: null,
-      mobile: null,  
-      email: null,
-      econtainerProduct: null,
-      companyName: null
+      tipoDeServicio: null,
+      especificamente: null,
+      origen: null,  
+      destino: null,
+      cliente_tipo: null,
+      cliente_tipoDocumento: null,
+      usuario_ciudad: null,
+      usuario_telefono: null,
+      usuario_nombre: null,
+      usuario_celular: null,
+      usuario_apellido: null,
+      usuario_correo: null,
     }
 
     this.formData = Object.assign(form, this.qParams)
+    console.log('datos del form data', this.formData);
 
   }
 

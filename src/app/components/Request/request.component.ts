@@ -5,7 +5,7 @@ import { UserService } from '../../service/user.service';
 import { RequestService } from '../../service/request.service';
 import { ScrollTopService } from '../../service/scrollToTop.service';
 import { Router } from "@angular/router";
-import { MustMatch, typeOfService } from '../../validators/password-match';
+import { MustMatch, typeOfService, destination } from '../../validators/password-match';
 import { MatSnackBar } from '@angular/material';
 import { WebsocketService } from '../../service/websocket.service'
 import { MatRadioChange } from '@angular/material';
@@ -44,6 +44,7 @@ export class RequestComponent implements OnInit {
   submitted = false;
   isCreatingRequest = false;
   digito: any;
+  enable = true;
 
   freightForwarding = [
     {id: 'transporte de carga seca', name: 'Transporte de carga seca'}, 
@@ -153,7 +154,7 @@ export class RequestComponent implements OnInit {
         validators: typeOfService('nombre', 'especificamente'),
       }),
       cliente: this.formBuilder.group({
-        tipo: [''],
+        tipo: ['', [Validators.required]],
         tipoDocumento: [''],
         documento: ['', [Validators.required, Validators.maxLength(11) ,Validators.pattern('^[0-9]*$')]],
         nombreEmpresa: ['', this.validateEmailNotTaken],
@@ -163,16 +164,19 @@ export class RequestComponent implements OnInit {
       {
         validator: MustMatch('digito2', 'digitoVerificacion')
       }),
-      origen: ['', [ Validators.pattern(regexNoNumber)]],
+      origen: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
       destino: ['', [Validators.pattern(regexNoNumber)]],
       mensaje: ['', [Validators.required, Validators.maxLength(260)]]
+    },
+    {
+      validators: destination('destino'),
     });
 
     this.user = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      telefono: ['', [Validators.required, Validators.maxLength(7), Validators.pattern('^[0-9]*$')]],
-      celular: ['', [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]*$')]],
+      telefono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
+      celular: ['', [Validators.required, Validators.pattern('^[3]+([0|1|2|5])+([0-9]{8,8})$'), Validators.pattern('[0-9]{10,10}')]],
       ciudad: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
       correo: ['', [ Validators.required, Validators.pattern(/^[a-zA-Z0-9_\-\.~!#$%&'*+/=?^`{|}]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,3}$/)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
@@ -274,6 +278,7 @@ export class RequestComponent implements OnInit {
         
           var payloadZoho = this.helpers.parseData(payloadParse);
             this.launchZohoIframe(payloadZoho.zoho);
+
         this.requestService.sendSMSendEmail(res['request'])
         .then(res => {
           console.log('mensaje enviado al usuario: ' + res.status)
@@ -285,7 +290,7 @@ export class RequestComponent implements OnInit {
         console.log(payload);
 
         this.wsService.emit('notifications', payload);
-
+        debugger;
         this.sendAPI();
 
         setTimeout(() => {
@@ -341,7 +346,6 @@ export class RequestComponent implements OnInit {
   sendAPI(){
     this.userService.postUserAndRequest(this.data).subscribe(
       res => {
-        this.isLoading = false;
         this.userService.setToken(res['token']);
 
        //EMITIR NOTIFICACION AL CLIENTE
@@ -350,12 +354,10 @@ export class RequestComponent implements OnInit {
           receiver: res['request'].operadorId._id,
           message: 'ha creado una nueva solicitud',
         }
-
-        
-          console.log('datos del payload', this.data);
-          var payloadZoho = this.helpers.parseData(this.data);
-              this.launchZohoIframe(payloadZoho.zoho);
          
+        console.log('datos del payload', this.data);
+        var payloadZoho = this.helpers.parseData(this.data);
+            this.launchZohoIframe(payloadZoho.zoho);
 
         this.requestService.sendSMSendEmail(res['request'])
         .then(res => {
@@ -369,10 +371,10 @@ export class RequestComponent implements OnInit {
 
         this.wsService.emit('notifications', payload)
 
-
         setTimeout(() => {
         this.router.navigate(['/dashboard/request/' + res['request']._id]);
         this.openSnackBar();
+        this.isLoading = false;
       }, 5000);
       },
       err => {
@@ -443,6 +445,7 @@ export class RequestComponent implements OnInit {
     //const iframe = this.elementRef.nativeElement.querySelector('iframe');
     console.log('CRM data url: ', this.zohoIframeSrc);
     this.zohoIframe.nativeElement.src = this.zohoIframeSrc;
+
   }
 
 
@@ -508,7 +511,9 @@ export class RequestComponent implements OnInit {
               ? 'Error dígito de verificación' 
               : this.request.get(`${campo}`).hasError('emptyCampTypeOfService') 
                   ? 'Este campo no puede estar vacio' 
-                  : ''
+                  : this.request.get(`${campo}`).hasError('emptyCampDestination') 
+                      ? 'Este campo es requerido' 
+                      : ''
   }
 
   getErrorMessage1(campo: string, form: string) {

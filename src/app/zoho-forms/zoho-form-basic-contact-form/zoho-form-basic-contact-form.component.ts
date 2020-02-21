@@ -35,6 +35,7 @@ export class ZohoFormBasicContactFormComponent implements OnInit {
     }
 
     this.formData = Object.assign(form, this.qParams)
+    console.log('datos del formdata', this.formData);
 
   }
 
