@@ -10,7 +10,7 @@ import { MatTabGroup } from '@angular/material';
 })
 export class RequestListComponent implements OnInit {
 
-  @ViewChild(MatTabGroup) tabGroup: MatTabGroup;
+  @ViewChild(MatTabGroup, {static: false}) tabGroup: MatTabGroup;
   requests: any;
   requestsHistorial: any;
   requestsOnProgress: any;

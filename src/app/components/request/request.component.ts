@@ -210,7 +210,7 @@ export class RequestComponent implements OnInit {
   }
 
   // Event fired after view is initialized
-  @ViewChild('stepper') stepper: MatStepper;
+  @ViewChild('stepper', {static: false}) stepper: MatStepper;
 
   ngAfterViewInit() {
     if(localStorage.getItem('tipoDeServicio')) {

@@ -87,7 +87,7 @@ const APP_MODULE: Routes = [
   },
   {
     path: 'zoho-forms',
-    loadChildren: './zoho-forms/zoho-forms.module#ZohoFormsModule'
+    loadChildren: () => import('./zoho-forms/zoho-forms.module').then(m => m.ZohoFormsModule)
   },
   {
     path: 'dashboard',
