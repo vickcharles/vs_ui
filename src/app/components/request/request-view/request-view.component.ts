@@ -8,6 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class RequestViewComponent implements OnInit {
   requestDetails: any;
+  imgUrl; //se crea esta variable porque la tilde (grúa) no la reconoce en la img
   constructor(private requestService: RequestService, private actRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -20,6 +21,10 @@ export class RequestViewComponent implements OnInit {
     this.requestService.getRequest(id).subscribe(
       res => {
         this.requestDetails = res['request'];
+        this.imgUrl = this.requestDetails.tipoDeServicio.nombre;
+        if (this.imgUrl == 'alquiler de grúa') {
+          this.imgUrl = 'alquiler de grua';
+        }
         console.log(res['request']);
       },
       err => {
