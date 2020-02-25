@@ -48,6 +48,10 @@ export class RequestService {
     return this.http.put(environment.apiBaseUrl + `/request/update/status/${id}`, status);
   }
 
+  updateTrafficStatus(id, status) {
+    return this.http.put(environment.apiBaseUrl + `/request/update/trafficStatus/${id}`, status);
+  }
+
   sendMailMessage(mailMessage){
     //console.log('estos son los datos entra aqui' + mailMessage);
     return this.http.post(environment.apiBaseUrl + `/request/mail`, mailMessage);

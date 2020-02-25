@@ -72,6 +72,7 @@ import { AutorizacionComponent } from './components/homepage/autorizacion/autori
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { MyDatePickerModule } from 'mydatepicker';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     APP_ROUTING,
     FormsModule,
     MyDatePickerModule,
-    MomentModule
+    MomentModule,
+    NgbModule.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
