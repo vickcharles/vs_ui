@@ -5,7 +5,7 @@ import { ChatService } from '../../../../service/chat.service';
 import { WebsocketService } from '../../../../service/websocket.service'
 import { UserService } from '../../../../service/user.service';
 import * as moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
+//import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-request-view',
@@ -38,7 +38,7 @@ export class AdminRequestViewComponent implements OnInit {
 
 
   constructor(private wsService: WebsocketService,
-    public toastr: ToastrService,
+    //public toastr: ToastrService,
     public _cs: ChatService,
     private requestService: RequestService,
     private actRoute: ActivatedRoute,
@@ -179,9 +179,9 @@ export class AdminRequestViewComponent implements OnInit {
           const final = moment(res.lead.status.firstStep.finalDate).format('L');
           this.finalTime_1 = final;
           this.carga2 = false;
-          this.toastr.success('Fase terminada', 'Contacto Establecido 📞', {
-            progressBar: true
-          });
+          // this.toastr.success('Fase terminada', 'Contacto Establecido 📞', {
+          //   progressBar: true
+          // });
         });
       }
       return;
@@ -196,9 +196,9 @@ export class AdminRequestViewComponent implements OnInit {
               const final = moment(res.lead.status.secondStep.finalDate).format('L');
               this.finalTime_2 = final;
               this.carga3 = false;
-              this.toastr.success('Fase terminada', 'Propuesta Realizada 📝', {
-                progressBar: true
-              });
+              // this.toastr.success('Fase terminada', 'Propuesta Realizada 📝', {
+              //   progressBar: true
+              // });
             });
           }
         }
@@ -216,10 +216,10 @@ export class AdminRequestViewComponent implements OnInit {
             this.finalTime_3 = final;
             this.finalTime_4 = final;
             this.carga4 = false;
-            this.sound.play();
-            this.toastr.success('Fase terminada', 'Negociación Terminada 💵 💵 💵 !! ' , {
-              progressBar: true
-            });
+            //this.sound.play();
+            // this.toastr.success('Fase terminada', 'Negociación Terminada 💵 💵 💵 !! ' , {
+            //   progressBar: true
+            // });
           });
         }
       }

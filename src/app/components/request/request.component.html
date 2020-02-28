@@ -175,7 +175,6 @@
                   <input formControlName="digitoVerificacion" matInput>
                 </div>
                 <!-- Mensaje-->
-                <div>
                 <br>
                 <br>
                 <mat-form-field appearance="outline" class="col-md-12 col-sm-12">
@@ -183,7 +182,6 @@
                       <textarea formControlName="mensaje" matInput></textarea>
                     <mat-error *ngIf="request.get('mensaje').invalid">{{getErrorMessage("mensaje")}}</mat-error>
                   </mat-form-field>
-                </div>
                 <!-- Botones -->
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
                   <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>

@@ -147,7 +147,7 @@ export class RequestComponent implements OnInit {
 
     this.request = this.formBuilder.group({
       tipoDeServicio: this.formBuilder.group({
-        nombre: ['', localStorage.getItem('tipoDeServicio')],
+        nombre: [localStorage.getItem('tipoDeServicio')],
         especificamente: ['']
       },
       {

@@ -121,7 +121,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     MyDatePickerModule,
     MomentModule,
-    NgbModule.forRoot()
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
