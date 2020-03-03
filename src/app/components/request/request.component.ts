@@ -85,8 +85,18 @@ export class RequestComponent implements OnInit {
     {id: 'empresa', name: 'Empresa'},
     {id: 'natural', name: 'Persona natural'},
   ]
+  selectedTypeService: string | AbstractControl;
+
+  arrayImg = [
+    {id: 0, urlImg: '../../../assets/img/banner_services/Transporte de carga-12.jpg', type: 'transporte de carga' },
+    {id: 1, urlImg: '../../../assets/img/banner_services/grua-12.jpg', type: 'alquiler de grúa' },
+    {id: 2, urlImg: '../../../assets/img/banner_services/MONTACARGA-12.jpg', type: 'alquiler de montacarga' },
+    {id: 3, urlImg: '../../../assets/img/banner_services/operario-12.jpg', type: 'operario de cargue y descargue' },
+  ]
+  selectedImgTypeService: string;
 
   getIndex() {
+    console.log('datos en localStorage', localStorage.getItem('tipoDeServicio'));
     localStorage.getItem('tipoDeServicio') !== '' ? this.selectedIndex === 1 : this.selectedIndex === 0;
   }
 
@@ -113,6 +123,7 @@ export class RequestComponent implements OnInit {
 
 
   getForm(id) {
+    
     switch (id) {
       case 'todos':
         localStorage.setItem('tipoDeServicio', '')
@@ -132,6 +143,8 @@ export class RequestComponent implements OnInit {
       default:
       localStorage.setItem('tipoDeServicio', '');
     }
+
+    console.log('datos en localStorage', localStorage);
   }
 
   ngOnInit() {
@@ -186,6 +199,20 @@ export class RequestComponent implements OnInit {
     {
       validator: MustMatch('contrasena', 'contrasenaConfirmada')
     });
+    this.imgService();
+  } 
+
+  imgService(){
+    if (this.request.get('tipoDeServicio')) {
+      for (let index = 0; index < this.arrayImg.length; index++) {
+        console.log('datos de la img', this.request.get('tipoDeServicio').get('nombre').value);
+        
+        if (this.arrayImg[index].type == this.request.get('tipoDeServicio').get('nombre').value) {
+          this.selectedImgTypeService = this.arrayImg[index].urlImg ;
+        }
+        
+      }
+    }
   }
 
   validateEmailNotTaken(datos: AbstractControl) {
@@ -193,8 +220,6 @@ export class RequestComponent implements OnInit {
     if (!datos.parent) {
       return null;
     }else {
-      //console.log('ME ENTRO : ', datos.parent.controls);
-      console.log('ME ENTRO : ', datos.parent.controls);
       if (datos.value) {
         
       }
@@ -264,7 +289,6 @@ export class RequestComponent implements OnInit {
           receiver: res['request'].operadorId._id,
           message: 'ha creado una nueva solicitud',
         }
-        console.log('verificando login crm', res['request']);
         let payloadParse = {
           request: res['request'],
           user: {nombre: res['request'].usuario.name,
@@ -436,16 +460,11 @@ export class RequestComponent implements OnInit {
   }
 
   launchZohoIframe(data){
-      //debugger;
-      console.log('CRM: ', data);
     data.submitNow = true;
     var queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');
-    //console.log(queryString);
     this.zohoIframeSrc = `/zoho-forms/basic-quote?${queryString}`;
     //const iframe = this.elementRef.nativeElement.querySelector('iframe');
-    console.log('CRM data url: ', this.zohoIframeSrc);
     this.zohoIframe.nativeElement.src = this.zohoIframeSrc;
-
   }
 
 
@@ -493,7 +512,6 @@ export class RequestComponent implements OnInit {
   calcular(dato) {
     this.request.get('cliente').get('digito2').setValue('');
     this.request.get('cliente').get('digitoVerificacion').setValue('');
-    console.log('este es el numero que envia: '+dato);
     this.calcularDigitoVerificacion(dato);
   }
 

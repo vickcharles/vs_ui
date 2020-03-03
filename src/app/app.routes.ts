@@ -32,6 +32,9 @@ const APP_MODULE: Routes = [
       {
         path: 'home',
         component: HomepageComponent
+      },{
+        path: 'solicitar-servicio/todos',
+        component: RequestComponent
       },
       {
         path: 'solicitar-servicio/:id',

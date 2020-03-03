@@ -117,6 +117,11 @@ $candy-app-warn: mat-palette($mat-red);
         color: white;
         padding: 4px 28px !important;
     }    // This will apply to ALL buttons!
+    .centerImg{
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
   }
 // Create the theme object (a Sass map containing all of the palettes).
 $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);

@@ -18,9 +18,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import {
-  MatFormFieldModule,
+  	MatFormFieldModule,
 	MatInputModule,
 	MatRippleModule,
 	MatSelectModule,
@@ -49,7 +50,8 @@ import {
 		MatCheckboxModule,
 		MatSnackBarModule,
 		MatDialogModule,
-		MatProgressSpinnerModule
+		MatProgressSpinnerModule,
+		MatButtonToggleModule,
   ],
   exports: [
 		MatButtonModule,
@@ -73,7 +75,8 @@ import {
 		MatListModule,
 		MatDialogModule,
 		MatToolbarModule,
-		MatProgressSpinnerModule
+		MatProgressSpinnerModule,
+		MatButtonToggleModule,
   ]
 })
 

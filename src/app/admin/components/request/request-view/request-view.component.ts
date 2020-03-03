@@ -5,6 +5,10 @@ import { ChatService } from '../../../../service/chat.service';
 import { WebsocketService } from '../../../../service/websocket.service'
 import { UserService } from '../../../../service/user.service';
 import * as moment from 'moment';
+import { RechazoModalComponent } from '../request-modals/rechazo-modal/rechazo-modal.component';
+import { PerdidaOportunidadModalComponent } from '../request-modals/perdida-oportunidad.modal/perdida-oportunidad-modal.component';
+import { NoAceptadoModalComponent } from '../request-modals/no-aceptado-modal/no-aceptado-modal.component';
+import { MatDialog } from '@angular/material';
 //import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -35,7 +39,12 @@ export class AdminRequestViewComponent implements OnInit {
   time2;
   time3;
   time4;
-
+  status_1_days: number;
+  status_2_days: number;
+  status_3_days: number;
+  dataClient: any;
+  id_lead: any;
+  payload: { userId: any; receiver: any; message: string; };
 
   constructor(private wsService: WebsocketService,
     //public toastr: ToastrService,
@@ -43,7 +52,8 @@ export class AdminRequestViewComponent implements OnInit {
     private requestService: RequestService,
     private actRoute: ActivatedRoute,
     private us: UserService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
     ) {
 
       this.us.getUserProfile().subscribe(
@@ -63,23 +73,42 @@ export class AdminRequestViewComponent implements OnInit {
   }
 
   public getRequest(id: any) {
-    this.requestService.getRequest(id).subscribe(
-      res => {
-        this.requestDetails = res['request'];
-        console.log('DATOS REQUEST');
-        console.log(this.requestDetails);
-        this.message = this.requestDetails.mensaje;
-        this.generalStatus =  this.requestDetails.status;
-        //this.finalTime_1 = moment(this.requestDetails.status.firstStep.finalDate).calendar();
-        //this.finalTime_1 = moment(this.requestDetails.status.secondStep.finalDate).calendar();
-        //this.finalTime_1 = moment(this.requestDetails.status.tercerPaso.finalDate).calendar();
-        console.log('mensaje del request');
-        console.log(this.message);
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    this.actRoute.params.subscribe((resp: any) => {
+      this.id_lead = resp.id;
+        this.requestService.getRequest(resp.id).subscribe( (res: any) => {
+          this.message = res.request.mensaje;
+          this.requestDetails = res['request'];
+          this.finalTime_1 = moment(res.request.status.firstStep.finalDate).locale('es').calendar();
+          this.finalTime_2 = moment(res.request.status.secondStep.finalDate).locale('es').calendar();
+          this.finalTime_3 = moment(res.request.status.thirdStep.finalDate).locale('es').calendar();
+          if (res.request.status.fourthStep.status) {
+            this.finalTime_4 = moment(res.request.status.thirdStep.finalDate).calendar();
+          }
+          this.generalStatus =  res['request'].status;
+          this.dataClient = res.request.usuario;
+          this.time = moment(res.request.status.firstStep.initialDate);
+          this.time2 = moment(res.request.status.secondStep.initialDate);
+          this.time3 = moment(res.request.status.thirdStep.initialDate);
+          var a1 = moment(this.requestDetails.created_at);
+            var b1 = moment(res.request.status.firstStep.finalDate);
+            this.status_1_days = b1.diff(a1, 'days');
+          if (res.request.status.secondStep.status === true) {
+            this.initialTime_2 =  moment(this.time2).locale('es').fromNow();
+            var a2 = moment(res.request.status.secondStep.finalDate);
+            var b2 = moment(res.request.status.thirdStep.initialDate);
+            this.status_2_days = b2.diff(a2, 'days');
+          }
+          if (res.request.status.thirdStep.status === true) {
+            this.initialTime_3 =  moment(this.time3).locale('es').fromNow();
+            var a3 = moment(res.request.status.thirdStep.initialDate);
+            var b3 = moment(res.request.status.fourthStep.finalDate);
+            this.status_3_days = b3.diff(a3, 'days');
+          }
+
+
+
+        });
+    });
   }
 
   public updateRequest(id: any, status) {
@@ -94,24 +123,31 @@ export class AdminRequestViewComponent implements OnInit {
   }
 
 
-  public cancelarSolicitud(idUsuario) {
-    const RID = this.actRoute.snapshot.paramMap.get('id');
-    console.log('cancelar, datos: ', RID);
-    /*this.requestService.updateStatus(RID, { status: "cancelada"}).subscribe(
-      res => {
-        let payload = {
-          userId: this.UserId,
-          receiver: idUsuario,
-          message: 'ha cancelado tu solicitud',
-        };
+  rejectRequest(idUsuario) {
+    this.payload = {
+      userId: this.UserId,
+      receiver: idUsuario,
+      message: 'ha cancelado tu solicitud',
+    };
+    this.abrirModalRechazoLead();
+  }
 
-        this.wsService.emit('notifications', payload)
-        this.router.navigate(['/dashboard/admin']);
-      },
-      err => {
-        console.log(err);
-      }
-    );*/
+  missedOpportunityRequest(idUsuario) {
+    this.payload = {
+      userId: this.UserId,
+      receiver: idUsuario,
+      message: 'ha cancelado tu solicitud',
+    };
+    this.abrirModalOportunidad();
+  }
+
+  requestNotAccepted(idUsuario) {
+    this.payload = {
+      userId: this.UserId,
+      receiver: idUsuario,
+      message: 'ha cancelado tu solicitud',
+    };
+    this.abrirModalNoAceptado();
   }
 
   public solicitudCompletada(idUsuario) {
@@ -168,61 +204,82 @@ export class AdminRequestViewComponent implements OnInit {
     );
   }
 
-  estado(id, status) {
-    const RID = this.actRoute.snapshot.paramMap.get('id');
-    if (status === 2) {
+  statusChange(statusSend) {
+    if (statusSend === 2) {
+      console.log('estado de la request: ', this.requestDetails.estado);
+      if (this.generalStatus.secondStep.status !== true && this.requestDetails.estado === 'en proceso') {
         if (!this.generalStatus.secondStep.finalDate) {
-        this.carga2 = true;
-          this.requestService.updateTrafficStatus(RID, '5e543790085538000460ab84' ).subscribe((res: any) => {
-          this.generalStatus =  res.lead.status;
+        this.requestService.updateTrafficStatus( this.id_lead, '5e543790085538000460ab84' ).subscribe ( (res: any) => {
+          this.generalStatus =  res.requestGuardado.status;
           this.initialTime_2 =  moment(this.time2).locale('es').fromNow();
-          const final = moment(res.lead.status.firstStep.finalDate).format('L');
+          const final = moment(res.requestGuardado.status.firstStep.finalDate).format('L');
           this.finalTime_1 = final;
-          this.carga2 = false;
-          // this.toastr.success('Fase terminada', 'Contacto Establecido 📞', {
-          //   progressBar: true
-          // });
         });
+      }
       }
       return;
     }
-      if (status === 3) {
-        if (this.generalStatus.secondStep.status === true) {
-          if (!this.generalStatus.tercerPaso.finalDate) {
-            this.carga3 = true;
-              this.requestService.updateTrafficStatus( RID, '5e54379c085538000460ab85' ).subscribe ( (res: any) => {
-              this.generalStatus =  res.lead.status;
-              this.initialTime_3 =  moment(this.time3).locale('es').fromNow();
-              const final = moment(res.lead.status.secondStep.finalDate).format('L');
-              this.finalTime_2 = final;
-              this.carga3 = false;
-              // this.toastr.success('Fase terminada', 'Propuesta Realizada 📝', {
-              //   progressBar: true
-              // });
-            });
-          }
-        }
-        return ;
-      }
-      if (status === 4) {
-        if (this.generalStatus.tercerPaso.status === true) {
-          if (!this.generalStatus.fourthStep.finalDate) {
-          this.carga4 = true;
-          this.requestService.updateTrafficStatus( RID, '5e5437a8085538000460ab86' ).subscribe ( (res: any) => {
-            this.carga4 = false;
-            this.generalStatus =  res.lead.status;
-            this.initialTime_4 =  moment(this.time3).locale('es').fromNow();
-            const final = moment(res.lead.status.tercerPaso.finalDate).format('L');
-            this.finalTime_3 = final;
-            this.finalTime_4 = final;
-            this.carga4 = false;
-            //this.sound.play();
-            // this.toastr.success('Fase terminada', 'Negociación Terminada 💵 💵 💵 !! ' , {
-            //   progressBar: true
-            // });
+    if (statusSend === 3) {
+      if (this.generalStatus.secondStep.status === true && this.generalStatus.thirdStep.status !== true) {
+        if (!this.generalStatus.thirdStep.finalDate) {
+          this.requestService.updateTrafficStatus( this.id_lead, '5e54379c085538000460ab85' ).subscribe ( (res: any) => {
+            this.generalStatus =  res.requestGuardado.status;
+            this.initialTime_3 =  moment(this.time3).locale('es').fromNow();
+            const final = moment(res.requestGuardado.status.secondStep.finalDate).format('L');
+            this.finalTime_2 = final;
           });
+        }
+      }
+      return ;
+    }
+    if (statusSend === 4) {
+      if (this.generalStatus.thirdStep.status === true && this.generalStatus.fourthStep.status !== true) {
+        if (!this.generalStatus.fourthStep.finalDate) {
+          this.requestService.updateTrafficStatus( this.id_lead, '5e5437a8085538000460ab86' ).subscribe ( (res: any) => {
+          this.generalStatus =  res.requestGuardado.status;
+          this.initialTime_4 =  moment(this.time3).locale('es').fromNow();
+          const final = moment(res.requestGuardado.status.thirdStep.finalDate).format('L');
+          this.finalTime_3 = final;
+          this.finalTime_4 = final;
+          this.solicitudCompletada(this.requestDetails.usuario._id)
+        });
         }
       }
     }
   }
+
+  abrirModalRechazoLead() {
+    const dialogRef = this.dialog.open(RechazoModalComponent, {
+      width: '800px',
+      data: {id_lead: this.id_lead, payload: this.payload}
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('datos despues del rechazo', result);
+    });
+  }
+
+  abrirModalOportunidad() {
+    const dialogRef = this.dialog.open(PerdidaOportunidadModalComponent, {
+      width: '800px',
+      data: {id_lead: this.id_lead, payload: this.payload}
+    });
+
+  dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  abrirModalNoAceptado() {
+    const dialogRef = this.dialog.open(NoAceptadoModalComponent, {
+      width: '800px',
+      data: {id_lead: this.id_lead}
+    });
+
+  dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
+
 }

@@ -7,12 +7,16 @@ import superagent from "superagent";
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { map } from 'rxjs/operators';
+
+export interface Causal {
+  id_causal: string;
+  mensaje: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
-
-
 
 export class RequestService {
   push(arg0: import("@angular/forms").FormControl) {
@@ -49,7 +53,20 @@ export class RequestService {
   }
 
   updateTrafficStatus(id, status) {
-    return this.http.put(environment.apiBaseUrl + `/request/update/trafficStatus/${id}`, status);
+    return this.http.put(environment.apiBaseUrl + `/request/update/trafficStatus/${id}`,{status:`${status}`});
+  }
+
+  getCausal() {
+    return this.http.get(environment.apiBaseUrl + '/causal/getAll').pipe(
+      map( (res: any) => {
+        return res.causal;
+      })
+    );
+  }
+
+  addCausal(mensaje, id) {
+    console.log('datos a cambiar en el api', mensaje);
+    return this.http.put(environment.apiBaseUrl + `/request/update/causal/${id}`, mensaje);
   }
 
   sendMailMessage(mailMessage){

@@ -1,0 +1,36 @@
+<div class="container">
+    <h1 mat-dialog-title>No aceptado</h1>
+    <hr>
+  <div class="row">
+    <div class="col-md-6">
+        <label id="example-radio-group-label mr-2">Tipo de cancelación: </label>
+        <br>
+        <div class="conteendor-flex">
+        <mat-radio-group
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group"
+      [(ngModel)]="causalEscojida">
+      <mat-radio-button class="example-radio-button" style="display: block;" *ngFor="let season of causales" [value]="season">
+        {{season}}
+      </mat-radio-button>
+    </mat-radio-group>
+        </div>
+    </div>
+    <div class="col-md-6" *ngIf="causalEscojida">
+        <h6>{{causalEscojida}}</h6>
+        <mat-form-field>
+          <mat-label>Tipo</mat-label>
+          <mat-select [(ngModel)]="causal.id_causal">
+            <mat-option *ngFor="let valor of valorEscojido" [value]="valor._id" name="causal" >
+              {{valor.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" style="display: block;">
+            <input matInput maxlength="256" placeholder="Mensaje" name="mensaje" [(ngModel)]="causal.mensaje">
+            <mat-hint align="start"><strong>Explicación de la perdida</strong> </mat-hint>
+        </mat-form-field>
+        <mat-button-toggle  (click)="guardar()" style="display: block;" class="mt-2" value="bold">Guardar</mat-button-toggle>
+    </div>
+  </div>
+</div>

@@ -74,6 +74,11 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { MyDatePickerModule } from 'mydatepicker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+//cancelacion de request
+import { RechazoModalComponent } from './admin/components/request/request-modals/rechazo-modal/rechazo-modal.component';
+import { PerdidaOportunidadModalComponent } from './admin/components/request/request-modals/perdida-oportunidad.modal/perdida-oportunidad-modal.component';
+import { NoAceptadoModalComponent } from './admin/components/request/request-modals/no-aceptado-modal/no-aceptado-modal.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,7 +107,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TrabajaConNosotrosComponent,
     AutorizacionComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    RechazoModalComponent,
+    PerdidaOportunidadModalComponent,
+    NoAceptadoModalComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +129,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     MyDatePickerModule,
     MomentModule,
-    NgbModule
+    NgbModule,
+  ],
+  entryComponents: [
+    RechazoModalComponent,
+    PerdidaOportunidadModalComponent,
+    NoAceptadoModalComponent
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

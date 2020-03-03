@@ -1,70 +1,71 @@
-<!-- <div class="col-md-12">
-  <div class="card wow fadeIn">
-      <div class="card-body">
-          <div class="row p-t-10 p-b-10"> -->
-              <!-- Column -->
-              <!-- <div class="col p-r-0 datos mb-3"> -->
-                  <!-- <h1 class="font-light">Negocio</h1> -->
-                  <!-- <div class="display-4 nombre mr-3" ><i class="mdi mdi-account-circle text-info" style="    font-size: 2rem;"></i><span style="font-size: initial;">{{negocio?.lead.id_cliente.nombre}} {{negocio?.lead.id_cliente.apellido}}</span></div> -->
+<div class="row vs-display-flex vs-margin-top-xsmall">
+    <div class="col-md-12">
+        <div class="card wow fadeIn">
+            <div class="card-body">
+                <div class="row p-t-10 p-b-10">
+                    <!-- Column -->
+                    <div class="col p-r-0 datos mb-3">
+                        <!-- <h1 class="font-light">Negocio</h1> -->
+                        <div class="display-4 nombre mr-3" ><i class="mdi mdi-account-circle text-info" style="    font-size: 2rem;"></i><span style="font-size: initial;">{{dataClient?.name}} {{dataClient?.lastName}}</span></div>
 
-                  <!-- <div *ngIf="negocio?.lead.id_cliente.tipo_cliente.tipo == 'Empresa'" class="display-4 nombre" ><i class="mdi mdi-city text-info" style="    font-size: 2rem;"></i><span style="font-size: initial;">{{negocio?.lead.id_cliente.tipo_cliente.nombre}}</span></div> -->
-              <!-- Column -->
-          <!-- </div>
-          <div class="col-md-12">
-              <div class="linea-de-tiempo">
-                  <ul>
-                    <li class="active pointer">
-                      <div  *ngIf="!estadoGeneral?.segundoPaso.estado" ngbPopover="Has estado aqui {{tiempoInicial_1}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Nuevo" class="seccion-negocio">
-                        <span class="">{{estado_1_dias}} días</span>
+                        <!-- <div *ngIf="negocio?.lead.id_cliente.tipo_cliente.tipo == 'Empresa'" class="display-4 nombre" ><i class="mdi mdi-city text-info" style="    font-size: 2rem;"></i><span style="font-size: initial;">{{negocio?.lead.id_cliente.tipo_cliente.nombre}}</span></div> -->
+                    <!-- Column -->
+                </div>
+                <div class="col-md-12">
+                    <div class="linea-de-tiempo">
+                        <ul>
+                          <li class="active pointer">
+                            <div  *ngIf="!generalStatus?.secondStep.status" ngbPopover="Has estado aqui {{initialTime_1}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Nuevo" class="seccion-negocio">
+                              <span class="">0 días</span>
+                            </div>
+                            <div *ngIf="generalStatus?.secondStep.status" ngbPopover="Fecha final: {{finalTime_1}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Nuevo" class="seccion-negocio">
+                              <span class="">{{status_1_days}} días</span>
+                            </div>
+                          </li>
+                          <li (click)="statusChange(2)" [ngClass]="{'verde': generalStatus?.secondStep.status === true, 
+                                                                              'gris':generalStatus?.secondStep.status === false }" class="transition-effect pointer">
+                              <div  *ngIf="!generalStatus?.thirdStep.status" ngbPopover="{{(initialTime_2) ? 'Has estado aqui' : '...' }} {{initialTime_2}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Lead en proceso" class="seccion-negocio">
+                                  <span  class="">0 días</span>
+                                  <span class="flecha-inicial"></span>
+                                </div>
+                                <div *ngIf="generalStatus?.thirdStep.status" ngbPopover="{{(finalTime_2) ? 'Fecha Final' : '...' }} {{finalTime_2}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Lead en proceso" class="seccion-negocio">
+                                  <span  class="">{{status_2_days}} días</span> 
+                                    <span class="flecha-inicial" [ngClass]="{'flecha-inicial-verde': generalStatus?.firstStep.status == true}"></span>
+                                </div>
+                               
+                            </li>
+                          <li (click)="statusChange(3)" [ngClass]="{'verde': generalStatus?.thirdStep.status === true, 
+                                                                              'gris':generalStatus?.thirdStep.status === false }" class="transition-effect pointer">
+                              <div  *ngIf="!generalStatus?.fourthStep.status" ngbPopover="{{(initialTime_3) ? 'Has estado aqui' : '...' }}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Cotización" class="seccion-negocio">
+                                  <span class="">0 días</span>
+                                  <span class="flecha-inicial"></span>
+                                </div>
+                                <div *ngIf="generalStatus?.fourthStep.status" ngbPopover="{{(finalTime_3) ? 'Fecha Final' : '...' }} {{finalTime_3}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Cotización" class="seccion-negocio">
+                                  <span class="">{{status_3_days}} días</span>
+                                  
+                                  <span class="flecha-inicial" [ngClass]="{'flecha-inicial-verde': generalStatus?.secondStep.status == true}"></span>
+                              </div>
+                               
+                            </li>
+                          <li (click)="statusChange(4)" class="pointer" [ngClass]="{'verde': generalStatus?.fourthStep.status === true, 
+                                                                              'gris':generalStatus?.fourthStep.status === false }" class="transition-effect">
+                                <div  ngbPopover="{{(finalTime_4) ? 'Fecha Final' : '...' }} {{finalTime_4}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Efectivo" class="seccion-negocio pointer">
+                                  <span class="">0 días</span>
+                                  
+                                  <span class="flecha-inicial" [ngClass]="{'flecha-inicial-verde': generalStatus?.thirdStep.status == true}"></span>
+                              </div>
+                                
+                            </li>
+                        </ul>
                       </div>
-                      <div *ngIf="estadoGeneral?.segundoPaso.estado" ngbPopover="Fecha final: {{tiempoFinal_1}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Nuevo" class="seccion-negocio">
-                        <span class="">{{estado_1_dias}} días</span>
-                      </div>
-                    </li>
-                    <li (click)="estado(2)" [ngClass]="{'verde': estadoGeneral?.segundoPaso.estado === true, 
-                                                                        'gris':estadoGeneral?.segundoPaso.estado === false }" class="transition-effect pointer">
-                        <div  *ngIf="!estadoGeneral?.tercerPaso.estado" ngbPopover="{{(tiempoInicial_2) ? 'Has estado aqui' : '...' }} {{tiempoInicial_2}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Lead en proceso" class="seccion-negocio">
-                            <span  class="">0 días</span>
-                            <span class="flecha-inicial"></span>
-                          </div>
-                          <div *ngIf="estadoGeneral?.tercerPaso.estado" ngbPopover="{{(tiempoFinal_2) ? 'Fecha Final' : '...' }} {{tiempoFinal_2}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Lead en proceso" class="seccion-negocio">
-                            <span  class="">0 días  </span> 
-                              <span class="flecha-inicial" [ngClass]="{'flecha-inicial-verde': estadoGeneral?.primerPaso.estado == true}"></span>
-                          </div>
-                         
-                      </li>
-                    <li (click)="estado(3)" [ngClass]="{'verde': estadoGeneral?.tercerPaso.estado === true, 
-                                                                        'gris':estadoGeneral?.tercerPaso.estado === false }" class="transition-effect pointer">
-                        <div  *ngIf="!estadoGeneral?.cuartoPaso.estado" ngbPopover="{{(tiempoInicial_3) ? 'Has estado aqui' : '...' }}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Cotización" class="seccion-negocio">
-                            <span class="">0 días</span>
-                            <span class="flecha-inicial"></span>
-                          </div>
-                          <div *ngIf="estadoGeneral?.cuartoPaso.estado" ngbPopover="{{(tiempoFinal_3) ? 'Fecha Final' : '...' }} {{tiempoFinal_3}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Cotización" class="seccion-negocio">
-                            <span class="">0 días</span>
-                            
-                            <span class="flecha-inicial" [ngClass]="{'flecha-inicial-verde': estadoGeneral?.segundoPaso.estado == true}"></span>
-                        </div>
-                         
-                      </li>
-                    <li (click)="estado(4)" class="pointer" [ngClass]="{'verde': estadoGeneral?.cuartoPaso.estado === true, 
-                                                                        'gris':estadoGeneral?.cuartoPaso.estado === false }" class="transition-effect">
-                          <div  ngbPopover="{{(tiempoFinal_4) ? 'Fecha Final' : '...' }} {{tiempoFinal_4}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Efectivo" class="seccion-negocio pointer">
-                            <span class="">0 días</span>
-                            
-                            <span class="flecha-inicial" [ngClass]="{'flecha-inicial-verde': estadoGeneral?.tercerPaso.estado == true}"></span>
-                        </div>
-                          
-                      </li>
-                  </ul>
+                  </div>
+                  
                 </div>
             </div>
-            
-          </div>
-      </div>
-  </div>
-</div> -->
+        </div>
+    </div>
 
-<div class="row vs-display-flex vs-margin-top-xsmall">
+
     <div class="col col-xs-10 col-md-5 col-lg-5 vs-margin-center vs-margin-top-small">
       <div class="vs-section vs-text-align-center col-md-12 vs-background-color-white request-view animated fadeIn">
         <div class="vs-text-align-right">
@@ -72,16 +73,24 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button (click)="solicitudCompletada(requestDetails.usuario._id)" *ngIf="requestDetails?.estado === 'en proceso'"class="vs-color-grey" mat-menu-item>
+              <button (click)="statusChange(4)" *ngIf="generalStatus?.secondStep.status && generalStatus?.thirdStep.status && requestDetails?.estado === 'en proceso'"class="vs-color-grey" mat-menu-item>
                 <mat-icon class="vs-margin-remove">
                   check_circle
                 </mat-icon>
                 Solicitud completada
               </button>
-              <button (click)="cancelarSolicitud(requestDetails.usuario._id)" class="vs-color-grey" mat-menu-item>
+              <button *ngIf="!generalStatus?.secondStep.status && requestDetails?.estado === 'en proceso'" (click)="rejectRequest(requestDetails.usuario._id)" class="vs-color-grey" mat-menu-item>
                 <mat-icon class="vs-margin-remove">cancel</mat-icon>
-                  Cancelar solicitud
-                </button>
+                  Rechazo
+              </button>
+              <button *ngIf="!generalStatus?.secondStep.status && requestDetails?.estado === 'en proceso'" (click)="missedOpportunityRequest(requestDetails.usuario._id)" class="vs-color-grey" mat-menu-item>
+                <mat-icon class="vs-margin-remove">cancel</mat-icon>
+                  Oportunidad perdida
+              </button>
+              <button *ngIf="generalStatus?.secondStep.status && !generalStatus?.thirdStep.status && requestDetails?.estado === 'en proceso'" (click)="requestNotAccepted(requestDetails.usuario._id)" class="vs-color-grey" mat-menu-item>
+                <mat-icon class="vs-margin-remove">cancel</mat-icon>
+                  No aceptada
+              </button>
             </mat-menu>
         </div>
         <img src="../../../../assets/img/servicios/{{requestDetails?.tipoDeServicio.nombre}}.png" alt="">

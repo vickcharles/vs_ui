@@ -8,7 +8,7 @@
   
           <div class="hide-on-desktop">
               <li class="col-md-6 box-label mt-2 div-button2">
-                 <button (click)="cargarLeads()" class="btn  buttonExcel2"><div *ngIf="!cargaReporte2" class="text-center ">
+                 <button (click)="cargarLeads()" class="reportBtn reportStatus"><div *ngIf="!cargaReporte2" class="text-center ">
                      <span>Generando reporte Excel </span>
                      <br>
                      <i class="fa fa-sync fa-spin fa-lg "></i>
@@ -17,7 +17,7 @@
               </li>
   
               <li class="box-label mt-2 div-button2">
-                <button (click)="cargarLeadsTodos()" class="btn  buttonExcel"><div *ngIf="!cargaReporte2" class="text-center ">
+                <button (click)="cargarLeadsTodos()" class="reportBtn"><div *ngIf="!cargaReporte2" class="text-center ">
                     <span>Generando reporte Excel (Todos los estados) </span>
                     <br>
                     <i class="fa fa-sync fa-spin fa-lg "></i>
@@ -157,7 +157,7 @@
           </div>
          </div>
           <li class="box-label mt-2 div-button">
-              <button (click)="cargarLeads()" class="btn buttonExcel2"><div *ngIf="!cargaReporte2" class="text-center ">
+              <button (click)="cargarLeads()" class="reportBtn reportStatus"><div *ngIf="!cargaReporte2" class="text-center ">
                   <span>Generando reporte Excel </span>
                   <br>
                   <i class="fa fa-sync fa-spin fa-lg "></i>
@@ -166,7 +166,7 @@
           </li>
   
           <li class="box-label mt-2 div-button">
-              <button (click)="cargarLeadsTodos()" class="btn  buttonExcel"><div *ngIf="!cargaReporte1" class="text-center ">
+              <button (click)="cargarLeadsTodos()" class="reportBtn"><div *ngIf="!cargaReporte1" class="text-center ">
                   <span>Generando reporte Excel (Todos los estados) </span>
                   <br>
                   <i class="fa fa-sync fa-spin fa-lg "></i>

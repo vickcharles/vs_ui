@@ -21,25 +21,25 @@
               <form [formGroup]="request" autocomplete="off">
                 <div formGroupName="tipoDeServicio" class="vs-input-field row vs-text-align-center">
                   <mat-radio-group formControlName="nombre" class="radio-group">
-                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 radio-button vs-margin-bottom-small" value="transporte de carga">
+                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 radio-button vs-margin-bottom-small" [routerLink]="['/solicitar-servicio/transporte-de-carga']" value="transporte de carga">
                       <img src="../../../assets/img/servicios/transporte de carga.png" alt="">
                       <h1 class="vs-font-small vs-color-default vs-text-align-center">
                         Transporte de carga
                       </h1>
                     </mat-radio-button>
-                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de montacarga">
+                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" [routerLink]="['/solicitar-servicio/alquiler-de-montacarga']" value="alquiler de montacarga">
                       <img src="../../../assets/img/servicios/alquiler de montacarga.png" alt="">
                       <h1 class="vs-font-small vs-color-default vs-text-align-center">
                         Alquiler de montacarga
                       </h1>
                     </mat-radio-button>
-                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="alquiler de grúa">
+                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" [routerLink]="['/solicitar-servicio/alquiler-de-grúa']" value="alquiler de grúa">
                       <img src="../../../assets/img/servicios/alquiler de grua.png" alt="">
                       <h1 class="vs-font-small vs-color-default vs-text-align-center">
                         Alquiler de grúa
                       </h1>
                     </mat-radio-button>
-                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" value="operario de cargue y descargue">
+                    <mat-radio-button (change)="radioChange($event)" class="col-sm-12 col-md-4 vs-margin-bottom-small" [routerLink]="['/solicitar-servicio/operario-de-cargue-y-descargue']" value="operario de cargue y descargue">
                       <img src="../../../assets/img/servicios/operario de cargue y descargue.png" alt="">
                       <h1 class="vs-font-small vs-color-default vs-text-align-center">
                         Operario de cargue y descargue
@@ -63,11 +63,15 @@
               <p class="vs-text-align-center vs-color-grey">
                 ¡LLena el siguiente formulario y te proveeremos un {{request.value.tipoDeServicio.nombre}} en minutos!
               </p>
-              <p *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'"  class="vs-text-align-center vs-color-grey vs-margin-bottom-large import-load-message">
+              <p *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'"  class="vs-text-align-center vs-color-grey import-load-message">
                 (Peso mínimo de carga 2 toneladas)
               </p>
-              <form [formGroup]="request" autocomplete="off" class="row">
+              <form [formGroup]="request" autocomplete="off" class="row" style="margin-top: 40px;">
                 <!-- Tipo de Servico-->
+                <div class="col-md-5">  
+                  <img src="{{selectedImgTypeService}}" width="100%" alt="">
+                </div>
+                <div class="col-md-7">
                 <ng-container formGroupName="tipoDeServicio">
                   <ng-container *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'">
                     <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
@@ -184,7 +188,7 @@
                   </mat-form-field>
                 <!-- Botones -->
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
-                  <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
+                  <button [routerLink]="['/solicitar-servicio/todos']" class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
                   <button mat-flat-button *ngIf="!isCreatingRequest" [disabled]='!request.valid' (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
                   <div *ngIf="isCreatingRequest" >
                     <button mat-flat-button *ngIf="!isLoading; else spinner" (click)="nextCreateRequest()" color="primary">CREAR SOLICITUD</button>
@@ -194,6 +198,7 @@
                     </ng-template>
                   </div>
                 </div>
+              </div>
               </form>
             </mat-step>
   

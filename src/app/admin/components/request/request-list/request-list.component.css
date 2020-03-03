@@ -41,4 +41,11 @@ h1,h2,h3,h4,h6,p,span,label,a,button,td,th,small {
   padding-left: 5%;
 }
 
+.reportStatus{
+  background-color: #FFD15C;
+  color: black;
+}
 
+.reportBtn{
+  font-size: small;
+}
