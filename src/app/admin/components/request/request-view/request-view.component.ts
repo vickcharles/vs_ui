@@ -42,6 +42,7 @@ export class AdminRequestViewComponent implements OnInit {
   status_1_days: number;
   status_2_days: number;
   status_3_days: number;
+  status_4_days: number;
   dataClient: any;
   id_lead: any;
   payload: { userId: any; receiver: any; message: string; };
@@ -103,6 +104,14 @@ export class AdminRequestViewComponent implements OnInit {
             var a3 = moment(res.request.status.thirdStep.initialDate);
             var b3 = moment(res.request.status.fourthStep.finalDate);
             this.status_3_days = b3.diff(a3, 'days');
+          }
+          if (res.request.status.fourthStep.status === true) {
+            var a3 = moment(res.request.status.firstStep.initialDate);
+            var b3 = moment(res.request.status.fourthStep.finalDate);
+            this.status_4_days = b3.diff(a3, 'days');
+          }
+          if (this.status_4_days == undefined) {
+            this.status_4_days = 0;
           }
 
 

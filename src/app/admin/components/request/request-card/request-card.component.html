@@ -72,7 +72,7 @@
               Aceptar
             </button>
 
-            <a *ngIf="request.estado === 'en proceso' " [routerLink]="['/dashboard/admin/request/', request._id]" class="vs-font-small vs-margin-right-xsmall vs-color-grey vs-cursor-pointer">
+            <a *ngIf="request.estado !== 'recibido' " [routerLink]="['/dashboard/admin/request/', request._id]" class="vs-font-small vs-margin-right-xsmall vs-color-grey vs-cursor-pointer">
               Ver detalles
             </a>
           </div>

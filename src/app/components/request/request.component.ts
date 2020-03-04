@@ -314,7 +314,6 @@ export class RequestComponent implements OnInit {
         console.log(payload);
 
         this.wsService.emit('notifications', payload);
-        debugger;
         this.sendAPI();
 
         setTimeout(() => {
@@ -370,6 +369,13 @@ export class RequestComponent implements OnInit {
   sendAPI(){
     this.userService.postUserAndRequest(this.data).subscribe(
       res => {
+
+        console.log('respuesta de la API:  ', res);
+
+        if(res['isError']){
+          console.log('No se asigno un comercial');
+        }else{
+
         this.userService.setToken(res['token']);
 
        //EMITIR NOTIFICACION AL CLIENTE
@@ -400,6 +406,10 @@ export class RequestComponent implements OnInit {
         this.openSnackBar();
         this.isLoading = false;
       }, 5000);
+
+
+    }
+
       },
       err => {
         if (err.status === 422) {

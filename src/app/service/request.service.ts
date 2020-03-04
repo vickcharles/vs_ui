@@ -65,8 +65,11 @@ export class RequestService {
   }
 
   addCausal(mensaje, id) {
-    console.log('datos a cambiar en el api', mensaje);
     return this.http.put(environment.apiBaseUrl + `/request/update/causal/${id}`, mensaje);
+  }
+
+  getSegment(){
+    return this.http.get(environment.apiBaseUrl + '/segment/find');
   }
 
   sendMailMessage(mailMessage){
