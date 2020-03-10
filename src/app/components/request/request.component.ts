@@ -43,6 +43,7 @@ export class RequestComponent implements OnInit {
   data: any;
   submitted = false;
   isCreatingRequest = false;
+  isCreatingRequest2 = false;
   digito: any;
   enable = true;
 
@@ -533,11 +534,7 @@ export class RequestComponent implements OnInit {
   }
 
   autoCompleteDataClient(){
-    console.log('mmmmmmmmmm');
-    var dataClient = {
-      email: this.dataSession,
-      password: 'no es necesaria'
-    }
+    this.isCreatingRequest2 = true;
     this.userService.getUserProfile().subscribe(
       res => {
         this.request = res['user'];

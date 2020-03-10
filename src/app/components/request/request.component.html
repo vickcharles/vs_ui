@@ -201,7 +201,11 @@
                       <button mat-flat-button *ngIf="!isCreatingRequest" [disabled]='!request.valid' (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
                   </div>
                   <div *ngIf="dataSession">
-                    <button mat-flat-button *ngIf="!isCreatingRequest" [disabled]='!request.valid' (click)="autoCompleteDataClient()" color="primary">CONTINUAR</button>
+                    <button mat-flat-button *ngIf="!isCreatingRequest2; else spinner" [disabled]='!request.valid' (click)="autoCompleteDataClient()" color="primary">CONTINUAR</button>
+                    <ng-template #spinner>
+                        <mat-spinner class="vs-margin-center">
+                        </mat-spinner>
+                      </ng-template>
                   </div>
                   <div *ngIf="isCreatingRequest" >
                     <button mat-flat-button *ngIf="!isLoading; else spinner" (click)="nextCreateRequest()" color="primary">CREAR SOLICITUD</button>

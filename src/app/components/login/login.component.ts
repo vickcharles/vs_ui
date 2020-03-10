@@ -36,14 +36,16 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.userService.login(this.credentials.value).subscribe(
       res => {
-        if(res['user'].role == 'ADMIN' && res['user'].status == 'ACTIVO' && res['user'].role != 'User') {
+        if (res['user'].role == 'ADMIN' && res['user'].status == 'ACTIVO') {
           this.isLoading = false;
           this.userService.setToken(res['token']);
           
           this.router.navigateByUrl('/dashboard/admin');
-        } else { 
+        }
+        if (res['user'].role == 'ADMIN' && res['user'].status == 'INACTIVO') { 
           this.isLoading = false;
-          this.openSnackBarAdmin(); }
+          this.openSnackBarAdmin();}
+
         if(res['user'].role == 'User') {
           this.userService.setToken(res['token']);
           this.router.navigateByUrl('/dashboard');

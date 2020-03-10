@@ -53,12 +53,12 @@
       </div>
       <hr class="vs-margin-top-medium">
       <div class="vs-margin-top-medium row">
-        <div *ngIf="requestDetails.estado !== 'recibido'" class="col col-xs-12 col-md-6">
-          <button [routerLink]="['/dashboard/chat', requestDetails._id]" mat-raised-button [routerLink]="['/dashboard/chat/6']" class="vs-text-uppercase  vs-remove-shadow vs-margin-top-xsmall" color="primary">
+        <div *ngIf="requestDetails?.estado !== 'recibido'" class="col col-xs-12 col-md-6">
+          <button [routerLink]="['/dashboard/chat', requestDetails?._id]" mat-raised-button [routerLink]="['/dashboard/chat/6']" class="vs-text-uppercase  vs-remove-shadow vs-margin-top-xsmall" color="primary">
             Ir al chat
           </button>
         </div>
-        <div class="col col-xs-12" [ngClass]="[requestDetails.estado !== 'recibido' ? 'col-md-6' : 'col-md-12']">
+        <div class="col col-xs-12" [ngClass]="[requestDetails?.estado !== 'recibido' ? 'col-md-6' : 'col-md-12']">
           <button mat-raised-button [routerLink]="['/dashboard']" class="vs-text-uppercase  vs-remove-shadow vs-background-color-default vs-margin-top-xsmall" color="primary">
             Mis solicitudes
           </button>
