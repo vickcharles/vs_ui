@@ -80,3 +80,7 @@
     cursor: pointer;
     background: #ffca28;
 }
+
+.titleStatus{
+    font-weight: 600;
+}

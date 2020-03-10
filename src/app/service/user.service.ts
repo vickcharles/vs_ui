@@ -65,6 +65,7 @@ export class UserService {
 
   deleteToken() {
     localStorage.removeItem('token');
+    localStorage.removeItem('Client');
   }
 
   getUserPayload() {

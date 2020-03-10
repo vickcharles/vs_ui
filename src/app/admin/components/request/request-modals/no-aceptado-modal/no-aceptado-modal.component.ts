@@ -20,7 +20,7 @@ export class NoAceptadoModalComponent implements OnInit, DoCheck {
     mensaje: ''
   };
 
-  causalEscojida: string;
+  causalEscojida: string = 'No aceptada';
   causales: string[] = ['No aceptada'];
 
   constructor(public _requestService: RequestService, 

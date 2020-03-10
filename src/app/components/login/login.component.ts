@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { Router } from "@angular/router";
 import { WebsocketService } from '../../service/websocket.service'
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
   isLoading: Boolean = false;
 
   constructor(private userService: UserService,
+    private snackBar: MatSnackBar,
     private router: Router,
     private formBuilder: FormBuilder) {}
 
@@ -34,11 +36,15 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.userService.login(this.credentials.value).subscribe(
       res => {
-        if(res['user'].role == 'ADMIN') {
+        if(res['user'].role == 'ADMIN' && res['user'].status == 'ACTIVO' && res['user'].role != 'User') {
           this.isLoading = false;
           this.userService.setToken(res['token']);
+          
           this.router.navigateByUrl('/dashboard/admin');
-        } else {
+        } else { 
+          this.isLoading = false;
+          this.openSnackBarAdmin(); }
+        if(res['user'].role == 'User') {
           this.userService.setToken(res['token']);
           this.router.navigateByUrl('/dashboard');
         }
@@ -46,7 +52,17 @@ export class LoginComponent implements OnInit {
       err => {
         this.isLoading = false;
         this.serverErrorMessages = err.error.message;
+        setTimeout(() => {
+          this.serverErrorMessages = '';
+        },3000);
       }
     );
+  }
+
+  openSnackBarAdmin() {
+    this.snackBar.open('No tiene permisos para ingresar', 'usuario INACTIVO', {
+      duration: 5000,
+      horizontalPosition: 'center'
+    });
   }
 }

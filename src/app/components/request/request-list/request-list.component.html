@@ -1,13 +1,14 @@
 
 <div class="vs-container">
   <div class="row">
+    {{dataUser}} hola
     <!-- Request list -->
     <div class="col col-md-8">
       <mat-tab-group animationDuration="0ms">
         <mat-tab label="Pendiente ({{requests?.length}})">
           <div className="vs-margin-top-small">
               <h1 *ngIf="requests?.length == 0" class="vs-color-grey vs-font-small vs-text-align-center">
-                  No hay nada todavia :(
+                  No hay nada todavia
               </h1>
             <div *ngFor="let request of requests">
               <app-request-card [request]="request"></app-request-card>

@@ -13,7 +13,7 @@
                      <br>
                      <i class="fa fa-sync fa-spin fa-lg "></i>
                      <br>
-                 </div><span  *ngIf="cargaReporte2">Generar Reporte Excel {{selectionStatus[0] ? selectionStatusName[0] : selectionStatus[1] ? selectionStatusName[1] : selectionStatus[2] ? selectionStatusName[2] : selectionStatusName[3] }} <i *ngIf="cargaReporte2" class="fa fa-file-excel"></i> </span></button>
+                 </div><span  *ngIf="cargaReporte2">Generar Reporte Excel {{selectionStatus[0] ? selectionStatusName[0] : selectionStatus[1] ? selectionStatusName[1] : selectionStatus[2] ? selectionStatusName[2] :  selectionStatus[3] ? selectionStatusName[3] : selectionStatusName[4]}} <i *ngIf="cargaReporte2" class="fa fa-file-excel"></i> </span></button>
               </li>
   
               <li class="box-label mt-2 div-button2">
@@ -53,7 +53,7 @@
   
   
         <div class="row">
-          <div class="col col-sm-6 col-md-3 vs-margin-bottom-medium">
+          <div class="col col-sm-6 col-md-4 vs-margin-bottom-medium">
             <div (click)="toggleMenuRequestNew()" class="vs-section-widest vs-cursor-pointer vs-background-color-vs">
               <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
                   {{selectionStatusName[0]}}
@@ -64,7 +64,7 @@
             </div>
           </div>
   
-          <div class="col col-sm-6 col-md-3 vs-margin-bottom-medium">
+          <div class="col col-sm-6 col-md-4 vs-margin-bottom-medium">
             <div (click)="toggleMenuRequestOnProgress()" class="vs-section-widest vs-cursor-pointer vs-background-color-grey-light">
               <div>
                 <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
@@ -77,7 +77,7 @@
             </div>
           </div>
        
-        <div class="col col-sm-6 col-md-3 vs-margin-bottom-medium">
+        <div class="col col-sm-6 col-md-4 vs-margin-bottom-medium">
           <div (click)="toggleMenuRequestRejected()" class="vs-section-widest vs-cursor-pointer vs-background-color-vs">
             <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
                 {{selectionStatusName[2]}}
@@ -87,8 +87,19 @@
             </h1>
           </div>
         </div>
+
+        <div class="col col-sm-6 col-md-4 vs-margin-bottom-medium">
+            <div (click)="toggleMenuRequestQuotation()" class="vs-section-widest vs-cursor-pointer vs-background-color-vs">
+              <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
+                  {{selectionStatusName[4]}}
+              </h1>
+              <h1 class="vs-font-super-large vs-text-align-center">
+                {{requestQuotation?.length}}
+              </h1>
+            </div>
+          </div>
   
-        <div class="col col-sm-6 col-md-3 vs-margin-bottom-medium">
+        <div class="col col-sm-6 col-md-4 vs-margin-bottom-medium">
           <div (click)="toggleMenuRequestCompleted()" class="vs-section-widest vs-cursor-pointer vs-background-color-grey-light">
             <div>
               <h1 class="vs-font-medium vs-margin-remove vs-text-align-center">
@@ -104,7 +115,7 @@
   
   
           <h1 class="vs-font-xsmall vs-color-vs vs-margin-bottom-xsmall vs-margin-remove">
-              {{selectionStatus[0] ? selectionStatusName[0].toUpperCase() : selectionStatus[1] ? selectionStatusName[1].toUpperCase() : selectionStatus[2] ? selectionStatusName[2].toUpperCase() : selectionStatusName[3].toUpperCase() }}
+              {{selectionStatus[0] ? selectionStatusName[0].toUpperCase() : selectionStatus[1] ? selectionStatusName[1].toUpperCase() : selectionStatus[2] ? selectionStatusName[2].toUpperCase() : selectionStatus[3] ? selectionStatusName[3].toUpperCase() : selectionStatusName[4].toUpperCase() }}
           </h1>
           <hr class="vs-background-color-grey-light vs-margin-bottom-small">
           <h1 *ngIf="selectionStatus[0] && requestNew?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
@@ -116,6 +127,9 @@
           <h1 *ngIf="selectionStatus[2] && requestRejected?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
             No tienes {{selectionStatusName[2]}}
           </h1>
+          <h1 *ngIf="selectionStatus[4] && requestQuotation?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
+              No tienes {{selectionStatusName[4]}}
+            </h1>
           <h1 *ngIf="selectionStatus[3] && requestCompleted?.length === 0" class="vs-color-grey vs-font-small vs-text-align-center">
             No tienes {{selectionStatusName[3]}}
           </h1>
@@ -134,6 +148,11 @@
               <admin-app-request-card [request]="request" *ngIf="i<150"> </admin-app-request-card>
             </div>
           </div>
+          <div *ngIf="selectionStatus[4]">
+              <div *ngFor="let request of requestQuotation; let i=index">
+                <admin-app-request-card [request]="request" *ngIf="i<150"> </admin-app-request-card>
+              </div>
+            </div>
           <div *ngIf="selectionStatus[3]">
             <div *ngFor="let request of requestCompleted; let i=index">
               <admin-app-request-card [request]="request" *ngIf="i<150"> </admin-app-request-card>
@@ -162,7 +181,7 @@
                   <br>
                   <i class="fa fa-sync fa-spin fa-lg "></i>
                   <br>
-              </div><span  *ngIf="cargaReporte2">Generar Reporte Excel {{selectionStatus[0] ? selectionStatusName[0] : selectionStatus[1] ? selectionStatusName[1] : selectionStatus[2] ? selectionStatusName[2] : selectionStatusName[3] }} <i class="fa fa-file-excel"></i> </span></button>
+              </div><span  *ngIf="cargaReporte2">Generar Reporte Excel {{selectionStatus[0] ? selectionStatusName[0] : selectionStatus[1] ? selectionStatusName[1] : selectionStatus[2] ? selectionStatusName[2] :  selectionStatus[3] ? selectionStatusName[3] : selectionStatusName[4]}} <i class="fa fa-file-excel"></i> </span></button>
           </li>
   
           <li class="box-label mt-2 div-button">

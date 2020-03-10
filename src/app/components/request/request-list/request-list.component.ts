@@ -25,6 +25,7 @@ export class RequestListComponent implements OnInit {
   excel = 'false';
   cargaReporte1 = true;
   cargaReporte2 = true;
+  dataUser: string;
   
   constructor(private requestService: RequestService,
     private wsService: WebsocketService) {
@@ -41,6 +42,8 @@ export class RequestListComponent implements OnInit {
           this.getAllHistorial();
           this.getAllRequestOnProgress();
       });
+    this.dataUser = localStorage.getItem('client');
+    console.log('datos del usuario guardados', this.dataUser)
   }
 
 

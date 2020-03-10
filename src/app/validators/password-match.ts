@@ -78,3 +78,22 @@ export function destination(controlName2: string,) {
 
     }
 }
+
+export function confirmation(controlName2: string,) {
+    
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls.tipoDeServicio.value.nombre;
+        const control2 = formGroup.controls[controlName2];
+
+        if (control2.errors && !control2.errors.emptyCampDestination) {
+            return;
+        }
+        
+        if (control == 'transporte de carga' && !control2.value) {
+            control2.setErrors({ emptyCampConfirmation: true });
+        } else {
+            control2.setErrors(null);
+        }
+
+    }
+}

@@ -27,6 +27,9 @@ export class DashboardComponent implements OnInit {
         this.userDetails = res['user'];
         this.displayName = res['user'].name + ' ' + res['user'].lastName;
         console.log(res);
+
+        console.log('Datos del cliente');
+        localStorage.setItem('Client', this.userDetails._id);
       },
       err => {
         console.log(err);

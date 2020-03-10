@@ -46,6 +46,7 @@ export class AdminRequestViewComponent implements OnInit {
   dataClient: any;
   id_lead: any;
   payload: { userId: any; receiver: any; message: string; };
+  urlImgName: string;
 
   constructor(private wsService: WebsocketService,
     //public toastr: ToastrService,
@@ -70,15 +71,21 @@ export class AdminRequestViewComponent implements OnInit {
   ngOnInit() {
     const id = this.actRoute.snapshot.paramMap.get('id');
     console.log(id);
-    this.getRequest(id);
+    this.getRequest();
   }
 
-  public getRequest(id: any) {
+  public getRequest() {
     this.actRoute.params.subscribe((resp: any) => {
       this.id_lead = resp.id;
         this.requestService.getRequest(resp.id).subscribe( (res: any) => {
           this.message = res.request.mensaje;
           this.requestDetails = res['request'];
+          console.log(this.requestDetails.tipoDeServicio.nombre);
+          if (this.requestDetails.tipoDeServicio.nombre == 'alquiler de grúa') {
+            this.urlImgName = 'alquiler de grua'
+          }else{
+            this.urlImgName = this.requestDetails.tipoDeServicio.nombre;
+          }
           this.finalTime_1 = moment(res.request.status.firstStep.finalDate).locale('es').calendar();
           this.finalTime_2 = moment(res.request.status.secondStep.finalDate).locale('es').calendar();
           this.finalTime_3 = moment(res.request.status.thirdStep.finalDate).locale('es').calendar();
@@ -132,22 +139,22 @@ export class AdminRequestViewComponent implements OnInit {
   }
 
 
-  rejectRequest(idUsuario) {
+  rejectRequest(idUsuario,optionCausal) {
     this.payload = {
       userId: this.UserId,
       receiver: idUsuario,
       message: 'ha cancelado tu solicitud',
     };
-    this.abrirModalRechazoLead();
+    this.abrirModalRechazoLead(optionCausal);
   }
 
-  missedOpportunityRequest(idUsuario) {
+  missedOpportunityRequest(idUsuario, optionCausal) {
     this.payload = {
       userId: this.UserId,
       receiver: idUsuario,
       message: 'ha cancelado tu solicitud',
     };
-    this.abrirModalOportunidad();
+    this.abrirModalRechazoLead(optionCausal);
   }
 
   requestNotAccepted(idUsuario) {
@@ -199,7 +206,7 @@ export class AdminRequestViewComponent implements OnInit {
           .then(() => {
             this.isLoading = false;
             this.mensaje = '';
-            this.router.navigate(['/dashboard/admin']);
+            this.getRequest();
           })
           .catch((err) => {
             this.isLoading = false;
@@ -209,6 +216,39 @@ export class AdminRequestViewComponent implements OnInit {
       err => {
         this.isLoading = false;
         console.log('ERROR ACEPTANDO SOLICITUD' + err);
+      }
+    );
+  }
+
+  public cotizacionSolicitud(idUsuario: any) {
+    this.isLoading = true;
+
+    const id = this.actRoute.snapshot.paramMap.get('id');
+    this.requestService.updateStatus(id, { status: "cotizando"}).subscribe(
+
+      res => {
+        // let payload = {
+        //   userId: this.UserId,
+        //   receiver: idUsuario,
+        //   message: 'se ha realizado cotización de tu solicitud',
+        // }
+
+        // this.wsService.emit('notifications', payload)
+
+        // this. _cs.agregarChatMensaje(this.mensaje, id)
+        //   .then(() => {
+        //     this.isLoading = false;
+        //     this.mensaje = '';
+        //     this.getRequest();
+        //   })
+        //   .catch((err) => {
+        //     this.isLoading = false;
+        //      console.log('error al enviar mensaje' + err)
+        //   })
+      },
+      err => {
+        this.isLoading = false;
+        console.log('ERROR CAMBIANDO ESTADO DE LA SOLICITUD A COTIZANDO' + err);
       }
     );
   }
@@ -223,8 +263,9 @@ export class AdminRequestViewComponent implements OnInit {
           this.initialTime_2 =  moment(this.time2).locale('es').fromNow();
           const final = moment(res.requestGuardado.status.firstStep.finalDate).format('L');
           this.finalTime_1 = final;
+          this.cotizacionSolicitud(this.requestDetails.usuario._id)
         });
-      }
+        }
       }
       return;
     }
@@ -257,10 +298,10 @@ export class AdminRequestViewComponent implements OnInit {
     }
   }
 
-  abrirModalRechazoLead() {
+  abrirModalRechazoLead(optionCausal) {
     const dialogRef = this.dialog.open(RechazoModalComponent, {
       width: '800px',
-      data: {id_lead: this.id_lead, payload: this.payload}
+      data: {id_lead: this.id_lead, payload: this.payload, option: optionCausal}
     });
 
      dialogRef.afterClosed().subscribe(result => {

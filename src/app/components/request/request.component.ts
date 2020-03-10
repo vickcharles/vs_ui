@@ -5,7 +5,7 @@ import { UserService } from '../../service/user.service';
 import { RequestService } from '../../service/request.service';
 import { ScrollTopService } from '../../service/scrollToTop.service';
 import { Router } from "@angular/router";
-import { MustMatch, typeOfService, destination } from '../../validators/password-match';
+import { MustMatch, typeOfService, destination, confirmation } from '../../validators/password-match';
 import { MatSnackBar } from '@angular/material';
 import { WebsocketService } from '../../service/websocket.service'
 import { MatRadioChange } from '@angular/material';
@@ -28,7 +28,7 @@ export class RequestComponent implements OnInit {
   selectedIndex = 0;
   credentials: FormGroup;
   isLinear = false;
-  isRegistered = false;
+  isRegistered = true;
   serverErrorMessages: String;
   request: FormGroup;
   user: FormGroup;
@@ -94,6 +94,7 @@ export class RequestComponent implements OnInit {
     {id: 3, urlImg: '../../../assets/img/banner_services/operario-12.jpg', type: 'operario de cargue y descargue' },
   ]
   selectedImgTypeService: string;
+  dataSession: string;
 
   getIndex() {
     console.log('datos en localStorage', localStorage.getItem('tipoDeServicio'));
@@ -148,13 +149,14 @@ export class RequestComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSession = localStorage.getItem('Client');
     const id = this.next.snapshot.paramMap.get('id');
     this.getForm(id);
 
     const regexNoNumber = /^[A-Z\sñÑáéíóúÁÉÍÓÚ@~`!@#$%^&*()_=+\\\\';:\"\\/?>.<,-]*$/i;
 
     this.credentials = this.formBuilder.group({
-      email: [''.toLowerCase(), Validators.required],
+      email: [''.toLowerCase(), [ Validators.required, Validators.pattern(/^[a-zA-Z0-9_\-\.~!#$%&'*+/=?^`{|}]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,3}$/)]],
       password: ['', Validators.required],
     });
 
@@ -179,10 +181,11 @@ export class RequestComponent implements OnInit {
       }),
       origen: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
       destino: ['', [Validators.pattern(regexNoNumber)]],
-      mensaje: ['', [Validators.required, Validators.maxLength(260)]]
+      mensaje: ['', [Validators.required, Validators.maxLength(260)]],
+      confirmacion: [''],
     },
     {
-      validators: destination('destino'),
+      validators: [destination('destino'), confirmation('destino')]
     });
 
     this.user = this.formBuilder.group({
@@ -351,6 +354,9 @@ export class RequestComponent implements OnInit {
 
       // this.credentials.get('email').setValue(valueE.toLowerCase());
 
+    console.log(this.credentials.value);
+    debugger;
+
       this.userService.login(this.credentials.value).subscribe(
         res => {
           this.isLoading = false;
@@ -372,9 +378,6 @@ export class RequestComponent implements OnInit {
 
         console.log('respuesta de la API:  ', res);
 
-        if(res['isError']){
-          console.log('No se asigno un comercial');
-        }else{
 
         this.userService.setToken(res['token']);
 
@@ -397,7 +400,6 @@ export class RequestComponent implements OnInit {
         .catch(err => {
           console.log('error al enviar mensaje de texto: ' + err)
         })
-        
 
         this.wsService.emit('notifications', payload)
 
@@ -408,7 +410,7 @@ export class RequestComponent implements OnInit {
       }, 5000);
 
 
-    }
+    
 
       },
       err => {
@@ -530,6 +532,24 @@ export class RequestComponent implements OnInit {
     this.request.get('cliente').get('digitoVerificacion').setValue(1);
   }
 
+  autoCompleteDataClient(){
+    console.log('mmmmmmmmmm');
+    var dataClient = {
+      email: this.dataSession,
+      password: 'no es necesaria'
+    }
+    this.userService.getUserProfile().subscribe(
+      res => {
+        this.request = res['user'];
+      },
+      err => {
+        console.log(err);
+      }
+    )
+    this.createRequest(this.request.value);
+    
+  }
+
   getErrorMessage(campo: string, form: string) {
     return this.request.get(`${campo}`).hasError('required')
       ? 'Este campo es requerido'
@@ -540,6 +560,8 @@ export class RequestComponent implements OnInit {
               : this.request.get(`${campo}`).hasError('emptyCampTypeOfService') 
                   ? 'Este campo no puede estar vacio' 
                   : this.request.get(`${campo}`).hasError('emptyCampDestination') 
+                      ? 'Este campo es requerido' 
+                      : this.request.get(`${campo}`).hasError('emptyCampConfirmation') 
                       ? 'Este campo es requerido' 
                       : ''
   }
@@ -559,6 +581,12 @@ export class RequestComponent implements OnInit {
             ? 'Las contraseñas deben coincidir' 
             : '';
   }
+  getErrorMessage21(campo: string, form: string) {
+    return this.request.get('cliente').get(`${campo}`).hasError('required')
+        ? 'Este campo es requerido'
+        : this.request.get('cliente').get(`${campo}`).hasError('mustMatch') 
+            ? 'Error dígito de verificación': ''
+  }
 
   getErrorMessage3(campo: string, form: string) {
     return this.user.get(`${campo}`).hasError('required')
@@ -572,5 +600,12 @@ export class RequestComponent implements OnInit {
             : this.user.get(`${campo}`).hasError('minlength') 
               ? 'Mínimo límite de caracteres 6' 
               : '';
+  }
+
+  getErrorMessage0(campo: string, form: string) {
+    return this.credentials.get(`${campo}`).hasError('required')
+        ? 'Este campo es requerido' : 
+        this.credentials.get(`${campo}`).hasError('pattern') 
+            ? 'Ingresa un correo válido' : ''
   }
 }

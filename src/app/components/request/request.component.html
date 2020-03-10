@@ -168,9 +168,9 @@
                 <!-- digito de verificacion, empresa-->
                 <ng-container formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'">
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
-                    <mat-label>Dígito de verificación (0 - 9)</mat-label>
+                    <mat-label>Dígito del RUT (0 - 9)</mat-label>
                       <input matInput formControlName="digitoVerificacion">
-                    <mat-error *ngIf="request.get('cliente').get('digitoVerificacion').invalid">{{getErrorMessage2("digitoVerificacion")}}</mat-error>
+                    <mat-error *ngIf="request.get('cliente').get('digitoVerificacion').invalid">{{getErrorMessage21("digitoVerificacion")}}</mat-error>
                   </mat-form-field>
                 </ng-container>
                 <!-- digito de verificacion, natural, hidden-->
@@ -186,10 +186,23 @@
                       <textarea formControlName="mensaje" matInput></textarea>
                     <mat-error *ngIf="request.get('mensaje').invalid">{{getErrorMessage("mensaje")}}</mat-error>
                   </mat-form-field>
+                  <!-- Confirmacion -->
+                  <div class="col-lg-12 form-check" *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" >
+                    <div style="display: inline-flex;">
+                    <input type="checkbox" class="form-check-input" required formControlName="confirmacion">
+                      <label class="form-check-label checkboxConfirmation" for="exampleCheck1"> Confirmó que el peso de la carga a transportar es mayor o igual a dos toneladas</label>
+                    </div>
+                    <mat-error *ngIf="request.get('confirmacion').invalid">{{getErrorMessage("confirmacion")}}</mat-error>
+                  </div>
                 <!-- Botones -->
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
                   <button [routerLink]="['/solicitar-servicio/todos']" class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
-                  <button mat-flat-button *ngIf="!isCreatingRequest" [disabled]='!request.valid' (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
+                  <div *ngIf="!dataSession">
+                      <button mat-flat-button *ngIf="!isCreatingRequest" [disabled]='!request.valid' (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
+                  </div>
+                  <div *ngIf="dataSession">
+                    <button mat-flat-button *ngIf="!isCreatingRequest" [disabled]='!request.valid' (click)="autoCompleteDataClient()" color="primary">CONTINUAR</button>
+                  </div>
                   <div *ngIf="isCreatingRequest" >
                     <button mat-flat-button *ngIf="!isLoading; else spinner" (click)="nextCreateRequest()" color="primary">CREAR SOLICITUD</button>
                     <ng-template #spinner>
@@ -203,17 +216,24 @@
             </mat-step>
   
             <!-- third step -->
-            <mat-step *ngIf="!isCreatingRequest">
+            <mat-step *ngIf="!isCreatingRequest && !dataSession">
               <h1 class="vs-section-title vs-color-vs vs-text-align-center">
                 BIEN, YA ESTAMOS CASI LISTOS
               </h1>
-              <p *ngIf="!isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
-                Regístrate o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Accede Aquí </a> para darle seguimiento a tu solicitud
-              </p>
-              <p *ngIf="isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
-                Accede o <a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Regístrate Aquí </a> para darle seguimiento a tu solicitud
-              </p>
-              <form autocomplete="off" [formGroup]="user" class="row" *ngIf="!isRegistered ; else login">
+              <div *ngIf="!isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
+                <p > Para darle seguimiento a tu solicitud
+                   
+                </p>
+                <p>Regístrate o</p><p><a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Accede Aquí </a></p>
+              </div>
+              <div *ngIf="isRegistered" class="vs-text-align-center vs-color-grey vs-margin-bottom-large">
+                  <p >Para darle seguimiento a tu solicitud</p>
+                    <p>Accede o</p>
+                    <p><a (click)="toggleForm()" class="vs-color-vs vs-cursor-pointer"> Regístrate Aquí </a></p>
+              </div>
+              
+              <div *ngIf="!isRegistered ; else login">
+              <form autocomplete="off" [formGroup]="user" class="row">
                 <div class="row">
                   <!-- nombre cliente -->
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
@@ -234,31 +254,31 @@
                       <input matInput formControlName="telefono">
                     <mat-error *ngIf="user.get('telefono').invalid">{{getErrorMessage3("telefono")}}</mat-error>
                   </mat-form-field>
-                  <!-- telefono cliente -->
+                  <!-- celular cliente -->
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
                     <mat-label>Celular</mat-label>
                       <input matInput formControlName="celular">
                     <mat-error *ngIf="user.get('celular').invalid">{{getErrorMessage3("celular")}}</mat-error>
                   </mat-form-field>
-                  <!-- telefono cliente -->
+                  <!-- ciudad cliente -->
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
                     <mat-label>Ciudad</mat-label>
                       <input matInput formControlName="ciudad">
                     <mat-error *ngIf="user.get('ciudad').invalid">{{getErrorMessage3("ciudad")}}</mat-error>
                   </mat-form-field>
-                  <!-- telefono cliente -->
+                  <!-- correo cliente -->
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
                     <mat-label>Correo</mat-label>
                       <input matInput formControlName="correo">
                     <mat-error *ngIf="user.get('correo').invalid">{{getErrorMessage3("correo")}}</mat-error>
                   </mat-form-field>
-                  <!-- telefono cliente -->
+                  <!-- contraseña cliente -->
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
                     <mat-label>Contraseña</mat-label>
                       <input matInput formControlName="contrasena" type="password">
                     <mat-error *ngIf="user.get('contrasena').invalid">{{getErrorMessage3("contrasena")}}</mat-error>
                   </mat-form-field>
-                  <!-- telefono cliente -->
+                  <!-- confirmar conraseña -->
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
                       <mat-label>Confirmar contraseña</mat-label>
                         <input matInput formControlName="contrasenaConfirmada" type="password">
@@ -281,23 +301,45 @@
                         </div>
                     </div>
               </form>
+              
+
+              <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
+                  <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
+                  <button *ngIf="!isLoading; else spinner" [disabled]='!user.valid' mat-flat-button color="primary" (click)="register()" matStepperNext>
+                    CONTINUAR
+                  </button>
+                  <ng-template #spinner>
+                    <mat-spinner class="vs-margin-center">
+                    </mat-spinner>
+                  </ng-template>
+                </div>
+              </div>
   
               <ng-template #login class="row">
-                <form autocomplete="off" [formGroup]="credentials" class="vs-input-field" >
-                  <div class="col-md-6">
-                    <span class="vs-field-label">Correo</span>
-                    <input formControlName="email" matInput>
-                  </div>
+                <form autocomplete="off" [formGroup]="credentials">
+                    <div class="col-md-3"></div>
+                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                      <mat-label>Correo</mat-label>
+                        <input matInput formControlName="email">
+                      <mat-error *ngIf="credentials.get('email').invalid">{{getErrorMessage0("email")}}</mat-error>
+                    </mat-form-field>
                   <div class="col-md-12"></div>
-                  <div class="col-md-6">
-                    <span class="vs-field-label">Contraseña</span>
-                    <input type="password" formControlName="password" class="vs-margin-remove" matInput>
-                     <div class="vs-margin-top-xsmall">
-                      <a [routerLink]="['/forgot-password']" class="vs-color-grey vs-cursor-pointer">
-                        ¿Olvidaste tu contraseña?
-                     </a>
-            </div>
-                  </div>
+                  <div class="col-md-3"></div>
+                  
+
+                    <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                      <mat-label>Contraseña</mat-label>
+                        <input matInput formControlName="password" type="password">
+                      <mat-error *ngIf="credentials.get('password').invalid">{{getErrorMessage0("password")}}</mat-error>
+                    </mat-form-field>
+
+                    <div class="col-md-12"></div>
+                  <div class="col-md-3"></div>
+                    <div class="vs-margin-top-xsmall" class="col-md-6 col-sm-12">
+                        <a [routerLink]="['/forgot-password']" class="vs-color-grey vs-cursor-pointer">
+                          ¿Olvidaste tu contraseña?
+                       </a>
+              </div>
                   <div class="col-md-12"></div>
                   <div class="col-md-6">
                     <div *ngIf="serverErrorMessages" class="alert alert-danger vs-margin-top-small" role="alert">
@@ -305,18 +347,18 @@
                     </div>
                   </div>
                 </form>
+
+                <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
+                    <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
+                    <button *ngIf="!isLoading; else spinner" [disabled]='!credentials.valid' mat-flat-button color="primary" (click)="register()" matStepperNext>
+                      CONTINUAR
+                    </button>
+                    <ng-template #spinner>
+                      <mat-spinner class="vs-margin-center">
+                      </mat-spinner>
+                    </ng-template>
+                  </div>
               </ng-template>
-  
-              <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
-                <button class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
-                <button *ngIf="!isLoading; else spinner" [disabled]='!user.valid' mat-flat-button color="primary" (click)="register()" matStepperNext>
-                  CONTINUAR
-                </button>
-                <ng-template #spinner>
-                  <mat-spinner class="vs-margin-center">
-                  </mat-spinner>
-                </ng-template>
-              </div>
   
            </mat-step>
          </mat-horizontal-stepper>

@@ -35,12 +35,22 @@
       </div>
     </div>
     <div *ngIf="router.url === '/home'" class="vs-color-default header-menu">
+      <div *ngIf="!access && !access2; else elseAccess">
       <a
         [routerLink]="['/acceder']"
         class="vs-margin-right-small acceder-btn vs-cursor-pointer vs-color-default vs-text-semibold"
       >
         ACCEDER
       </a>
+    </div>
+    <ng-template #elseAccess>
+        <a
+          [routerLink]="['/dashboard']"
+          class="vs-margin-right-small acceder-btn vs-cursor-pointer vs-color-default vs-text-semibold"
+        >
+          ACCEDER
+        </a>
+      </ng-template>
       <a
         [routerLink]="['/trabaja-con-nosotros']"
         class="vs-color-default vs-cursor-pointer vs-text-semibold vs-margin-right-small"
@@ -48,7 +58,7 @@
         TRABAJA CON NOSOTROS
       </a>
       <a
-        href="https://venticuatrosiete.typeform.com/to/heqL1C"
+        href="https://venticuatrosiete.typeform.com/to/vB5Jti"
         target="_blank"
         class="vs-margin-right-small ubicar acceder-btn vs-cursor-pointer vs-color-default vs-text-semibold"
       >

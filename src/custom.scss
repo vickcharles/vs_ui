@@ -71,7 +71,7 @@ $candy-app-warn: mat-palette($mat-red);
     }
 
     .mat-radio-group .mat-radio-label {
-        flex-direction: column-reverse;
+        flex-direction: row;
     }
 
     .mat-radio-outer-circle {
@@ -87,6 +87,10 @@ $candy-app-warn: mat-palette($mat-red);
     .mat-radio-button .mat-radio-inner-circle {
         background-color: #ffca28 !important;
         border-color: #ebeef1  !important;
+    }
+
+    .mat-radio-button{
+        padding: 4%;
     }
 
     .mat-tab-header {

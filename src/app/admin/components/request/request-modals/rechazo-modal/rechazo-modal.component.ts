@@ -13,16 +13,16 @@ import { WebsocketService } from '../../../../../service/websocket.service'
 
 export class RechazoModalComponent implements OnInit, DoCheck {
   // public message;
-  public rechazoLista: string[] = [];
-  public fueraOportunidad: string[] = [];
-  public valorEscojido: string[] = [];
-  public causal: Causal = {
+  rechazoLista: string[] = [];
+  perdidaOportunidad: string[] = [];
+  valorEscojido: string[] = [];
+  causal: Causal = {
     id_causal: '',
     mensaje: ''
   };
 
-  causalEscojida: string;
-  causales: string[] = ['Rechazo'];
+  causales: string[] = ['Rechazo', 'Oportunidad perdida'];
+  causalEscojida: string = this.causales[this.data.option];
 
   constructor(public _requestService: RequestService, 
     private wsService: WebsocketService,
@@ -38,6 +38,9 @@ export class RechazoModalComponent implements OnInit, DoCheck {
         if (iterator.type === 'Rechazo' && iterator.status === 'ACTIVO') {
           this.rechazoLista.push(iterator);
         }
+        if (iterator.type === 'Oportunidad perdida' && iterator.status === 'ACTIVO') {
+          this.perdidaOportunidad.push(iterator);
+        }
       }
     });
   }
@@ -46,12 +49,15 @@ export class RechazoModalComponent implements OnInit, DoCheck {
     console.log(this.causalEscojida);
   }
 
-  ngOnInit() {
+  ngOnInit() {console.log('dato seleccionado: ', this.data.option);
   }
 
   ngDoCheck() {
     if (this.causalEscojida === 'Rechazo') {
       this.valorEscojido = this.rechazoLista;
+    }
+    if (this.causalEscojida === 'Oportunidad perdida') {
+      this.valorEscojido = this.perdidaOportunidad;
     }
   }
 

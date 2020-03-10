@@ -22,6 +22,7 @@ export class AdminRequestListComponent implements OnInit {
   requestNew: any;
   requestRejected: any;
   requestCompleted: any;
+  requestQuotation: any;
   requestAll: any;
   UserId: any;
   filter: string;
@@ -31,9 +32,9 @@ export class AdminRequestListComponent implements OnInit {
   excel = 'false';
   cargaReporte1 = true;
   cargaReporte2 = true;
-  selectionStatusLead: any[] = ['recibido', 'en proceso', 'cancelado', ''];
-  selectionStatus: any[] = [ true, false , false, false];
-  selectionStatusName: any[] = ['Nueva solicitud', 'Solicitud atentida' , 'Cotización realizada', 'Negocio efectivo'];
+  selectionStatusLead: any[] = ['recibido', 'en proceso', 'cancelado', 'cotizando', ''];
+  selectionStatus: any[] = [ true, false , false, false, false];
+  selectionStatusName: any[] = ['Nueva solicitud', 'Solicitud atentida' , 'Canceladas', 'Negocio efectivo', 'Cotización realizada'];
 
 
   inicio: any = null;
@@ -101,6 +102,7 @@ export class AdminRequestListComponent implements OnInit {
     this.getAdminRequestOnProgress(this.filter, this.fechaInicio, this.fechaFinal);
     this.getAdminRequestRejected(this.filter, this.fechaInicio, this.fechaFinal);
     this.getAdminRequestCompleted(this.filter, this.fechaInicio, this.fechaFinal);
+    this.getAdminRequestQuotation(this.filter, this.fechaInicio, this.fechaFinal);
     this.getAdminRequestAll(this.filter, this.fechaInicio, this.fechaFinal);
 
 
@@ -134,21 +136,24 @@ export class AdminRequestListComponent implements OnInit {
 
 
   public toggleMenuRequestNew() {
-    this.selectionStatus = [ true, false , false, false];
+    this.selectionStatus = [ true, false , false, false, false];
   }
 
   public toggleMenuRequestOnProgress() {
-    this.selectionStatus = [ false, true , false, false];
+    this.selectionStatus = [ false, true , false, false, false];
   }
 
   public toggleMenuRequestRejected() {
-    this.selectionStatus = [ false, false , true, false];
+    this.selectionStatus = [ false, false , true, false, false];
   }
 
   public toggleMenuRequestCompleted() {
-    this.selectionStatus = [ false, false , false, true];
+    this.selectionStatus = [ false, false , false, true, false];
   }
 
+  public toggleMenuRequestQuotation() {
+    this.selectionStatus = [ false, false , false, false, true];
+  }
   /* ============================================================
   Generar excel según estado de lead
   =============================================================== */
@@ -162,6 +167,8 @@ export class AdminRequestListComponent implements OnInit {
     this.requestService.exportAsExcelFileRequest(this.requestOnProgress, '24/7_recibidos');
     if(this.selectionStatus[2] === true && this.requestRejected.length!=0)
     this.requestService.exportAsExcelFileRequest(this.requestRejected, '24/7_cancelados');
+    if(this.selectionStatus[4] === true && this.requestQuotation.length!=0)
+    this.requestService.exportAsExcelFileRequest(this.requestQuotation, '24/7_cotizando');
     if(this.selectionStatus[3] === true && this.requestCompleted.length!=0)
     this.requestService.exportAsExcelFileRequest(this.requestCompleted, '24/7_completados');
 
@@ -280,6 +287,39 @@ export class AdminRequestListComponent implements OnInit {
     );
   }
 
+  getAdminRequestQuotation (filterValue, fechaInicio, fechaFinal, fechaPersonalizada?) {
+    this.requestService.getAdminRequests().subscribe(
+      res => {
+        this.requestQuotation = res['requests'];
+        this.requestQuotation = this.requestQuotation.filter((e) => e.estado === 'cotizando');
+        if (filterValue){
+          this.requestQuotation = this.requestQuotation.filter((e) => e.usuario.name.toLowerCase().indexOf(filterValue.toLowerCase())!==-1);
+        }
+        if (fechaInicio){
+          fechaInicio = moment().format('YYYY-MM-DDT00:00:00.000Z');
+          this.requestQuotation = this.requestQuotation.filter((e) => e.created_at >= fechaInicio);
+          //console.log('FECHA CANCELADOS: '+fechaInicio);
+        }
+        if (fechaFinal){
+          this.fin = moment().format('YYYY-MM-DDT23:59:59.999Z');
+          this.inicio = moment().startOf('month').format('YYYY-MM-DDT00:00:00.000Z');
+          //console.log('fecha fin: '+this.fin);
+          //console.log('fecha inicio: '+this.inicio);
+          this.requestQuotation = this.requestQuotation.filter((e) => e.created_at >= this.inicio);
+          this.requestQuotation = this.requestQuotation.filter((e) => e.created_at <= this.fin);
+        }
+        if (fechaPersonalizada){
+          this.requestQuotation = this.requestQuotation.filter((e) => e.created_at >= this.inicioPersonalizada);
+          this.requestQuotation = this.requestQuotation.filter((e) => e.created_at <= this.finPersonalizada);
+        }
+        //console.log(res['requests']);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
   getAdminRequestCompleted(filterValue, fechaInicio, fechaFinal, fechaPersonalizada?) {
     this.requestService.getAdminRequests().subscribe(
       res => {
@@ -354,6 +394,7 @@ export class AdminRequestListComponent implements OnInit {
     this.getAdminRequestRejected(search,'','');
     this.getAdminRequestNew(search,'','');
     this.getAdminRequestCompleted(search,'','');
+    this.getAdminRequestQuotation(search,'','');
     this.getAdminRequestAll(search,'','');
     search='';
   }
@@ -363,6 +404,7 @@ export class AdminRequestListComponent implements OnInit {
     this.getAdminRequestRejected('',1,'');
     this.getAdminRequestNew('',1,'');
     this.getAdminRequestCompleted('',1,'');
+    this.getAdminRequestQuotation('',1,'');
     this.getAdminRequestAll('',1,'');
   };
 
@@ -371,6 +413,7 @@ export class AdminRequestListComponent implements OnInit {
     this.getAdminRequestRejected('','',1);
     this.getAdminRequestNew('','',1);
     this.getAdminRequestCompleted('','',1);
+    this.getAdminRequestQuotation('','',1);
     this.getAdminRequestAll('','',1);
   };
 
@@ -386,6 +429,7 @@ export class AdminRequestListComponent implements OnInit {
       this.getAdminRequestRejected('','','',1);
       this.getAdminRequestNew('','','',1);
       this.getAdminRequestCompleted('','','',1);
+      this.getAdminRequestQuotation('','','',1);
       this.getAdminRequestAll('','','',1);
     }
   }

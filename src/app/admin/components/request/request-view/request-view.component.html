@@ -11,20 +11,21 @@
                     <ul>
                       <li class="active pointer">
                         <div  *ngIf="!generalStatus?.secondStep.status" ngbPopover="Has estado aqui {{initialTime_1}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Nuevo" class="seccion-negocio">
-                          <span class="">0 días</span>
+                          
+                          <span class="titleStatus">Nueva solicitud</span><span> 0 días</span>
                         </div>
                         <div *ngIf="generalStatus?.secondStep.status" ngbPopover="Fecha final: {{finalTime_1}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Nuevo" class="seccion-negocio">
-                          <span class="">{{status_1_days}} días</span>
+                          <span class="titleStatus">Nueva solicitud</span><span> {{status_1_days}} días</span>
                         </div>
                       </li>
                       <li (click)="statusChange(2)" [ngClass]="{'verde': generalStatus?.secondStep.status === true, 
                                                                           'gris':generalStatus?.secondStep.status === false }" class="transition-effect pointer">
                           <div  *ngIf="!generalStatus?.thirdStep.status" ngbPopover="{{(initialTime_2) ? 'Has estado aqui' : '...' }} {{initialTime_2}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Lead en proceso" class="seccion-negocio">
-                              <span  class="">0 días</span>
+                              <span  class="titleStatus">Solicitud atendida</span><span> 0 días</span>
                               <span class="flecha-inicial"></span>
                             </div>
                             <div *ngIf="generalStatus?.thirdStep.status" ngbPopover="{{(finalTime_2) ? 'Fecha Final' : '...' }} {{finalTime_2}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Lead en proceso" class="seccion-negocio">
-                              <span  class="">{{status_2_days}} días</span> 
+                              <span  class="titleStatus">Solicitud atendida</span><span> {{status_2_days}} días</span> 
                                 <span class="flecha-inicial" [ngClass]="{'flecha-inicial-verde': generalStatus?.firstStep.status == true}"></span>
                             </div>
                            
@@ -32,11 +33,11 @@
                       <li (click)="statusChange(3)" [ngClass]="{'verde': generalStatus?.thirdStep.status === true, 
                                                                           'gris':generalStatus?.thirdStep.status === false }" class="transition-effect pointer">
                           <div  *ngIf="!generalStatus?.fourthStep.status" ngbPopover="{{(initialTime_3) ? 'Has estado aqui' : '...' }}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Cotización" class="seccion-negocio">
-                              <span class="">0 días</span>
+                              <span class="titleStatus">Cotización realizada</span><span> 0 días</span>
                               <span class="flecha-inicial"></span>
                             </div>
                             <div *ngIf="generalStatus?.fourthStep.status" ngbPopover="{{(finalTime_3) ? 'Fecha Final' : '...' }} {{finalTime_3}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Cotización" class="seccion-negocio">
-                              <span class="">{{status_3_days}} días</span>
+                              <span class="titleStatus">Cotización realizada</span><span> {{status_3_days}} días</span>
                               
                               <span class="flecha-inicial" [ngClass]="{'flecha-inicial-verde': generalStatus?.secondStep.status == true}"></span>
                           </div>
@@ -45,7 +46,7 @@
                       <li (click)="statusChange(4)" class="pointer" [ngClass]="{'verde': generalStatus?.fourthStep.status === true, 
                                                                           'gris':generalStatus?.fourthStep.status === false }" class="transition-effect">
                             <div  ngbPopover="{{(finalTime_4) ? 'Fecha Final' : '...' }} {{finalTime_4}}" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="Efectivo" class="seccion-negocio pointer">
-                              <span class="">{{status_4_days}} días</span>
+                              <span class="titleStatus">Negocio efectivo</span><span> {{status_4_days}} días</span>
                               
                               <span class="flecha-inicial" [ngClass]="{'flecha-inicial-verde': generalStatus?.thirdStep.status == true}"></span>
                           </div>
@@ -74,27 +75,27 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button (click)="statusChange(4)" *ngIf="generalStatus?.secondStep.status && generalStatus?.thirdStep.status && requestDetails?.estado === 'en proceso'"class="vs-color-grey" mat-menu-item>
+              <button (click)="statusChange(4)" *ngIf="generalStatus?.secondStep.status && generalStatus?.thirdStep.status && requestDetails?.estado === 'cotizando'"class="vs-color-grey" mat-menu-item>
                 <mat-icon class="vs-margin-remove">
                   check_circle
                 </mat-icon>
                 Solicitud completada
               </button>
-              <button *ngIf="!generalStatus?.secondStep.status && requestDetails?.estado === 'en proceso'" (click)="rejectRequest(requestDetails.usuario._id)" class="vs-color-grey" mat-menu-item>
+              <button *ngIf="!generalStatus?.secondStep.status && requestDetails?.estado === 'en proceso'" (click)="rejectRequest(requestDetails.usuario._id, 0)" class="vs-color-grey" mat-menu-item>
                 <mat-icon class="vs-margin-remove">cancel</mat-icon>
                   Rechazo
               </button>
-              <button *ngIf="!generalStatus?.secondStep.status && requestDetails?.estado === 'en proceso'" (click)="missedOpportunityRequest(requestDetails.usuario._id)" class="vs-color-grey" mat-menu-item>
+              <button *ngIf="!generalStatus?.secondStep.status && requestDetails?.estado === 'en proceso'" (click)="missedOpportunityRequest(requestDetails.usuario._id, 1)" class="vs-color-grey" mat-menu-item>
                 <mat-icon class="vs-margin-remove">cancel</mat-icon>
                   Oportunidad perdida
               </button>
-              <button *ngIf="generalStatus?.secondStep.status && !generalStatus?.thirdStep.status && requestDetails?.estado === 'en proceso'" (click)="requestNotAccepted(requestDetails.usuario._id)" class="vs-color-grey" mat-menu-item>
+              <button *ngIf="generalStatus?.secondStep.status && !generalStatus?.thirdStep.status && requestDetails?.estado === 'cotizando'" (click)="requestNotAccepted(requestDetails.usuario._id)" class="vs-color-grey" mat-menu-item>
                 <mat-icon class="vs-margin-remove">cancel</mat-icon>
                   No aceptada
               </button>
             </mat-menu>
         </div>
-        <img src="../../../../assets/img/servicios/{{requestDetails?.tipoDeServicio.nombre}}.png" alt="">
+        <img src="../../../../assets/img/servicios/{{urlImgName}}.png" alt="">
         <h1 class="vs-color-vs vs-font-large">
           {{requestDetails?.tipoDeServicio?.nombre | firstChartUppercase }}
         </h1>
@@ -193,12 +194,12 @@
           <div class="vs-margin-top-small">
             <div class="col col-xs-12 col-md-6">
               <button [routerLink]="['/dashboard/admin/chat', requestDetails?._id]" mat-raised-button [routerLink]="['/dashboard/chat/6']" class="vs-text-uppercase  vs-remove-shadow vs-margin-top-xsmall" color="primary">
-                Enviar mensaje
+                Ir al chat
               </button>
             </div>
             <div class="col col-xs-12 col-md-6">
               <button mat-raised-button [routerLink]="['/dashboard/admin']" class="vs-text-uppercase  vs-remove-shadow vs-background-color-default vs-margin-top-xsmall" color="primary">
-                ir al dashboard
+                Ir al dashboard
               </button>
             </div>
           </div>

@@ -1,9 +1,9 @@
 <div class="container">
-    <h1 mat-dialog-title>Rechazo</h1>
+    <h1 mat-dialog-title>{{causalEscojida}}</h1>
     <hr>
   <div class="row">
-    <div class="col-md-6">
-        <label id="example-radio-group-label mr-2">Tipo de rechazo: </label>
+    <div class="col-md-3">
+        <label id="example-radio-group-label mr-2">Elige opción: </label>
         <br>
         <div class="conteendor-flex">
         <mat-radio-group
@@ -16,7 +16,7 @@
     </mat-radio-group>
         </div>
     </div>
-    <div class="col-md-6" *ngIf="causalEscojida">
+    <div class="col-md-4" *ngIf="causalEscojida">
         <h6>{{causalEscojida}}</h6>
         <mat-form-field>
           <mat-label>Tipo</mat-label>
