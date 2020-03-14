@@ -2,7 +2,7 @@
 <div class="vs-full-width">
     <div class="vs-notification-list">
         <mat-form-field>
-            <input matInput [formControl]="search" placeholder="Búsqueda (nombre cliente)">
+            <input matInput [formControl]="search" placeholder="Búsqueda (nombre {{typeUser}})">
         </mat-form-field>
       <div *ngFor="let notification of notifications"  class="vs-notification vs-cursor-pointer  vs-margin-top-small">
         <div class="vs-display-flex">

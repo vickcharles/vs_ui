@@ -44,11 +44,11 @@
       </a>
     </div>
     <ng-template #elseAccess>
+        <p><i class="far fa-comment-dots"></i> Hola</p>
         <a
           [routerLink]="['/dashboard']"
           class="vs-margin-right-small acceder-btn vs-cursor-pointer vs-color-default vs-text-semibold"
-        >
-          ACCEDER
+        >, {{access2}}
         </a>
       </ng-template>
       <a

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ControlContainer } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { UserService } from '../../service/user.service';
 import { RequestService } from '../../service/request.service';
 import { ScrollTopService } from '../../service/scrollToTop.service';
 import { Router } from "@angular/router";
-import { MustMatch, typeOfService, destination, confirmation } from '../../validators/password-match';
+import { MustMatch, typeOfService, destination, EnterpriseValidation } from '../../validators/password-match';
 import { MatSnackBar } from '@angular/material';
 import { WebsocketService } from '../../service/websocket.service'
 import { MatRadioChange } from '@angular/material';
@@ -64,22 +64,18 @@ export class RequestComponent implements OnInit {
   ]
 
   forkliftRental =[
-    {id: '1', name: '1' },
-    {id: '2', name: '2' },
-    {id: '3', name: '3' },
-    {id: '4', name: '4' },
-    {id: '5', name: '5' },
-    {id: '6', name: '6' },
-    {id: '7', name: '7' },
-    {id: '8', name: '8' },
-    {id: '9', name: '9' },
-    {id: '10', name: '10' },
-    {id: '11', name: '11' },
-    {id: '12', name: '12' },
-    {id: '13', name: '13' },
-    {id: '14', name: '14' },
-    {id: '15', name: '15' },
-    {id: '16', name: '16' },
+    {id: '1', name: '1 - 5 toneladas' },
+    {id: '2', name: '6 - 10 toneladas' },
+    {id: '3', name: '11 - 15 toneladas' },
+    {id: '4', name: '16 - 20 toneladas' },
+    {id: '5', name: '21 - 25 toneladas' },
+    {id: '6', name: '26 - 30 toneladas' },
+    {id: '7', name: '31 - 35 toneladas' },
+    {id: '8', name: '36 - 40 toneladas' },
+    {id: '9', name: '41 - 45 toneladas' },
+    {id: '10', name: '46 - 50 toneladas' },
+    {id: '11', name: '51 - 55 toneladas' },
+    {id: '12', name: '56 - 60 toneladas' },
   ]
 
   customerType = [
@@ -96,9 +92,10 @@ export class RequestComponent implements OnInit {
   ]
   selectedImgTypeService: string;
   dataSession: string;
+  enterprise: boolean = false;
+  textCheck: string = 'de la Cédula o Nit';
 
   getIndex() {
-    console.log('datos en localStorage', localStorage.getItem('tipoDeServicio'));
     localStorage.getItem('tipoDeServicio') !== '' ? this.selectedIndex === 1 : this.selectedIndex === 0;
   }
 
@@ -146,7 +143,6 @@ export class RequestComponent implements OnInit {
       localStorage.setItem('tipoDeServicio', '');
     }
 
-    console.log('datos en localStorage', localStorage);
   }
 
   ngOnInit() {
@@ -170,15 +166,16 @@ export class RequestComponent implements OnInit {
         validators: typeOfService('nombre', 'especificamente'),
       }),
       cliente: this.formBuilder.group({
-        tipo: ['', [Validators.required]],
+        tipo: ['empresa'],
         tipoDocumento: [''],
         documento: ['', [Validators.required, Validators.maxLength(11) ,Validators.pattern('^[0-9]*$')]],
-        nombreEmpresa: ['', this.validateEmailNotTaken],
+        nombreEmpresa: [''],
+        nombreEmpresaVerificacion: [''],
         digitoVerificacion: ['',[Validators.required]],
         digito2: ['']
       },
       {
-        validator: MustMatch('digito2', 'digitoVerificacion')
+        validators: [MustMatch('digito2', 'digitoVerificacion'), EnterpriseValidation('nombreEmpresaVerificacion', 'nombreEmpresa')],
       }),
       origen: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
       destino: ['', [Validators.pattern(regexNoNumber)]],
@@ -186,7 +183,7 @@ export class RequestComponent implements OnInit {
       confirmacion: [''],
     },
     {
-      validators: [destination('destino'), confirmation('destino')]
+      validators: [destination('destino'), this.validateConfirmation]
     });
 
     this.user = this.formBuilder.group({
@@ -197,19 +194,37 @@ export class RequestComponent implements OnInit {
       ciudad: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
       correo: ['', [ Validators.required, Validators.pattern(/^[a-zA-Z0-9_\-\.~!#$%&'*+/=?^`{|}]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,3}$/)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
-      autorizo: ['', Validators.required],
+      autorizo: [''],
       contrasenaConfirmada: ['', Validators.required]
     },
     {
       validator: MustMatch('contrasena', 'contrasenaConfirmada')
     });
     this.imgService();
-  } 
+  }
+
+  validateConfirmation(control:FormGroup) {
+    const password = '';
+    var ControlName = control.controls.tipoDeServicio.value.nombre;
+    var ControlName2 = control.controls.confirmacion;
+    console.log('datos erroneos en validation', ControlName2.value, '+ ', ControlName2.touched );
+
+    if (ControlName2.errors && !ControlName2.errors.emptyCampConfirmation) {
+      return;
+  }
+    if ( ControlName == 'transporte de carga' && ControlName2.value && !ControlName2.touched ) {
+      
+      ControlName2.setErrors(null);
+    }
+    if ( ControlName == 'transporte de carga' && ControlName2.value === false && !ControlName2.touched ) {
+      ControlName2.setErrors({ emptyCampConfirmation: true });
+      console.log('entra aqui');
+    }
+  }
 
   imgService(){
     if (this.request.get('tipoDeServicio')) {
       for (let index = 0; index < this.arrayImg.length; index++) {
-        console.log('datos de la img', this.request.get('tipoDeServicio').get('nombre').value);
         
         if (this.arrayImg[index].type == this.request.get('tipoDeServicio').get('nombre').value) {
           this.selectedImgTypeService = this.arrayImg[index].urlImg ;
@@ -219,16 +234,7 @@ export class RequestComponent implements OnInit {
     }
   }
 
-  validateEmailNotTaken(datos: AbstractControl) {
-    
-    if (!datos.parent) {
-      return null;
-    }else {
-      if (datos.value) {
-        
-      }
-    }
-  }
+
   
   onCheckboxChange() {
     if (this.checkbox) {
@@ -273,7 +279,6 @@ export class RequestComponent implements OnInit {
     this.submitted = false;
     this.serverErrorMessages = "";
     this.isRegistered = !this.isRegistered;
-    console.log(this.isRegistered);
   }
 
   openSnackBar() {
@@ -315,8 +320,6 @@ export class RequestComponent implements OnInit {
           console.log('error al envair mensaje de texto: ' + err)
         })
 
-        console.log(payload);
-
         this.wsService.emit('notifications', payload);
         this.sendAPI();
 
@@ -355,14 +358,10 @@ export class RequestComponent implements OnInit {
 
       // this.credentials.get('email').setValue(valueE.toLowerCase());
 
-    console.log(this.credentials.value);
-    debugger;
-
       this.userService.login(this.credentials.value).subscribe(
         res => {
           this.isLoading = false;
           this.userService.setToken(res['token']);
-          console.log('datos usuario ya registrado: ', this.request.value);
           this.createRequest(this.request.value);
         },
         err => {
@@ -377,9 +376,6 @@ export class RequestComponent implements OnInit {
     this.userService.postUserAndRequest(this.data).subscribe(
       res => {
 
-        console.log('respuesta de la API:  ', res);
-
-
         this.userService.setToken(res['token']);
 
        //EMITIR NOTIFICACION AL CLIENTE
@@ -388,8 +384,6 @@ export class RequestComponent implements OnInit {
           receiver: res['request'].operadorId._id,
           message: 'ha creado una nueva solicitud',
         }
-         
-        console.log('datos del payload', this.data);
         var payloadZoho = this.helpers.parseData(this.data);
             this.launchZohoIframe(payloadZoho.zoho);
 
@@ -428,29 +422,11 @@ export class RequestComponent implements OnInit {
 
   //Validaciones
   public validar() {
-    if(this.request.value.tipoDeServicio.nombre == "transporte de carga" &&
-      !this.request.value.tipoDeServicio.especificamente) {
-        this.errors.tipoDeServicio = 'Este campo es requerido';
-    } else {
-       this.errors.tipoDeServicio = '';
-    }
-    if(this.request.value.tipoDeServicio.nombre == "alquiler de grua" &&
-      !this.request.value.tipoDeServicio.especificamente) {
-        this.errors.tipoDeServicio = 'Este campo es requerido';
-    } else {
-      this.errors.tipoDeServicio = '';
-    }
-
-    if (this.request.value.cliente.tipo == 'empresa'
-      && this.request.value.cliente.nombreEmpresa == '') {
-      this.errors.nombreEmpresa = 'Este campo es requerido';
-    } else {
-      this.errors.nombreEmpresa = '';
-    }
-      return this.errors;
+      return this.errors = '';
   };
 
   public nextStep(stepper: MatStepper) {
+    if (this.request.valid) {
     this.submitted = true;
     let errors = this.validar();
     const errorsArray: any = Object.values(errors);
@@ -460,6 +436,7 @@ export class RequestComponent implements OnInit {
       stepper.next();
       this.submitted = false;
     }
+  }else{}
   }
 
   nextCreateRequest() {
@@ -490,7 +467,6 @@ export class RequestComponent implements OnInit {
     
     // Procedimiento
     vpri = new Array(16) ; 
-    myNit = String(myNit);
     z = myNit.length;
   
     vpri[1]  =  3 ;
@@ -522,18 +498,29 @@ export class RequestComponent implements OnInit {
   }
   
   // Calcular
-  calcular(dato) {
-    this.request.get('cliente').get('digito2').setValue('');
+  calcular(dato = '0') {
     this.request.get('cliente').get('digitoVerificacion').setValue('');
+    this.request.get('cliente').get('nombreEmpresa').setValue('');
+    console.log('dasijaskhdnas', this.textCheck);
+    if (dato.startsWith('90') || dato.startsWith('89')) {
+        this.enterprise = true;
+        this.textCheck = ' del Nit';
+    }else{
+        this.enterprise = false;
+        if (dato == '0' || !dato || dato == '') {
+          this.textCheck = 'de la Cédula o Nit';
+        }else{
+          this.textCheck = 'de la Cédula';
+        }
+    }
     this.calcularDigitoVerificacion(dato);
   }
 
-  calcular2() {
-    this.request.get('cliente').get('digito2').setValue(1);
-    this.request.get('cliente').get('digitoVerificacion').setValue(1);
-  }
 
   autoCompleteDataClient(){
+    if (this.request.valid) {
+      console.log(this.request.value)
+
     this.isCreatingRequest2 = true;
     this.userService.getUserProfile().subscribe(
       res => {
@@ -544,6 +531,10 @@ export class RequestComponent implements OnInit {
       }
     )
     this.createRequest(this.request.value);
+    }
+    else{
+    }
+
     
   }
 
@@ -557,10 +548,9 @@ export class RequestComponent implements OnInit {
               : this.request.get(`${campo}`).hasError('emptyCampTypeOfService') 
                   ? 'Este campo no puede estar vacio' 
                   : this.request.get(`${campo}`).hasError('emptyCampDestination') 
-                      ? 'Este campo es requerido' 
-                      : this.request.get(`${campo}`).hasError('emptyCampConfirmation') 
-                      ? 'Este campo es requerido' 
-                      : ''
+                      ? 'Este campo es requerido' : 
+                      this.request.get(`${campo}`).hasError('emptyCampConfirmation') 
+                      ? 'Este campo es requerido' : ''
   }
 
   getErrorMessage1(campo: string, form: string) {
@@ -575,15 +565,22 @@ export class RequestComponent implements OnInit {
       : this.request.get('cliente').get(`${campo}`).hasError('pattern') 
         ? 'Introduce un dato válido' 
           : this.request.get('cliente').get(`${campo}`).hasError('mustMatch') 
-            ? 'Las contraseñas deben coincidir' 
+            ? 'Las contraseñas deben coincidir'
             : '';
+
+            
   }
   getErrorMessage21(campo: string, form: string) {
     return this.request.get('cliente').get(`${campo}`).hasError('required')
         ? 'Este campo es requerido'
         : this.request.get('cliente').get(`${campo}`).hasError('mustMatch') 
-            ? 'Error dígito de verificación': ''
+            ? 'Error dígito de verificación'
+            : this.request.get('cliente').get(`${campo}`).hasError('enterpriseValidation') 
+                ? 'Ingresa el nombre de la empresa' : '';
+            
   }
+
+
 
   getErrorMessage3(campo: string, form: string) {
     return this.user.get(`${campo}`).hasError('required')
@@ -604,5 +601,13 @@ export class RequestComponent implements OnInit {
         ? 'Este campo es requerido' : 
         this.credentials.get(`${campo}`).hasError('pattern') 
             ? 'Ingresa un correo válido' : ''
+  }
+
+  nitOrRut(){
+    console.log(this.request.get('cliente').get('documento').value);
+    if (this.request.get('cliente').get('digitoVerificacion')) {
+
+      
+    }
   }
 }

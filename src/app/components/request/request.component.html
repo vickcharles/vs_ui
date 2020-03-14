@@ -101,7 +101,7 @@
                     <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
                       <mat-label>Seleccione el peso aproximado de su carga</mat-label>
                       <mat-select formControlName="especificamente" name="especificamente">
-                        <mat-option *ngFor="let transport of forkliftRental" [value]="transport.id">
+                        <mat-option *ngFor="let transport of forkliftRental" [value]="transport.name">
                           {{transport.name}}
                         </mat-option>
                       </mat-select>
@@ -128,7 +128,7 @@
                 <div class="col-md-12"></div>
   
                 <!-- Tipo de Persona-->
-                <ng-container formGroupName="cliente">
+                <!-- <ng-container formGroupName="cliente">
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
                     <mat-label>Tipo de cliente</mat-label>
                     <mat-select formControlName="tipo">
@@ -138,49 +138,43 @@
                     </mat-select>
                     <mat-error *ngIf="request.get('cliente').get('tipo').invalid">{{getErrorMessage2("tipo")}}</mat-error>
                   </mat-form-field>
-                </ng-container>
+                </ng-container> -->
   
                 <!-- Cedula or Nit-->
-                <ng-container *ngIf="request.value.cliente.tipo != ''" formGroupName="cliente">
+                <ng-container formGroupName="cliente">
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
-                    <mat-label>{{request.value.cliente.tipo == 'empresa' ? 'NIT' : 'Cédula'}}</mat-label>
-                      <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'empresa'"  matInput [ngModel]="mymodel" (ngModelChange)="calcular($event)">
-                      <input formControlName="documento" *ngIf="request.value.cliente.tipo == 'natural'" matInput (keyup)="calcular2()">
+                    <mat-label>Cédula o nit</mat-label>
+                      <input formControlName="documento" matInput (ngModelChange)="calcular($event)">
                     <mat-error *ngIf="request.get('cliente').get('documento').invalid">{{getErrorMessage2("documento")}}</mat-error>
                   </mat-form-field>
                 </ng-container>
-                <!-- Campos de tipo empresa  (nombre de la empresa)-->
-                <ng-container formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'">
-                  <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
-                    <mat-label>Nombre Empresa</mat-label>
-                      <input matInput formControlName="nombreEmpresa">
-                    <mat-error *ngIf="request.get('cliente').get('nombreEmpresa').invalid">{{getErrorMessage2("nombreEmpresa")}}</mat-error>
-                  </mat-form-field>
-                </ng-container>
+
+                <div formGroupName="cliente" hidden>
+                  <input matInput  type="text" formControlName="nombreEmpresaVerificacion" [(ngModel)]="enterprise">
+                </div>
                 <!-- Campos de tipo empresa  (Digito de verificacion, comparacion con el verdadero)-->
-                <div formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'" hidden>
+                <div formGroupName="cliente" hidden>
                   <input matInput  type="number" formControlName="digito2" [(ngModel)]="digito">
                 </div>
-                <!-- Campos de tipo natural  (Digito de verificacion, hidden, comparacion con el verdadero)-->
-                <div formGroupName="cliente" *ngIf="request.value.cliente.tipo != 'empresa'" hidden>
-                  <input matInput  type="number" formControlName="digito2">
-                </div>
                 <!-- digito de verificacion, empresa-->
-                <ng-container formGroupName="cliente" *ngIf="request.value.cliente.tipo == 'empresa'">
+                <ng-container formGroupName="cliente">
                   <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
-                    <mat-label>Dígito del RUT (0 - 9)</mat-label>
+                    <mat-label>Dígito {{textCheck}} (0 - 9)</mat-label>
                       <input matInput formControlName="digitoVerificacion">
                     <mat-error *ngIf="request.get('cliente').get('digitoVerificacion').invalid">{{getErrorMessage21("digitoVerificacion")}}</mat-error>
                   </mat-form-field>
                 </ng-container>
-                <!-- digito de verificacion, natural, hidden-->
-                <div formGroupName="cliente" *ngIf="request.value.cliente.tipo != 'empresa'"  class="vs-input-field col-md-5" hidden>
-                  <span class="vs-field-label">Dígito de verificación (0 - 9)</span>
-                  <input formControlName="digitoVerificacion" matInput>
-                </div>
+
+                <!-- Campos de tipo empresa  (nombre de la empresa)-->
+                <ng-container formGroupName="cliente" *ngIf="enterprise">
+                    <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                      <mat-label>Nombre Empresa</mat-label>
+                        <input matInput formControlName="nombreEmpresa">
+                      <mat-error *ngIf="request.get('cliente').get('nombreEmpresa').invalid">{{getErrorMessage21("nombreEmpresa")}}</mat-error>
+                    </mat-form-field>
+                </ng-container>
+
                 <!-- Mensaje-->
-                <br>
-                <br>
                 <mat-form-field appearance="outline" class="col-md-12 col-sm-12">
                     <mat-label>Mensaje acerca tu solicitud</mat-label>
                       <textarea formControlName="mensaje" matInput></textarea>
@@ -189,24 +183,24 @@
                   <!-- Confirmacion -->
                   <div class="col-lg-12 form-check" *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" >
                     <div style="display: inline-flex;">
-                    <input type="checkbox" class="form-check-input" required formControlName="confirmacion">
-                      <label class="form-check-label checkboxConfirmation" for="exampleCheck1"> Confirmó que el peso de la carga a transportar es mayor o igual a dos toneladas</label>
+                    <input type="checkbox" class="form-check-input" formControlName="confirmacion">
+                      <label class="form-check-label checkboxConfirmation" for="exampleCheck1"> Confirmo que el peso de la carga a transportar es mayor o igual a dos toneladas</label>
                     </div>
                     <mat-error *ngIf="request.get('confirmacion').invalid">{{getErrorMessage("confirmacion")}}</mat-error>
                   </div>
                 <!-- Botones -->
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
                   <button [routerLink]="['/solicitar-servicio/todos']" class="vs-color-grey" color="accent" mat-button matStepperPrevious>REGRESAR</button>
-                  <div *ngIf="!dataSession">
-                      <button mat-flat-button *ngIf="!isCreatingRequest" [disabled]='!request.valid' (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
-                  </div>
-                  <div *ngIf="dataSession">
-                    <button mat-flat-button *ngIf="!isCreatingRequest2; else spinner" [disabled]='!request.valid' (click)="autoCompleteDataClient()" color="primary">CONTINUAR</button>
+                  <ng-container *ngIf="!dataSession">
+                      <button mat-flat-button *ngIf="!isCreatingRequest" (click)="nextStep(stepper)" color="primary">CONTINUAR</button>
+                  </ng-container>
+                  <ng-container *ngIf="dataSession">
+                    <button mat-flat-button *ngIf="!isCreatingRequest2; else spinner"  (click)="autoCompleteDataClient()" color="primary">CONTINUAR</button>
                     <ng-template #spinner>
                         <mat-spinner class="vs-margin-center">
                         </mat-spinner>
                       </ng-template>
-                  </div>
+                  </ng-container>
                   <div *ngIf="isCreatingRequest" >
                     <button mat-flat-button *ngIf="!isLoading; else spinner" (click)="nextCreateRequest()" color="primary">CREAR SOLICITUD</button>
                     <ng-template #spinner>

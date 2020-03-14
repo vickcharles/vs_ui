@@ -1,7 +1,8 @@
 import { FormGroup } from '@angular/forms';
 
 // custom validator to check that two fields match
-export function MustMatch(controlName: string, matchingControlName: string) {
+export function MustMatch(controlName: string, matchingControlName: string) {console.log('dato 1', controlName, 'dato 2', matchingControlName);
+
     return (formGroup: FormGroup) => {
         const control = formGroup.controls[controlName];
         const matchingControl = formGroup.controls[matchingControlName];
@@ -79,21 +80,23 @@ export function destination(controlName2: string,) {
     }
 }
 
-export function confirmation(controlName2: string,) {
+export function EnterpriseValidation(controlName: string, controlName2: string,) {
     
     return (formGroup: FormGroup) => {
-        const control = formGroup.controls.tipoDeServicio.value.nombre;
+        const control = formGroup.controls[controlName];
         const control2 = formGroup.controls[controlName2];
+        
 
-        if (control2.errors && !control2.errors.emptyCampDestination) {
+        if (control2.errors && !control2.errors.enterpriseValidation) {
             return;
         }
         
-        if (control == 'transporte de carga' && !control2.value) {
-            control2.setErrors({ emptyCampConfirmation: true });
+        if (control.value == true && !control2.value) {
+            control2.setErrors({ enterpriseValidation: true });
         } else {
             control2.setErrors(null);
         }
 
+        
     }
 }

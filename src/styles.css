@@ -625,7 +625,7 @@ body {
 
 /*DASBOARD STYLES*/
 .vs-dashboard-logo {
-    max-width: 90px;
+    max-height: 65px;
 }
 
 .menu button {
@@ -633,7 +633,7 @@ body {
 }
 
 .main-logo-mobile {
-    max-width: 80px;
+    max-height: 55px;
 }
 
 /* Background color*/

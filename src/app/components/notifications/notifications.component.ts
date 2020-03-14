@@ -15,27 +15,19 @@ export class NotificationsComponent implements OnInit {
   UserId: any;
   Role: any;
   search_word;
+  typeUser;
 
   constructor(private wsService: WebsocketService,
     private _notificationService: NotificationService,
     private us: UserService ) {
-      this.getNotificactions();
-      this.getUserDetails();
     }
 
-    getUserDetails() {
-      this.us.getUserProfile().subscribe(
-        res => {
-          this.UserId = res['user']._id
-          this.Role = res['user'].role
-        },
-        err => {
-          console.log(err);
-        }
-      )
-    }
+    
 
   ngOnInit() {
+    this.getNotificactions();
+      this.getUserDetails();
+      
     this.wsService.listen('new-notifications')
       .subscribe((res: any) => {
 
@@ -51,6 +43,23 @@ export class NotificationsComponent implements OnInit {
         this.getNotificactions(value);
       
       })
+
+  }
+  getUserDetails() {
+    this.us.getUserProfile().subscribe(
+      res => {
+        console.log('datos del usuraio asjkdhbksajd', res, '+', res['user'].role);
+        this.UserId = res['user']._id
+        this.Role = res['user'].role
+
+        if (this.Role === "ADMIN") {
+          this.typeUser = 'cliente';
+        }else {this.typeUser = 'comercial';}
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
 
   getNotificactions(value?){

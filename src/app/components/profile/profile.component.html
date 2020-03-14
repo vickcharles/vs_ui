@@ -36,7 +36,7 @@
             Registrado desde:
           </h1>
           <h1 class="vs-font-xsmall vs-text-300  vs-color-grey vs-margin-top-xsmall">
-            {{userDetails?.created_at | amLocale:'es'  | amDateFormat: 'YYYY-MM-DD'}}
+            {{userDetails?.createdAt | amLocale:'es'  | amDateFormat: 'YYYY-MM-DD'}}
           </h1>
         </div>
       </div>
@@ -183,6 +183,7 @@
             <button mat-raised-button (click)="toggleEditPerfil()" class="vs-text-uppercase vs-remove-shadow "  color="primary">
               EDITAR PERFIL
             </button>
+            <button mat-raised-button [routerLink]="['/dashboard']" class="vs-text-uppercase vs-remove-shadow buttonBack">REGRESAR</button>
           </div>
         </ng-template>
       </div>

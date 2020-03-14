@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
         console.log(res);
 
         console.log('Datos del cliente');
-        localStorage.setItem('Client', this.userDetails._id);
+        localStorage.setItem('Client', this.displayName);
       },
       err => {
         console.log(err);
