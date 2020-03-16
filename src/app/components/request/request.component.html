@@ -96,6 +96,18 @@
                       <mat-error *ngIf="request.get('tipoDeServicio').get('especificamente').invalid">{{getErrorMessage1("especificamente")}}</mat-error>
                     </mat-form-field>
                   </ng-container>
+
+                  <ng-container *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'">
+                    <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
+                      <mat-label>Seleccione el peso aproximado de su carga </mat-label>
+                      <mat-select formControlName="especificamente2" name="especificamente2">
+                        <mat-option *ngFor="let transport of forkliftRental" [value]="transport.name">
+                          {{transport.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="request.get('tipoDeServicio').get('especificamente2').invalid">{{getErrorMessage1("especificamente2")}}</mat-error>
+                    </mat-form-field>
+                  </ng-container>
   
                   <ng-container *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de montacarga'">
                     <mat-form-field appearance="outline" class="col-md-6 col-sm-12">
@@ -285,7 +297,7 @@
                   <!-- autorizacion -->
                   <div class="col-lg-12 form-check">
                     <input type="checkbox" class="form-check-input" required formControlName="autorizo">
-                    <a href="https://vs-ui.charlesvikler.now.sh/autorizacion" target="_blank"> <label class="form-check-label" for="exampleCheck1">Autorizo el tratamiento de mis datos personales</label></a>
+                    <a href="https://vs-ui.charlesvikler.now.sh/autorizacion" target="_blank"> <label class="form-check-label checkboxConfirmation" for="exampleCheck1">Autorizo el tratamiento de mis datos personales</label></a>
                     <mat-error *ngIf="user.get('autorizo').invalid">{{getErrorMessage3("autorizo")}}</mat-error>
                   </div>
   

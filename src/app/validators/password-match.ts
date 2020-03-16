@@ -86,7 +86,6 @@ export function EnterpriseValidation(controlName: string, controlName2: string,)
         const control = formGroup.controls[controlName];
         const control2 = formGroup.controls[controlName2];
         
-
         if (control2.errors && !control2.errors.enterpriseValidation) {
             return;
         }
@@ -97,6 +96,23 @@ export function EnterpriseValidation(controlName: string, controlName2: string,)
             control2.setErrors(null);
         }
 
-        
+    }
+}
+
+export function specification2(controlName: string, controlName2: string,) {
+    
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const control2 = formGroup.controls[controlName2];
+
+        if (control2.errors && !control2.errors.emptyCampSpecification2) {
+            return;
+        }
+
+        if (control.value == 'alquiler de grúa' && !control2.value) {
+            control2.setErrors({ emptyCampSpecification2: true });
+        } else {
+            control2.setErrors(null);
+        }
     }
 }

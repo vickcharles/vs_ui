@@ -5,7 +5,7 @@ import { UserService } from '../../service/user.service';
 import { RequestService } from '../../service/request.service';
 import { ScrollTopService } from '../../service/scrollToTop.service';
 import { Router } from "@angular/router";
-import { MustMatch, typeOfService, destination, EnterpriseValidation } from '../../validators/password-match';
+import { MustMatch, typeOfService, destination, EnterpriseValidation, specification2 } from '../../validators/password-match';
 import { MatSnackBar } from '@angular/material';
 import { WebsocketService } from '../../service/websocket.service'
 import { MatRadioChange } from '@angular/material';
@@ -160,10 +160,11 @@ export class RequestComponent implements OnInit {
     this.request = this.formBuilder.group({
       tipoDeServicio: this.formBuilder.group({
         nombre: [localStorage.getItem('tipoDeServicio')],
-        especificamente: ['']
+        especificamente: [''],
+        especificamente2: [''],
       },
       {
-        validators: typeOfService('nombre', 'especificamente'),
+        validators: [typeOfService('nombre', 'especificamente'), specification2('nombre', 'especificamente2')],
       }),
       cliente: this.formBuilder.group({
         tipo: ['empresa'],
@@ -183,7 +184,7 @@ export class RequestComponent implements OnInit {
       confirmacion: [''],
     },
     {
-      validators: [destination('destino'), this.validateConfirmation]
+      validators: destination('destino')
     });
 
     this.user = this.formBuilder.group({
@@ -194,7 +195,7 @@ export class RequestComponent implements OnInit {
       ciudad: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
       correo: ['', [ Validators.required, Validators.pattern(/^[a-zA-Z0-9_\-\.~!#$%&'*+/=?^`{|}]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,3}$/)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
-      autorizo: [''],
+      autorizo: [false],
       contrasenaConfirmada: ['', Validators.required]
     },
     {
@@ -203,24 +204,33 @@ export class RequestComponent implements OnInit {
     this.imgService();
   }
 
-  validateConfirmation(control:FormGroup) {
-    const password = '';
-    var ControlName = control.controls.tipoDeServicio.value.nombre;
-    var ControlName2 = control.controls.confirmacion;
-    console.log('datos erroneos en validation', ControlName2.value, '+ ', ControlName2.touched );
+  // validateConfirmation(control:FormGroup) {
+  //   const password = '';
+  //   var ControlName = control.controls.tipoDeServicio.value.nombre;
+  //   var ControlName2 = control.controls.confirmacion;
+  //   console.log('datos erroneos en validation', ControlName2.value, '+ ', ControlName2.touched, '=', ControlName2 );
 
-    if (ControlName2.errors && !ControlName2.errors.emptyCampConfirmation) {
-      return;
-  }
-    if ( ControlName == 'transporte de carga' && ControlName2.value && !ControlName2.touched ) {
+  //   if ( ControlName == 'transporte de carga' && ControlName2.value && !ControlName2.touched ) {
       
-      ControlName2.setErrors(null);
-    }
-    if ( ControlName == 'transporte de carga' && ControlName2.value === false && !ControlName2.touched ) {
-      ControlName2.setErrors({ emptyCampConfirmation: true });
-      console.log('entra aqui');
-    }
-  }
+  //     ControlName2.setErrors(null);
+  //     console.log('entra aqui 1');
+  //   }
+  //   if ( ControlName == 'transporte de carga' && ControlName2.value === '' ) {
+  //     if (!ControlName2.untouched) {
+  //       ControlName2.setErrors({ emptyCampConfirmation: false });
+  //     console.log('entra aqui 2');
+  //     }else{
+  //       ControlName2.setErrors({ emptyCampConfirmation: true });
+  //       console.log('entra aqui 2');
+  //     }
+      
+  //   }
+
+  //   if ( ControlName == 'transporte de carga' && ControlName2.value === false && !ControlName2.touched ) {
+  //     ControlName2.setErrors({ emptyCampConfirmation: true });
+  //     console.log('entra aqui 3');
+  //   }
+  // }
 
   imgService(){
     if (this.request.get('tipoDeServicio')) {
@@ -426,6 +436,17 @@ export class RequestComponent implements OnInit {
   };
 
   public nextStep(stepper: MatStepper) {
+
+    if (this.request.get('tipoDeServicio').get('nombre').value == 'transporte de carga') {
+      this.request.get('confirmacion').clearValidators();
+      this.request.get('confirmacion').setValidators(Validators.required);
+      this.request.get('confirmacion').updateValueAndValidity();
+    }else{
+      this.request.get('confirmacion').clearValidators();
+      this.request.get('confirmacion').updateValueAndValidity();
+    }
+    
+    
     if (this.request.valid) {
     this.submitted = true;
     let errors = this.validar();
@@ -518,6 +539,14 @@ export class RequestComponent implements OnInit {
 
 
   autoCompleteDataClient(){
+    if (this.request.get('tipoDeServicio').get('nombre').value == 'transporte de carga') {
+      this.request.get('confirmacion').clearValidators();
+      this.request.get('confirmacion').setValidators(Validators.required);
+      this.request.get('confirmacion').updateValueAndValidity();
+    }else{
+      this.request.get('confirmacion').clearValidators();
+      this.request.get('confirmacion').updateValueAndValidity();
+    }
     if (this.request.valid) {
       console.log(this.request.value)
 
@@ -548,15 +577,15 @@ export class RequestComponent implements OnInit {
               : this.request.get(`${campo}`).hasError('emptyCampTypeOfService') 
                   ? 'Este campo no puede estar vacio' 
                   : this.request.get(`${campo}`).hasError('emptyCampDestination') 
-                      ? 'Este campo es requerido' : 
-                      this.request.get(`${campo}`).hasError('emptyCampConfirmation') 
                       ? 'Este campo es requerido' : ''
   }
 
   getErrorMessage1(campo: string, form: string) {
     return this.request.get('tipoDeServicio').get(`${campo}`).hasError('emptyCampTypeOfService') 
             ? 'Este campo no puede estar vacio' 
-            :  ''
+            :  this.request.get('tipoDeServicio').get(`${campo}`).hasError('emptyCampSpecification2') 
+            ? 'Este campo no puede estar vacio' 
+            : ''
   }
 
   getErrorMessage2(campo: string, form: string) {
