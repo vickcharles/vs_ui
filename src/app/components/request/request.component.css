@@ -36,3 +36,8 @@ mat-form-field{
     margin-top: 1px\9;
     line-height: normal;
 }
+
+.mat-error{
+  font-size: 13px;
+  color: #f44336;
+}

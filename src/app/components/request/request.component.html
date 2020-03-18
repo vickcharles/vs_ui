@@ -195,10 +195,10 @@
                   <!-- Confirmacion -->
                   <div class="col-lg-12 form-check" *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" >
                     <div style="display: inline-flex;">
-                    <input type="checkbox" class="form-check-input" formControlName="confirmacion">
-                      <label class="form-check-label checkboxConfirmation" for="exampleCheck1"> Confirmo que el peso de la carga a transportar es mayor o igual a dos toneladas</label>
+                    <input type="checkbox" class="form-check-input" required formControlName="confirmacion" >
+                      <label class="form-check-label checkboxConfirmation"> Confirmo que el peso de la carga a transportar es mayor o igual a dos toneladas</label>
                     </div>
-                    <mat-error *ngIf="request.get('confirmacion').invalid">{{getErrorMessage("confirmacion")}}</mat-error>
+                      <p class="mat-error" *ngIf="request.get('confirmacion').value === false ">Este campo es requerido</p>
                   </div>
                 <!-- Botones -->
                 <div class="vs-input-field col-sm-12 vs-text-align-right vs-margin-top-medium">
@@ -297,8 +297,9 @@
                   <!-- autorizacion -->
                   <div class="col-lg-12 form-check">
                     <input type="checkbox" class="form-check-input" required formControlName="autorizo">
-                    <a href="https://vs-ui.charlesvikler.now.sh/autorizacion" target="_blank"> <label class="form-check-label checkboxConfirmation" for="exampleCheck1">Autorizo el tratamiento de mis datos personales</label></a>
-                    <mat-error *ngIf="user.get('autorizo').invalid">{{getErrorMessage3("autorizo")}}</mat-error>
+                    <a href="https://vs-ui.charlesvikler.now.sh/autorizacion" target="_blank"> <label class="form-check-label" for="exampleCheck1">Autorizo el tratamiento de mis datos personales</label></a>
+                    <p class="mat-error" *ngIf="user.get('autorizo').value === false ">Este campo es requerido</p>
+                    <!-- <mat-error *ngIf="user.get('autorizo').invalid">{{getErrorMessage3("autorizo")}}</mat-error> -->
                   </div>
   
                         <div class="col-sm-12">

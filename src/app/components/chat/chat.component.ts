@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 import { ChatService } from '../../service/chat.service';
 import { ActivatedRoute } from "@angular/router";
 import { RequestService } from '../../service/request.service';

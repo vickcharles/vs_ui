@@ -13,6 +13,7 @@ import { MatRadioChange } from '@angular/material';
 import { CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 import { HelpersService } from '../../../app/service/helpers.service';
 import { promise } from 'protractor';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-request',
@@ -188,14 +189,14 @@ export class RequestComponent implements OnInit {
     });
 
     this.user = this.formBuilder.group({
-      nombre: ['', Validators.required],
+      nombre: ['', [Validators.required]],
       apellido: ['', Validators.required],
       telefono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
       celular: ['', [Validators.required, Validators.pattern('^[3]+([0|1|2|5])+([0-9]{8,8})$'), Validators.pattern('[0-9]{10,10}')]],
       ciudad: ['', [Validators.required, Validators.pattern(regexNoNumber)]],
       correo: ['', [ Validators.required, Validators.pattern(/^[a-zA-Z0-9_\-\.~!#$%&'*+/=?^`{|}]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,3}$/)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
-      autorizo: [false],
+      autorizo: [''],
       contrasenaConfirmada: ['', Validators.required]
     },
     {
@@ -345,12 +346,13 @@ export class RequestComponent implements OnInit {
     );
   }
 
-  register() {
+  register() {console.log('Datos de entrada de datos en register');
     this.submitted = true;
-
     //Email to lowercase before save
     let valueEmail = this.user.get('correo').value
     this.user.get('correo').setValue(valueEmail.toLowerCase());
+
+  
 
     if(this.user.valid && !this.isRegistered) {
       this.isLoading = true;
@@ -363,6 +365,7 @@ export class RequestComponent implements OnInit {
         this.sendAPI();
       //loggin if user is registered
     } else if (this.credentials.valid && this.isRegistered) {
+      console.log('datos cuando enbtra en la funcion de register');
 
       // let valueE = this.credentials.get('email').value
 
@@ -436,16 +439,9 @@ export class RequestComponent implements OnInit {
   };
 
   public nextStep(stepper: MatStepper) {
-
-    if (this.request.get('tipoDeServicio').get('nombre').value == 'transporte de carga') {
-      this.request.get('confirmacion').clearValidators();
-      this.request.get('confirmacion').setValidators(Validators.required);
-      this.request.get('confirmacion').updateValueAndValidity();
-    }else{
-      this.request.get('confirmacion').clearValidators();
-      this.request.get('confirmacion').updateValueAndValidity();
+    if (this.request.get('confirmacion').value === '') {
+      this.request.get('confirmacion').setValue(false);
     }
-    
     
     if (this.request.valid) {
     this.submitted = true;
@@ -539,14 +535,10 @@ export class RequestComponent implements OnInit {
 
 
   autoCompleteDataClient(){
-    if (this.request.get('tipoDeServicio').get('nombre').value == 'transporte de carga') {
-      this.request.get('confirmacion').clearValidators();
-      this.request.get('confirmacion').setValidators(Validators.required);
-      this.request.get('confirmacion').updateValueAndValidity();
-    }else{
-      this.request.get('confirmacion').clearValidators();
-      this.request.get('confirmacion').updateValueAndValidity();
+    if (this.request.get('confirmacion').value === '') {
+      this.request.get('confirmacion').setValue(false);
     }
+
     if (this.request.valid) {
       console.log(this.request.value)
 
