@@ -72,6 +72,10 @@
                   <img src="{{selectedImgTypeService}}" width="100%" alt="">
                 </div>
                 <div class="col-md-7">
+                    <div class="hide-on-desktop">
+                      <br>
+                      <br>
+                    </div>
                 <ng-container formGroupName="tipoDeServicio">
                   <ng-container *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'">
                     <mat-form-field appearance="outline" class="col-md-6 col-sm-12">

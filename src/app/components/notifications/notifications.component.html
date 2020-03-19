@@ -1,7 +1,7 @@
 
 <div class="vs-full-width">
     <div class="vs-notification-list">
-        <mat-form-field>
+        <mat-form-field *ngIf="Role === 'ADMIN'">
             <input matInput [formControl]="search" placeholder="Búsqueda (nombre {{typeUser}})">
         </mat-form-field>
       <div *ngFor="let notification of notifications"  class="vs-notification vs-cursor-pointer  vs-margin-top-small">
