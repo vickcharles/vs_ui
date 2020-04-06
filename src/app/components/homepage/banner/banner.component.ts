@@ -6,6 +6,7 @@ import Typed from 'typed.js';
   templateUrl: './banner.component.html'
 })
 export class BannerComponent implements OnInit {
+
   constructor() { }
 
   ngOnInit() {
@@ -25,5 +26,4 @@ export class BannerComponent implements OnInit {
 
     let typed = new Typed(".typing-element", options);
   }
-
 }

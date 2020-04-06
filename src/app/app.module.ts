@@ -39,6 +39,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/homepage/header/header.component';
 import { HomepageComponent } from './components/homepage/homepage/homepage.component';
 import { BannerComponent } from './components/homepage/banner/banner.component';
+import { FormSicetacComponent } from './components/homepage/formSicetac/formSicetac.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContentComponent } from './components/homepage/content/content.component';
 import { FooterComponent } from './components/homepage/footer/footer.component';
@@ -79,12 +80,15 @@ import { RechazoModalComponent } from './admin/components/request/request-modals
 import { PerdidaOportunidadModalComponent } from './admin/components/request/request-modals/perdida-oportunidad.modal/perdida-oportunidad-modal.component';
 import { NoAceptadoModalComponent } from './admin/components/request/request-modals/no-aceptado-modal/no-aceptado-modal.component';
 
+import { NgxSoapModule } from 'ngx-soap';
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomepageComponent,
     BannerComponent,
+    FormSicetacComponent,
     ContentComponent,
     FooterComponent,
     RequestComponent,
@@ -130,6 +134,7 @@ import { NoAceptadoModalComponent } from './admin/components/request/request-mod
     MyDatePickerModule,
     MomentModule,
     NgbModule,
+    NgxSoapModule
   ],
   entryComponents: [
     RechazoModalComponent,
