@@ -18,13 +18,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
 import {
   	MatFormFieldModule,
 	MatInputModule,
 	MatRippleModule,
 	MatSelectModule,
+	MatDatepickerModule
 } from '@angular/material';
 
 @NgModule({
@@ -52,6 +53,7 @@ import {
 		MatDialogModule,
 		MatProgressSpinnerModule,
 		MatButtonToggleModule,
+		MatDatepickerModule
   ],
   exports: [
 		MatButtonModule,

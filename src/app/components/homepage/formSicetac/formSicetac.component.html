@@ -1,97 +1,173 @@
-<div class="col-sm-12 col-md-12 formSicetac">
-  <h1>RESERVA TÚ SERVICIO LÓGISTICO</h1>
-  <div class="col-sm-12 col-md-12">
-    <p>Configuración de vehículo</p>
-    <mat-form-field appearance="outline" class="col-sm-12 col-md-12">
-      <mat-select>
-        <mat-option *ngFor="let vehicleType of vehicleConfiguration" [value]="vehicleType.value">
-          {{vehicleType.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div class="col-sm-12 col-md-12">
-    <p>Tipo de carga a transportar</p>
-    <mat-form-field appearance="outline" class="col-sm-12 col-md-12">
-      <mat-select>
-        <mat-option *ngFor="let dataTypeOfLoad of typeOfLoad" [value]="dataTypeOfLoad.value">
-          {{dataTypeOfLoad.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div class="col-sm-12 col-md-12">
-    <p>Tipo de unidad de transporte a utilizar</p>
-    <mat-form-field appearance="outline" class="col-sm-12 col-md-12">
-      <mat-select>
-        <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
-          {{dataDriveType.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<!-- <div class="col-sm-12 col-md-12 formSicetac">
+
+</div>
+  <div class="row" style="background-color: cyan;">
+  <div class="col-sm-12 col-md-6">
+    <div class="row">
+      <div class="col-sm-12 col-md-10">
+        <div class="row">
+          <div class="col-sm-6 col-md-12"><p>Horas en espera</p> </div>
+          <div class="col-sm-6 col-md-12"><p>en el cargue</p></div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-2"><i class="far fa-clock"></i></div>
+
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
+            {{dataDriveType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    </div>
   </div>
   <div class="col-sm-12 col-md-6">
-    <p>Origen</p>
-    <mat-form-field appearance="outline" class="col-sm-12 col-md-12">
-      <mat-select>
-        <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
-          {{dataDriveType.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="row">
+      <div class="col-sm-12 col-md-10">
+        <div class="row">
+          <div class="col-sm-6 col-md-12"><p>Horas en espera</p> </div>
+          <div class="col-sm-6 col-md-12"><p>en el descargue</p></div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-2"><i class="far fa-clock"></i></div>
+
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
+            {{dataDriveType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    </div>
   </div>
-  <div class="col-sm-12 col-md-6">
-    <p>Destino</p>
-    <mat-form-field appearance="outline" class="col-sm-12 col-md-12">
-      <mat-select>
-        <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
-          {{dataDriveType.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+</div>
+</div>
+</div> -->
+
+
+<div class="container formSicetac">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-xl-6">
+      <h1>RESERVA TÚ</h1>
+    </div>
+    <div class="col-sm-12 col-md-12 col-xl-6">
+      <h1>SERVICIO LÓGISTICO</h1>
+    </div>
   </div>
-  <div class="col-sm-12 col-md-6">
-    <p>Fecha y hora</p>
-    <p>Actividad del cargue</p>
-    <mat-form-field appearance="outline" class="col-sm-12 col-md-12">
-      <mat-select>
-        <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
-          {{dataDriveType.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <p>Configuración de vehículo</p>
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let vehicleType of vehicleConfiguration" [value]="vehicleType.value">
+            {{vehicleType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="col-sm-12 col-md-6">
-    <p>Fecha y hora</p>
-    <p>Actividad del descargue</p>
-    <mat-form-field appearance="outline" class="col-sm-12 col-md-12">
-      <mat-select>
-        <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
-          {{dataDriveType.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <p>Tipo de carga a transportar</p>
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataTypeOfLoad of typeOfLoad" [value]="dataTypeOfLoad.value">
+            {{dataTypeOfLoad.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="col-sm-12 col-md-6">
-    <p>Horas en espera</p>
-    <p>en el cargue</p>
-    <mat-form-field appearance="outline" class="col-sm-12 col-md-12">
-      <mat-select>
-        <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
-          {{dataDriveType.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <p>Tipo de unidad de transporte a utilizar</p>
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
+            {{dataDriveType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="col-sm-12 col-md-6">
-    <p>Horas en espera</p>
-    <p>en el descargue</p>
-    <mat-form-field appearance="outline" class="col-sm-12 col-md-12">
-      <mat-select>
-        <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
-          {{dataDriveType.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <p>Origen</p><i class="fas fa-dot-circle"></i>
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
+            {{dataDriveType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <p>Destino</p><i class="fas fa-map-marker-alt"></i>
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
+            {{dataDriveType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <p>Fecha y hora</p><br>
+      <p>Actividad del cargue</p> <i class="fas fa-calendar-alt"></i>
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
+            {{dataDriveType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <p>Fecha y hora</p><br>
+      <p>Actividad del descargue</p> <i class="fas fa-calendar-alt"></i>
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
+            {{dataDriveType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <p>Horas en espera</p><br>
+      <p>en el cargue</p> <i class="far fa-clock"></i>
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
+            {{dataDriveType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <p>Horas en espera</p><br>
+      <p>en el descargue</p> <i class="far fa-clock"></i>
+      <mat-form-field appearance="outline">
+        <mat-select>
+          <mat-option *ngFor="let dataDriveType of driveType" [value]="dataDriveType.value">
+            {{dataDriveType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <br>
+  <button style="background-color: #FFD15C; position: absolute; margin-left: -10%; margin-top: -3%;">COTIZAR</button>
 </div>

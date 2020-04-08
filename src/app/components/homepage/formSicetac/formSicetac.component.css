@@ -1,8 +1,35 @@
 .formSicetac {
-    height: 100%;
+    width: 80%;
     background-color: white;
+    border-style: solid;
+    border-width: 1.1px;
+    border-radius: 1%;
 }
 
-p, h1{
-    font-size: smaller;
+h1{
+    font-size: 20px;
+    font-weight: bold;
+    float: left;
+}
+
+p, mat-form-field, .left{
+    font-size: 10px;
+    float: left;
+}
+
+h1{
+    margin: 0px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: black;
+}
+
+mat-form-field{
+    width: 100%;
+}
+
+i{
+    float: right;
+    padding-right: 3%;
 }
