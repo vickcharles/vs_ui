@@ -60,6 +60,28 @@
               <h1 class="vs-section-title vs-color-vs vs-text-align-center">
                 ¿{{ request.value.tipoDeServicio.nombre | uppercase }}? ¡LISTO!
               </h1>
+
+              <p *ngIf="request.value.tipoDeServicio.nombre == 'transporte de carga'" class="vs-text-align-center vs-color-grey">Prestamos servicio de transporte de carga a nivel nacional e
+                internacional para que tu compañía pueda movilizar de manera
+                eficiente bienes, mercancías, productos y materias primas de tus
+                negocios o proyectos.</p>
+
+              <p *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de grúa'" class="vs-text-align-center vs-color-grey">Nuestras grúas están diseñadas para ofrecer la máxima
+                movilidad y versatilidad de modo que pueden ser utilizadas
+                para gran variedad de trabajos y aplicaciones.</p>
+
+              <p *ngIf="request.value.tipoDeServicio.nombre == 'alquiler de montacarga'" class="vs-text-align-center vs-color-grey">Ofrecemos todas las soluciones de
+                cargue y descargue con vehículos bajo
+                la cobertura rigurosa de las normas de
+                calidad y seguridad.</p>
+
+              <p *ngIf="request.value.tipoDeServicio.nombre == 'operario de cargue y descargue'" class="vs-text-align-center vs-color-grey">Tenemos a tu disposición un personal
+                capacitado para el cargue y descargue
+                de la mercancía según tu necesidad y
+                ubicación a nivel nacional. </p>
+                
+                
+                <br>
               <p class="vs-text-align-center vs-color-grey">
                 ¡LLena el siguiente formulario y te proveeremos un {{request.value.tipoDeServicio.nombre}} en minutos!
               </p>
